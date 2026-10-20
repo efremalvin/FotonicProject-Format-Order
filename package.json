@@ -1,10 +1,11 @@
 {
   "name": "fotonic-web-format-order",
   "version": "1.0.0",
-  "description": "Web Format Order Rental Kamera & Booking Foto Wisuda Fotonic",
+  "private": true,
+  "description": "Fotonic Web Format Order - Rental Kamera & Booking Foto Wisuda (Static Web)",
   "scripts": {
-    "dev": "npx serve .",
-    "start": "npx serve ."
+    "dev": "node server.js",
+    "start": "node server.js"
   },
   "keywords": [
     "format-order",

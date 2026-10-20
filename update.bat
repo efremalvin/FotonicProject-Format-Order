@@ -1,14 +1,14 @@
 @echo off
-title Push Update ke GitHub - Fotonic Format Order
+title Push Update ke GitHub - Fotonic
 color 0b
 
 echo ========================================================
-echo       UPDATE WEB FORMAT ORDER KE GITHUB (FOTONIC)
+echo           UPDATE PROYEK KE GITHUB (FOTONIC)
 echo ========================================================
 echo.
 
 :INPUT
-set /p commit_msg="Tulis pesan update: "
+set /p commit_msg="Tulis apa yang di-update: "
 
 if "%commit_msg%"=="" (
     echo [Peringatan] Pesan update tidak boleh kosong!

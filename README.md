@@ -67,18 +67,22 @@ Proyek ini telah dilengkapi file konfigurasi `vercel.json` dengan *clean URLs* d
 3. Biarkan opsi repository **Public** (atau Private), **jangan centang** "Add a README file" karena proyek ini sudah memiliki kode lengkap.
 4. Klik tombol **Create repository**.
 
-### Langkah 2: Push Kode ke GitHub
-Buka terminal / PowerShell di folder proyek ini (`e:\Fotonic Web\Web-Format-Order`), lalu jalankan:
-```bash
-git push -u origin main
-```
-*(Atau Anda cukup klik dua kali file **`update.bat`** di folder proyek).*
+## ⚡ Cara Menjalankan & Update (Mirip Web-Porto)
 
-> **Catatan:** Jika Anda memberi nama repository selain `FotonicProject-web-format-order`, ubah remote terlebih dahulu:
-> ```bash
-> git remote set-url origin https://github.com/efremalvin/[NAMA-REPO-ANDA].git
-> git push -u origin main
-> ```
+Proyek ini telah dikonfigurasi menjadi **Static Web murni** (tanpa dependensi eksternal yang rumit) dan dilengkapi script otomatisasi praktis:
+
+### 1. Menjalankan Website Secara Lokal (`run.bat`)
+Cukup **klik 2x file `run.bat`** (atau jalankan `npm run dev` di terminal).
+- Server statis lokal akan langsung aktif di `http://localhost:3000`.
+- 📷 Rental Kamera : `http://localhost:3000/rental-kamera/`
+- 🎓 Booking Wisuda: `http://localhost:3000/booking-wisuda/`
+
+### 2. Mengunggah Update ke GitHub & Vercel (`update.bat`)
+Cukup **klik 2x file `update.bat`**.
+- Masukkan pesan update Anda saat diminta di layar.
+- Script akan otomatis melakukan `git add`, `git commit`, dan `git push origin main`.
+- Jika sudah terhubung ke Vercel, pembaruan akan otomatis ter-*deploy* ke web live dalam hitungan detik!
+
 
 ### Langkah 3: Sambungkan ke Vercel (Auto Deploy)
 1. Buka dashboard Vercel Anda di: **[vercel.com/new](https://vercel.com/new)**.
