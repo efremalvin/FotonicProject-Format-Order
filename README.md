@@ -4,11 +4,52 @@ Dua website mandiri (standalone) tanpa interaksi satu sama lain untuk kebutuhan 
 
 1. **Web Format Order Rental Kamera**
    - File folder: `rental-kamera/index.html`
-   - File alternatif root: `rental-kamera.html`
+   - URL Vercel: `https://[domain-anda].vercel.app/rental-kamera`
 
 2. **Web Format Order Booking Foto Wisuda**
    - File folder: `booking-wisuda/index.html`
-   - File alternatif root: `booking-foto.html`
+   - URL Vercel: `https://[domain-anda].vercel.app/booking-wisuda`
+
+---
+
+## ⚙️ Konfigurasi Vercel (`vercel.json`)
+Proyek ini telah dilengkapi file konfigurasi `vercel.json` dengan *clean URLs* dan *direct rewrite*:
+- `/rental-kamera` & `/rental` &rarr; membuka langsung form Rental Kamera.
+- `/booking-wisuda` & `/booking-foto` & `/booking` &rarr; membuka langsung form Booking Foto Wisuda.
+- Tidak ada halaman pemilihan/menu awal, sehingga link bisa langsung dibagikan terpisah ke pelanggan masing-masing.
+
+---
+
+## 🚀 Cara Singkronisasi ke GitHub & Deploy ke Vercel
+
+### Langkah 1: Buat Repository di GitHub
+1. Buka browser dan login ke akun GitHub Anda: **[github.com/new](https://github.com/new)**.
+2. Beri nama repository, misalnya: `FotonicProject-web-format-order` (atau nama lain yang Anda inginkan).
+3. Biarkan opsi repository **Public** (atau Private), **jangan centang** "Add a README file" karena proyek ini sudah memiliki kode lengkap.
+4. Klik tombol **Create repository**.
+
+### Langkah 2: Push Kode ke GitHub
+Buka terminal / PowerShell di folder proyek ini (`e:\Fotonic Web\Web-Format-Order`), lalu jalankan:
+```bash
+git push -u origin main
+```
+*(Atau Anda cukup klik dua kali file **`update.bat`** di folder proyek).*
+
+> **Catatan:** Jika Anda memberi nama repository selain `FotonicProject-web-format-order`, ubah remote terlebih dahulu:
+> ```bash
+> git remote set-url origin https://github.com/efremalvin/[NAMA-REPO-ANDA].git
+> git push -u origin main
+> ```
+
+### Langkah 3: Sambungkan ke Vercel (Auto Deploy)
+1. Buka dashboard Vercel Anda di: **[vercel.com/new](https://vercel.com/new)**.
+2. Pada bagian **Import Git Repository**, pilih repository GitHub yang baru saja Anda buat (`FotonicProject-web-format-order`).
+3. Pada pengaturan konfigurasi proyek:
+   - **Framework Preset**: *Other*
+   - **Root Directory**: `./` (biarkan default)
+4. Klik tombol **Deploy**.
+5. Selesai! Web Anda akan langsung aktif dengan domain Vercel. Setiap kali Anda melakukan update via `update.bat`, Vercel akan otomatis meng-update web secara instan.
+
 
 ---
 
