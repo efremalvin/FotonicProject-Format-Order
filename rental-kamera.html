@@ -23,17 +23,11 @@
             brand: {
               50: '#f0fdf4',
               100: '#dcfce7',
-              500: '#22c55e',
-              600: '#16a34a',
-              700: '#15803d',
-              800: '#166534',
-              900: '#14532d',
-            },
-            accent: {
-              50: '#eff6ff',
-              500: '#3b82f6',
-              600: '#2563eb',
-              700: '#1d4ed8'
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              800: '#065f46',
+              900: '#064e3b',
             }
           }
         }
@@ -41,75 +35,92 @@
     }
   </script>
   <style>
-    /* Custom radio and checkbox styling */
+    /* Dark Theme High-Contrast Custom Selection Styles */
     .custom-radio:checked + label {
-      border-color: #16a34a;
-      background-color: #f0fdf4;
-      box-shadow: 0 4px 14px 0 rgba(22, 163, 74, 0.15);
+      border-color: #10b981 !important;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.16) 0%, rgba(6, 78, 59, 0.35) 100%) !important;
+      box-shadow: 0 0 0 1px #10b981, 0 8px 20px -4px rgba(16, 185, 129, 0.25) !important;
     }
     .custom-radio:checked + label .check-indicator {
-      border-color: #16a34a;
-      background-color: #16a34a;
+      border-color: #10b981 !important;
+      background-color: #10b981 !important;
     }
     .custom-radio:checked + label .check-indicator svg {
-      opacity: 1;
+      opacity: 1 !important;
     }
+
     .custom-checkbox:checked + label {
-      border-color: #16a34a;
-      background-color: #f0fdf4;
-      box-shadow: 0 4px 14px 0 rgba(22, 163, 74, 0.12);
+      border-color: #10b981 !important;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.16) 0%, rgba(6, 78, 59, 0.35) 100%) !important;
+      box-shadow: 0 0 0 1px #10b981, 0 8px 20px -4px rgba(16, 185, 129, 0.25) !important;
     }
     .custom-checkbox:checked + label .check-box-indicator {
-      border-color: #16a34a;
-      background-color: #16a34a;
+      border-color: #10b981 !important;
+      background-color: #10b981 !important;
     }
     .custom-checkbox:checked + label .check-box-indicator svg {
-      opacity: 1;
+      opacity: 1 !important;
     }
+
+    /* Custom scrollbar */
+    pre::-webkit-scrollbar {
+      width: 6px;
+    }
+    pre::-webkit-scrollbar-track {
+      background: #090d16;
+    }
+    pre::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 9999px;
+    }
+    pre::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+
     /* Toast animation */
     @keyframes slideIn {
       from { transform: translateY(100%); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
     }
     .toast-anim {
-      animation: slideIn 0.3s ease-out forwards;
+      animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
   </style>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen font-sans selection:bg-brand-500 selection:text-white">
+<body class="bg-[#0b0f19] text-slate-100 min-h-screen font-sans selection:bg-emerald-500 selection:text-slate-950">
 
-  <!-- Background Decorative Glows -->
+  <!-- Background Decorative Ambient Glows -->
   <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
     <div class="absolute -top-40 -left-40 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl"></div>
-    <div class="absolute top-1/3 -right-40 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
-    <div class="absolute -bottom-40 left-1/3 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute top-1/3 -right-40 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute -bottom-40 left-1/3 w-96 h-96 bg-emerald-600/10 rounded-full blur-3xl"></div>
   </div>
 
   <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
     
     <!-- Header -->
-    <header class="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs sm:text-sm font-medium mb-4">
+    <header class="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs sm:text-sm font-semibold mb-4">
         <i data-lucide="camera" class="w-4 h-4"></i>
         <span>Fotonic Equipment Rental</span>
       </div>
       <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-3">
-        Formulir Pemesanan <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">Rental Kamera</span>
+        Formulir Pemesanan <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400">Rental Kamera</span>
       </h1>
       <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
-        Silakan isi data diri dan spesifikasi sewa kamera di bawah ini dengan benar. Setelah terisi, Anda dapat langsung mengirim format pesanan ke WhatsApp admin dengan satu klik.
+        Lengkapi data diri dan detail sewa kamera di bawah ini. Setelah selesai, format order akan terisi secara otomatis dan siap dikirim langsung ke WhatsApp admin.
       </p>
 
       <!-- Admin WhatsApp Setting -->
-      <div class="mt-5 inline-flex items-center gap-2 bg-slate-800/80 border border-slate-700/80 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-slate-300">
+      <div class="mt-5 inline-flex items-center gap-2.5 bg-slate-900/90 border border-slate-800 rounded-xl px-4 py-2 text-xs sm:text-sm text-slate-300 shadow-lg">
         <i data-lucide="phone-outgoing" class="w-4 h-4 text-emerald-400"></i>
-        <label for="adminPhone" class="text-slate-400">Kirim ke WA Admin:</label>
+        <label for="adminPhone" class="text-slate-400 font-medium">No. WA Admin:</label>
         <input 
           type="text" 
           id="adminPhone" 
           value="6281234567890" 
-          class="bg-slate-900 border border-slate-700 rounded-lg px-2 py-0.5 text-emerald-400 font-mono text-xs focus:outline-none focus:border-emerald-500 w-36"
-          title="Nomor WhatsApp admin (gunakan awalan 62)"
+          class="bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1 text-emerald-400 font-mono text-xs focus:outline-none focus:border-emerald-500 w-36"
+          title="Nomor WhatsApp admin rental (awalan 62)"
         />
         <span class="text-[11px] text-slate-500 hidden sm:inline">(bisa disesuaikan)</span>
       </div>
@@ -122,9 +133,9 @@
       <div class="lg:col-span-7 space-y-6">
         
         <!-- CARD 1: Data Penyewa -->
-        <section class="bg-slate-800/90 backdrop-blur-md border border-slate-700/80 rounded-2xl p-5 sm:p-7 shadow-xl shadow-black/20">
-          <div class="flex items-center gap-3 pb-4 mb-5 border-b border-slate-700/60">
-            <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm">
+        <section class="bg-slate-900/80 backdrop-blur-md border border-slate-800 rounded-2xl p-5 sm:p-7 shadow-xl shadow-black/40">
+          <div class="flex items-center gap-3 pb-4 mb-5 border-b border-slate-800">
+            <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm border border-emerald-500/30">
               1
             </div>
             <div>
@@ -152,7 +163,7 @@
                   name="namaLengkap"
                   required
                   placeholder="Contoh: Muhammad Raihan Pratama" 
-                  class="w-full pl-10 pr-4 py-2.5 bg-slate-900/90 border border-slate-700 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors"
+                  class="w-full pl-10 pr-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors"
                 />
               </div>
             </div>
@@ -172,10 +183,10 @@
                   name="noWhatsapp"
                   required
                   placeholder="Contoh: 081234567890" 
-                  class="w-full pl-10 pr-4 py-2.5 bg-slate-900/90 border border-slate-700 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors"
+                  class="w-full pl-10 pr-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors"
                 />
               </div>
-              <p class="text-[11px] text-slate-500 mt-1">Nomor yang terhubung ke WhatsApp untuk konfirmasi serah terima</p>
+              <p class="text-[11px] text-slate-500 mt-1">Nomor aktif untuk verifikasi dan serah terima unit</p>
             </div>
 
             <!-- Alamat Domisili -->
@@ -192,8 +203,8 @@
                   name="alamatDomisili"
                   rows="2"
                   required
-                  placeholder="Contoh: Kost Asri No. 12, Jl. Kaliurang KM 5, Yogyakarta" 
-                  class="w-full pl-10 pr-4 py-2.5 bg-slate-900/90 border border-slate-700 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors"
+                  placeholder="Contoh: Kost Asri No. 12, Jl. Kaliurang KM 5, Sleman, Yogyakarta" 
+                  class="w-full pl-10 pr-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors"
                 ></textarea>
               </div>
             </div>
@@ -201,9 +212,9 @@
         </section>
 
         <!-- CARD 2: Detail Sewa & Pilihan Alat -->
-        <section class="bg-slate-800/90 backdrop-blur-md border border-slate-700/80 rounded-2xl p-5 sm:p-7 shadow-xl shadow-black/20">
-          <div class="flex items-center gap-3 pb-4 mb-5 border-b border-slate-700/60">
-            <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm">
+        <section class="bg-slate-900/80 backdrop-blur-md border border-slate-800 rounded-2xl p-5 sm:p-7 shadow-xl shadow-black/40">
+          <div class="flex items-center gap-3 pb-4 mb-5 border-b border-slate-800">
+            <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm border border-emerald-500/30">
               2
             </div>
             <div>
@@ -211,7 +222,7 @@
                 <i data-lucide="package" class="w-5 h-5 text-emerald-400"></i>
                 Detail Sewa Kamera
               </h2>
-              <p class="text-xs text-slate-400">Pilih unit kamera/lensa, jadwal sewa, dan sistem pengambilan</p>
+              <p class="text-xs text-slate-400">Pilih unit kamera/lensa, durasi, jadwal, dan sistem pengambilan</p>
             </div>
           </div>
 
@@ -227,16 +238,16 @@
                 <!-- Opsi 1 -->
                 <div>
                   <input type="radio" id="alat1" name="alatSewa" value="Nikon z50 II + Lensa Kit 16-50mm" class="hidden custom-radio" checked>
-                  <label for="alat1" class="flex items-start gap-3.5 p-3.5 rounded-xl border border-slate-700 bg-slate-900/60 cursor-pointer transition-all hover:border-slate-500">
-                    <span class="check-indicator w-5 h-5 rounded-full border border-slate-500 flex items-center justify-center mt-0.5 shrink-0 transition-colors">
+                  <label for="alat1" class="flex items-start gap-3.5 p-4 rounded-xl border border-slate-800 bg-slate-950/70 cursor-pointer transition-all hover:border-slate-700">
+                    <span class="check-indicator w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center mt-0.5 shrink-0 transition-colors">
                       <svg class="w-3 h-3 text-white opacity-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
                     </span>
                     <div class="flex-1">
                       <div class="flex items-center justify-between">
-                        <span class="font-bold text-sm text-white">Nikon z50 II + Lensa Kit 16-50mm</span>
-                        <span class="text-[11px] font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-md">Paket Standar</span>
+                        <span class="font-bold text-sm text-white">Nikon z50 II + Lensa Kit 16–50mm</span>
+                        <span class="text-[11px] font-semibold text-emerald-300 bg-emerald-950/80 border border-emerald-700/60 px-2 py-0.5 rounded-md">Paket Standar</span>
                       </div>
-                      <p class="text-xs text-slate-400 mt-0.5">Kombinasi serbaguna untuk foto portrait, casual street, dan video vlog ringan.</p>
+                      <p class="text-xs text-slate-300 mt-1">Kombinasi serbaguna untuk foto portrait, casual street, dan video vlog ringan.</p>
                     </div>
                   </label>
                 </div>
@@ -244,16 +255,16 @@
                 <!-- Opsi 2 -->
                 <div>
                   <input type="radio" id="alat2" name="alatSewa" value="Nikon z50 II + Lensa Viltrox 35mm f1.7" class="hidden custom-radio">
-                  <label for="alat2" class="flex items-start gap-3.5 p-3.5 rounded-xl border border-slate-700 bg-slate-900/60 cursor-pointer transition-all hover:border-slate-500">
-                    <span class="check-indicator w-5 h-5 rounded-full border border-slate-500 flex items-center justify-center mt-0.5 shrink-0 transition-colors">
+                  <label for="alat2" class="flex items-start gap-3.5 p-4 rounded-xl border border-slate-800 bg-slate-950/70 cursor-pointer transition-all hover:border-slate-700">
+                    <span class="check-indicator w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center mt-0.5 shrink-0 transition-colors">
                       <svg class="w-3 h-3 text-white opacity-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
                     </span>
                     <div class="flex-1">
                       <div class="flex items-center justify-between">
                         <span class="font-bold text-sm text-white">Nikon z50 II + Lensa Viltrox 35mm f1.7</span>
-                        <span class="text-[11px] font-semibold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-md">Bokeh Tajam / Best Seller</span>
+                        <span class="text-[11px] font-semibold text-amber-300 bg-amber-950/80 border border-amber-700/60 px-2 py-0.5 rounded-md">Bokeh Tajam / Best Seller</span>
                       </div>
-                      <p class="text-xs text-slate-400 mt-0.5">Aperture besar f/1.7 untuk foto estetik berlatar bokeh halus dan low-light.</p>
+                      <p class="text-xs text-slate-300 mt-1">Aperture besar f/1.7 untuk foto estetik berlatar bokeh halus dan kemampuan low-light.</p>
                     </div>
                   </label>
                 </div>
@@ -261,16 +272,16 @@
                 <!-- Opsi 3 -->
                 <div>
                   <input type="radio" id="alat3" name="alatSewa" value="Lensa Viltrox 35mm f1.7" class="hidden custom-radio">
-                  <label for="alat3" class="flex items-start gap-3.5 p-3.5 rounded-xl border border-slate-700 bg-slate-900/60 cursor-pointer transition-all hover:border-slate-500">
-                    <span class="check-indicator w-5 h-5 rounded-full border border-slate-500 flex items-center justify-center mt-0.5 shrink-0 transition-colors">
+                  <label for="alat3" class="flex items-start gap-3.5 p-4 rounded-xl border border-slate-800 bg-slate-950/70 cursor-pointer transition-all hover:border-slate-700">
+                    <span class="check-indicator w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center mt-0.5 shrink-0 transition-colors">
                       <svg class="w-3 h-3 text-white opacity-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
                     </span>
                     <div class="flex-1">
                       <div class="flex items-center justify-between">
                         <span class="font-bold text-sm text-white">Lensa Viltrox 35mm f1.7</span>
-                        <span class="text-[11px] font-semibold text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded-md">Lensa Saja</span>
+                        <span class="text-[11px] font-semibold text-sky-300 bg-sky-950/80 border border-sky-700/60 px-2 py-0.5 rounded-md">Lensa Saja</span>
                       </div>
-                      <p class="text-xs text-slate-400 mt-0.5">Sewa lensa saja bagi yang sudah memiliki body kamera Nikon Z mount.</p>
+                      <p class="text-xs text-slate-300 mt-1">Sewa lensa saja bagi yang sudah memiliki body kamera Nikon Z mount.</p>
                     </div>
                   </label>
                 </div>
@@ -279,19 +290,19 @@
             </div>
 
             <!-- Aksesoris Tambahan (Default - Terkunci) -->
-            <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80">
+            <div class="p-4 rounded-xl bg-slate-950 border border-slate-800">
               <div class="flex items-center justify-between mb-2">
-                <span class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-200 flex items-center gap-1.5">
                   <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
                   Aksesoris Tambahan (Included Bebas Biaya)
                 </span>
-                <span class="text-[10px] bg-slate-800 text-slate-400 border border-slate-700 px-2 py-0.5 rounded">Default / Bundled</span>
+                <span class="text-[10px] bg-slate-800 text-slate-300 border border-slate-700 px-2 py-0.5 rounded">Default / Bundled</span>
               </div>
-              <p class="text-xs text-slate-300 leading-relaxed font-mono bg-slate-950/60 p-2.5 rounded-lg border border-slate-800">
+              <p class="text-xs text-emerald-300 leading-relaxed font-mono bg-slate-900/90 p-3 rounded-lg border border-slate-800">
                 2 baterai + SD Card Lexar 32GB + Kabel C to C + Card reader + Strap Kamera + 1 Lap Microfiber
               </p>
-              <p class="text-[11px] text-slate-500 mt-1.5 flex items-center gap-1">
-                <i data-lucide="info" class="w-3.5 h-3.5"></i>
+              <p class="text-[11px] text-slate-400 mt-2 flex items-center gap-1">
+                <i data-lucide="info" class="w-3.5 h-3.5 text-emerald-400"></i>
                 Sudah otomatis terpasang & disertakan dalam tas kamera tanpa biaya tambahan.
               </p>
             </div>
@@ -305,15 +316,15 @@
                 
                 <div>
                   <input type="radio" id="durasi1" name="durasiSewa" value="1 Hari (24 Jam / Full Day)" class="hidden custom-radio" checked>
-                  <label for="durasi1" class="flex flex-col p-3 rounded-xl border border-slate-700 bg-slate-900/60 cursor-pointer transition-all hover:border-slate-500 text-center">
+                  <label for="durasi1" class="flex flex-col p-3 rounded-xl border border-slate-800 bg-slate-950/70 cursor-pointer transition-all hover:border-slate-700 text-center">
                     <span class="font-bold text-xs sm:text-sm text-white">1 Hari (24 Jam)</span>
-                    <span class="text-[11px] text-emerald-400 mt-0.5">Full Day</span>
+                    <span class="text-[11px] text-emerald-400 mt-0.5 font-semibold">Full Day</span>
                   </label>
                 </div>
 
                 <div>
                   <input type="radio" id="durasi2" name="durasiSewa" value="Setengah Hari (6-12 Jam)" class="hidden custom-radio">
-                  <label for="durasi2" class="flex flex-col p-3 rounded-xl border border-slate-700 bg-slate-900/60 cursor-pointer transition-all hover:border-slate-500 text-center">
+                  <label for="durasi2" class="flex flex-col p-3 rounded-xl border border-slate-800 bg-slate-950/70 cursor-pointer transition-all hover:border-slate-700 text-center">
                     <span class="font-bold text-xs sm:text-sm text-white">Setengah Hari</span>
                     <span class="text-[11px] text-slate-400 mt-0.5">6 - 12 Jam</span>
                   </label>
@@ -321,7 +332,7 @@
 
                 <div>
                   <input type="radio" id="durasi3" name="durasiSewa" value="Short Time (Maks 4 Jam)" class="hidden custom-radio">
-                  <label for="durasi3" class="flex flex-col p-3 rounded-xl border border-slate-700 bg-slate-900/60 cursor-pointer transition-all hover:border-slate-500 text-center">
+                  <label for="durasi3" class="flex flex-col p-3 rounded-xl border border-slate-800 bg-slate-950/70 cursor-pointer transition-all hover:border-slate-700 text-center">
                     <span class="font-bold text-xs sm:text-sm text-white">Short Time</span>
                     <span class="text-[11px] text-slate-400 mt-0.5">Maks. 4 Jam</span>
                   </label>
@@ -334,7 +345,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               
               <!-- Pengambilan -->
-              <div class="p-3.5 bg-slate-900/60 rounded-xl border border-slate-700">
+              <div class="p-3.5 bg-slate-950/70 rounded-xl border border-slate-800">
                 <label class="block text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
                   <i data-lucide="calendar-plus" class="w-4 h-4"></i>
                   Pengambilan
@@ -347,7 +358,7 @@
                       id="tglAmbil" 
                       name="tglAmbil"
                       required
-                      class="w-full mt-1 px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-500"
+                      class="w-full mt-1 px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-500"
                     />
                   </div>
                   <div>
@@ -358,14 +369,14 @@
                       name="jamAmbil"
                       required
                       value="08:00"
-                      class="w-full mt-1 px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-500"
+                      class="w-full mt-1 px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-500"
                     />
                   </div>
                 </div>
               </div>
 
               <!-- Pengembalian -->
-              <div class="p-3.5 bg-slate-900/60 rounded-xl border border-slate-700">
+              <div class="p-3.5 bg-slate-950/70 rounded-xl border border-slate-800">
                 <label class="block text-xs font-semibold text-teal-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
                   <i data-lucide="calendar-check" class="w-4 h-4"></i>
                   Pengembalian
@@ -378,7 +389,7 @@
                       id="tglKembali" 
                       name="tglKembali"
                       required
-                      class="w-full mt-1 px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-500"
+                      class="w-full mt-1 px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-500"
                     />
                   </div>
                   <div>
@@ -389,7 +400,7 @@
                       name="jamKembali"
                       required
                       value="08:00"
-                      class="w-full mt-1 px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-500"
+                      class="w-full mt-1 px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-500"
                     />
                   </div>
                 </div>
@@ -408,20 +419,20 @@
                 <div class="space-y-2">
                   <div>
                     <input type="radio" id="ambilOpsi1" name="sistemAmbil" value="Ambil di penyedia rental" class="hidden custom-radio" checked>
-                    <label for="ambilOpsi1" class="flex items-center gap-2.5 p-2.5 rounded-xl border border-slate-700 bg-slate-900/60 cursor-pointer transition-all hover:border-slate-500">
-                      <span class="check-indicator w-4 h-4 rounded-full border border-slate-500 flex items-center justify-center shrink-0">
+                    <label for="ambilOpsi1" class="flex items-center gap-2.5 p-3 rounded-xl border border-slate-800 bg-slate-950/70 cursor-pointer transition-all hover:border-slate-700">
+                      <span class="check-indicator w-4 h-4 rounded-full border border-slate-600 flex items-center justify-center shrink-0">
                         <svg class="w-2.5 h-2.5 text-white opacity-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
                       </span>
-                      <span class="text-xs text-white">Ambil di Tempat Rental</span>
+                      <span class="text-xs text-white font-medium">Ambil di Tempat Rental</span>
                     </label>
                   </div>
                   <div>
                     <input type="radio" id="ambilOpsi2" name="sistemAmbil" value="Delivery (Antar ke Lokasi)" class="hidden custom-radio">
-                    <label for="ambilOpsi2" class="flex items-center gap-2.5 p-2.5 rounded-xl border border-slate-700 bg-slate-900/60 cursor-pointer transition-all hover:border-slate-500">
-                      <span class="check-indicator w-4 h-4 rounded-full border border-slate-500 flex items-center justify-center shrink-0">
+                    <label for="ambilOpsi2" class="flex items-center gap-2.5 p-3 rounded-xl border border-slate-800 bg-slate-950/70 cursor-pointer transition-all hover:border-slate-700">
+                      <span class="check-indicator w-4 h-4 rounded-full border border-slate-600 flex items-center justify-center shrink-0">
                         <svg class="w-2.5 h-2.5 text-white opacity-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
                       </span>
-                      <span class="text-xs text-white">Delivery (Antar ke Lokasi)</span>
+                      <span class="text-xs text-white font-medium">Delivery (Antar ke Lokasi)</span>
                     </label>
                   </div>
                 </div>
@@ -435,20 +446,20 @@
                 <div class="space-y-2">
                   <div>
                     <input type="radio" id="kembaliOpsi1" name="sistemKembali" value="Antar ke penyedia rental" class="hidden custom-radio" checked>
-                    <label for="kembaliOpsi1" class="flex items-center gap-2.5 p-2.5 rounded-xl border border-slate-700 bg-slate-900/60 cursor-pointer transition-all hover:border-slate-500">
-                      <span class="check-indicator w-4 h-4 rounded-full border border-slate-500 flex items-center justify-center shrink-0">
+                    <label for="kembaliOpsi1" class="flex items-center gap-2.5 p-3 rounded-xl border border-slate-800 bg-slate-950/70 cursor-pointer transition-all hover:border-slate-700">
+                      <span class="check-indicator w-4 h-4 rounded-full border border-slate-600 flex items-center justify-center shrink-0">
                         <svg class="w-2.5 h-2.5 text-white opacity-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
                       </span>
-                      <span class="text-xs text-white">Antar ke Tempat Rental</span>
+                      <span class="text-xs text-white font-medium">Antar ke Tempat Rental</span>
                     </label>
                   </div>
                   <div>
                     <input type="radio" id="kembaliOpsi2" name="sistemKembali" value="Delivery (Dijemput Kurir)" class="hidden custom-radio">
-                    <label for="kembaliOpsi2" class="flex items-center gap-2.5 p-2.5 rounded-xl border border-slate-700 bg-slate-900/60 cursor-pointer transition-all hover:border-slate-500">
-                      <span class="check-indicator w-4 h-4 rounded-full border border-slate-500 flex items-center justify-center shrink-0">
+                    <label for="kembaliOpsi2" class="flex items-center gap-2.5 p-3 rounded-xl border border-slate-800 bg-slate-950/70 cursor-pointer transition-all hover:border-slate-700">
+                      <span class="check-indicator w-4 h-4 rounded-full border border-slate-600 flex items-center justify-center shrink-0">
                         <svg class="w-2.5 h-2.5 text-white opacity-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
                       </span>
-                      <span class="text-xs text-white">Delivery (Jemput di Lokasi)</span>
+                      <span class="text-xs text-white font-medium">Delivery (Jemput di Lokasi)</span>
                     </label>
                   </div>
                 </div>
@@ -460,9 +471,9 @@
         </section>
 
         <!-- CARD 3: Jaminan Identitas -->
-        <section class="bg-slate-800/90 backdrop-blur-md border border-slate-700/80 rounded-2xl p-5 sm:p-7 shadow-xl shadow-black/20">
-          <div class="flex items-center gap-3 pb-4 mb-4 border-b border-slate-700/60">
-            <div class="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-sm">
+        <section class="bg-slate-900/80 backdrop-blur-md border border-slate-800 rounded-2xl p-5 sm:p-7 shadow-xl shadow-black/40">
+          <div class="flex items-center gap-3 pb-4 mb-4 border-b border-slate-800">
+            <div class="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-sm border border-amber-500/30">
               3
             </div>
             <div>
@@ -470,7 +481,7 @@
                 <i data-lucide="id-card" class="w-5 h-5 text-amber-400"></i>
                 Jaminan Identitas
               </h2>
-              <p class="text-xs text-amber-300/80 font-medium">WAJIB BAWA ASLI SAAT SERAH TERIMA UNIT</p>
+              <p class="text-xs text-amber-300 font-semibold tracking-wide">WAJIB BAWA ASLI SAAT SERAH TERIMA UNIT</p>
             </div>
           </div>
 
@@ -481,26 +492,26 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="jaminanContainer">
             <div>
               <input type="checkbox" id="jaminanKTP" name="jaminanIdentitas" value="KTP (Kartu Tanda Penduduk)" class="hidden custom-checkbox" checked>
-              <label for="jaminanKTP" class="flex items-center gap-3 p-3.5 rounded-xl border border-slate-700 bg-slate-900/60 cursor-pointer transition-all hover:border-slate-500">
-                <span class="check-box-indicator w-5 h-5 rounded-md border border-slate-500 flex items-center justify-center shrink-0 transition-colors">
+              <label for="jaminanKTP" class="flex items-center gap-3 p-3.5 rounded-xl border border-slate-800 bg-slate-950/70 cursor-pointer transition-all hover:border-slate-700">
+                <span class="check-box-indicator w-5 h-5 rounded-md border border-slate-600 flex items-center justify-center shrink-0 transition-colors">
                   <svg class="w-3.5 h-3.5 text-white opacity-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
                 </span>
                 <div>
                   <span class="font-bold text-xs sm:text-sm text-white block">KTP Asli</span>
-                  <span class="text-[11px] text-slate-400">Kartu Tanda Penduduk</span>
+                  <span class="text-[11px] text-slate-300">Kartu Tanda Penduduk</span>
                 </div>
               </label>
             </div>
 
             <div>
               <input type="checkbox" id="jaminanKTM" name="jaminanIdentitas" value="Kartu Pelajar / Mahasiswa (KTM)" class="hidden custom-checkbox">
-              <label for="jaminanKTM" class="flex items-center gap-3 p-3.5 rounded-xl border border-slate-700 bg-slate-900/60 cursor-pointer transition-all hover:border-slate-500">
-                <span class="check-box-indicator w-5 h-5 rounded-md border border-slate-500 flex items-center justify-center shrink-0 transition-colors">
+              <label for="jaminanKTM" class="flex items-center gap-3 p-3.5 rounded-xl border border-slate-800 bg-slate-950/70 cursor-pointer transition-all hover:border-slate-700">
+                <span class="check-box-indicator w-5 h-5 rounded-md border border-slate-600 flex items-center justify-center shrink-0 transition-colors">
                   <svg class="w-3.5 h-3.5 text-white opacity-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
                 </span>
                 <div>
                   <span class="font-bold text-xs sm:text-sm text-white block">Kartu Pelajar / KTM Asli</span>
-                  <span class="text-[11px] text-slate-400">Kartu Tanda Mahasiswa Aktif</span>
+                  <span class="text-[11px] text-slate-300">Kartu Tanda Mahasiswa Aktif</span>
                 </div>
               </label>
             </div>
@@ -513,9 +524,9 @@
         </section>
 
         <!-- CARD 4: Skema Pembayaran & Ketentuan Booking -->
-        <section class="bg-slate-800/90 backdrop-blur-md border border-slate-700/80 rounded-2xl p-5 sm:p-7 shadow-xl shadow-black/20">
-          <div class="flex items-center gap-3 pb-4 mb-4 border-b border-slate-700/60">
-            <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm">
+        <section class="bg-slate-900/80 backdrop-blur-md border border-slate-800 rounded-2xl p-5 sm:p-7 shadow-xl shadow-black/40">
+          <div class="flex items-center gap-3 pb-4 mb-4 border-b border-slate-800">
+            <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm border border-emerald-500/30">
               4
             </div>
             <div>
@@ -536,23 +547,23 @@
               
               <div>
                 <input type="radio" id="bayarDP" name="skemaBayar" value="DP Booking Rp 50.000 (Sisa saat serah terima)" class="hidden custom-radio" checked>
-                <label for="bayarDP" class="flex flex-col p-3.5 rounded-xl border border-slate-700 bg-slate-900/60 cursor-pointer transition-all hover:border-slate-500">
+                <label for="bayarDP" class="flex flex-col p-4 rounded-xl border border-slate-800 bg-slate-950/70 cursor-pointer transition-all hover:border-slate-700">
                   <div class="flex items-center justify-between">
                     <span class="font-bold text-sm text-white">Down Payment (DP)</span>
-                    <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">Rp 50.000</span>
+                    <span class="text-xs font-bold text-emerald-300 bg-emerald-950 border border-emerald-700/60 px-2.5 py-0.5 rounded">Rp 50.000</span>
                   </div>
-                  <span class="text-xs text-slate-400 mt-1">Penguncian tanggal & unit kamera. Sisa biaya diselesaikan saat serah terima unit.</span>
+                  <span class="text-xs text-slate-300 mt-1.5">Penguncian tanggal & unit kamera. Sisa biaya diselesaikan saat serah terima unit.</span>
                 </label>
               </div>
 
               <div>
                 <input type="radio" id="bayarLunas" name="skemaBayar" value="Pembayaran Penuh / Langsung Lunas" class="hidden custom-radio">
-                <label for="bayarLunas" class="flex flex-col p-3.5 rounded-xl border border-slate-700 bg-slate-900/60 cursor-pointer transition-all hover:border-slate-500">
+                <label for="bayarLunas" class="flex flex-col p-4 rounded-xl border border-slate-800 bg-slate-950/70 cursor-pointer transition-all hover:border-slate-700">
                   <div class="flex items-center justify-between">
                     <span class="font-bold text-sm text-white">Bayar Langsung Lunas</span>
-                    <span class="text-xs font-bold text-teal-400 bg-teal-500/10 px-2 py-0.5 rounded">Full Payment</span>
+                    <span class="text-xs font-bold text-teal-300 bg-teal-950 border border-teal-700/60 px-2.5 py-0.5 rounded">Full Payment</span>
                   </div>
-                  <span class="text-xs text-slate-400 mt-1">Praktis tanpa perlu transaksi tunai/transfer lagi saat pengambilan unit.</span>
+                  <span class="text-xs text-slate-300 mt-1.5">Praktis tanpa perlu transaksi tunai/transfer lagi saat serah terima unit kamera.</span>
                 </label>
               </div>
 
@@ -560,12 +571,12 @@
           </div>
 
           <!-- Professional Terms Box -->
-          <div class="rounded-xl bg-slate-900/80 border border-slate-700/80 p-4 text-xs text-slate-300 space-y-2">
+          <div class="rounded-xl bg-slate-950 border border-slate-800 p-4 text-xs text-slate-300 space-y-2">
             <div class="font-bold text-amber-400 flex items-center gap-1.5">
               <i data-lucide="alert-triangle" class="w-4 h-4"></i>
               Ketentuan Booking & Jaminan Keamanan:
             </div>
-            <ul class="list-disc list-inside space-y-1 text-slate-400 pl-1 text-[11px] sm:text-xs">
+            <ul class="list-disc list-inside space-y-1.5 text-slate-300 pl-1 text-[11px] sm:text-xs">
               <li>Unit kamera dianggap <strong>resmi ter-booking</strong> setelah pembayaran DP (Rp 50.000) atau pelunasan terverifikasi oleh admin.</li>
               <li>DP berfungsi sebagai komitmen booking jadwal agar unit tidak dialihkan ke penyewa lain.</li>
               <li>Wajib menunjukkan & menyerahkan jaminan identitas fisik asli pada saat serah terima alat.</li>
@@ -579,9 +590,9 @@
       <!-- Right Column: Live Order Preview & Direct Send (5 cols) -->
       <div class="lg:col-span-5 lg:sticky lg:top-8 space-y-4">
         
-        <div class="bg-slate-800/95 backdrop-blur-md border border-slate-700 rounded-2xl p-5 sm:p-6 shadow-2xl shadow-black/40">
+        <div class="bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-2xl shadow-black/50">
           
-          <div class="flex items-center justify-between pb-3.5 mb-4 border-b border-slate-700">
+          <div class="flex items-center justify-between pb-3.5 mb-4 border-b border-slate-800">
             <div class="flex items-center gap-2">
               <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
               <h3 class="font-bold text-base text-white">Live Format Order</h3>
@@ -589,7 +600,7 @@
             <button 
               type="button" 
               id="btnReset" 
-              class="text-xs text-slate-400 hover:text-rose-400 flex items-center gap-1 transition-colors px-2 py-1 rounded hover:bg-slate-700/50"
+              class="text-xs text-slate-400 hover:text-rose-400 flex items-center gap-1 transition-colors px-2.5 py-1 rounded-lg hover:bg-slate-800"
               title="Reset Formulir"
             >
               <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
@@ -598,14 +609,14 @@
           </div>
 
           <p class="text-xs text-slate-400 mb-3">
-            Berikut ringkasan teks otomatis yang akan dikirimkan langsung ke WhatsApp rental kamera:
+            Ringkasan teks otomatis yang siap dikirim langsung ke WhatsApp admin rental kamera:
           </p>
 
           <!-- Text Preview Window -->
           <div class="relative group">
             <pre 
               id="orderPreviewText" 
-              class="w-full bg-slate-950 text-slate-200 p-4 rounded-xl font-mono text-xs leading-relaxed whitespace-pre-wrap border border-slate-700/80 max-h-[380px] overflow-y-auto select-all"
+              class="w-full bg-slate-950 text-emerald-100 p-4 rounded-xl font-mono text-xs leading-relaxed whitespace-pre-wrap border border-slate-800 max-h-[380px] overflow-y-auto select-all"
             >Memuat ringkasan order...</pre>
           </div>
 
@@ -615,9 +626,9 @@
             <button 
               type="button" 
               id="btnKirimWA" 
-              class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-lg shadow-emerald-900/30 active:scale-[0.99] transition-all"
+              class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-extrabold text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-lg shadow-emerald-950/40 active:scale-[0.99] transition-all"
             >
-              <i data-lucide="send" class="w-5 h-5"></i>
+              <i data-lucide="send" class="w-5 h-5 text-slate-950"></i>
               Kirim Format ke WhatsApp
             </button>
 
@@ -625,7 +636,7 @@
             <button 
               type="button" 
               id="btnSalin" 
-              class="w-full py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-750 border border-slate-700 hover:border-slate-500 text-slate-300 hover:text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all active:scale-[0.99]"
+              class="w-full py-2.5 px-4 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all active:scale-[0.99]"
             >
               <i data-lucide="copy" class="w-4 h-4"></i>
               Salin Format Pesan
@@ -634,13 +645,13 @@
 
           <p class="text-center text-[11px] text-slate-500 mt-3 flex items-center justify-center gap-1">
             <i data-lucide="check-circle-2" class="w-3 h-3 text-emerald-400"></i>
-            Format pesan otomatis rapi dan langsung siap kirim
+            Format pesan otomatis tersusun rapi dengan emoji WhatsApp
           </p>
 
         </div>
 
         <!-- Help Info Card -->
-        <div class="bg-slate-800/60 border border-slate-700/60 rounded-xl p-4 text-xs text-slate-400 flex items-start gap-3">
+        <div class="bg-slate-900/60 border border-slate-800/80 rounded-xl p-4 text-xs text-slate-400 flex items-start gap-3">
           <i data-lucide="message-circle" class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5"></i>
           <div>
             <div class="font-semibold text-slate-200 mb-0.5">Butuh Konsultasi Sebelum Sewa?</div>
@@ -653,7 +664,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="mt-14 pt-8 border-t border-slate-800 text-center text-xs text-slate-500">
+    <footer class="mt-14 pt-8 border-t border-slate-800/80 text-center text-xs text-slate-500">
       <p>&copy; 2026 Fotonic Equipment Rental. All rights reserved.</p>
       <p class="mt-1 text-[11px] text-slate-600">Sistem Format Order Sewa Kamera Profesional & Terstruktur</p>
     </footer>
@@ -661,7 +672,7 @@
   </div>
 
   <!-- Toast Notification -->
-  <div id="toast" class="fixed bottom-6 right-6 z-50 hidden toast-anim bg-slate-900 border border-emerald-500/50 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3">
+  <div id="toast" class="fixed bottom-6 right-6 z-50 hidden toast-anim bg-slate-900 border border-emerald-500 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3">
     <i data-lucide="check" class="w-5 h-5 text-emerald-400"></i>
     <span id="toastMsg" class="text-xs sm:text-sm font-medium">Format pesanan berhasil disalin!</span>
   </div>
