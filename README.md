@@ -2,13 +2,52 @@
 
 Dua website mandiri (standalone) tanpa interaksi satu sama lain untuk kebutuhan format order:
 
-1. **Web Format Order Rental Kamera**
+1. **Web Format Order Rental Kamera (Nikon Z50 Mark II)**
    - File folder: `rental-kamera/index.html`
    - URL Vercel: `https://[domain-anda].vercel.app/rental-kamera`
 
-2. **Web Format Order Booking Foto Wisuda**
+2. **Web Format Order Booking Foto Wisuda & Sidang**
    - File folder: `booking-wisuda/index.html`
    - URL Vercel: `https://[domain-anda].vercel.app/booking-wisuda`
+
+*Nomor WhatsApp Admin Resmi*: **+62 819-9421-8428** (terkunci otomatis pada kedua web).
+
+---
+
+## 📸 1. Pricelist Sewa Nikon Z50 Mark II (`rental-kamera/index.html`)
+
+### Pilihan Durasi & Tarif Resmi:
+1. **Paket Komplit (Best Value! 🔥)**
+   - *Unit*: Body Nikon Z50 Mark II + Lensa Kit 16-50mm + Lensa Fix Viltrox 35mm f/1.7
+   - Short Time (Maks 4 Jam): **Rp 90.000**
+   - Setengah Hari (6–12 Jam): **Rp 110.000**
+   - 1 Hari / Full Day (24 Jam): **Rp 150.000**
+
+2. **Paket Single Lens**
+   - *Unit*: Body Nikon Z50 Mark II + Pilih 1 Lensa (*Kit 16-50mm* ATAU *Viltrox 35mm f/1.7*)
+   - Short Time (Maks 4 Jam): **Rp 65.000**
+   - Setengah Hari (6–12 Jam): **Rp 85.000**
+   - 1 Hari / Full Day (24 Jam): **Rp 120.000**
+
+3. **Sewa Lensa Saja**
+   - *Unit*: Viltrox Air 35mm f/1.7 (Nikon Z Mount)
+   - Short Time (Maks 4 Jam): **Rp 25.000**
+   - Setengah Hari (6–12 Jam): **Rp 35.000**
+   - 1 Hari / Full Day (24 Jam): **Rp 50.000**
+
+### Aksesoris Termasuk (Bundled / Default):
+`2 baterai + SD Card Lexar 32GB + Kabel C to C + Card reader + Strap Kamera + 1 Lap Microfiber`
+
+---
+
+## 🎓 2. Pricelist Booking Foto Wisuda & Sidang (`booking-wisuda/index.html`)
+
+Dikelola melalui data TypeScript [`data/pricelist.ts`](file:///e:/Fotonic%20Web/Web-Format-Order/data/pricelist.ts):
+- **Single Packet**: Single Kilat (100k), Single Standard 60m (175k), Single Standard 120m (200k)
+- **Group Packet**: Group Kilat (250k), Group Standard 90m (320k), Group Standard 120m (350k)
+- **Seminar & Sidang**: Sidang Kilat (80k), Sidang Standard 90m (130k), Sidang Standard 120m (150k)
+- **Add-On**: Cinematic Reels/TikTok Video (50k), Xtra Edit 1 Foto (10k), Xtra Edit 5 Foto (40k), Express Edit 1 Day (200k)
+
 
 ---
 
