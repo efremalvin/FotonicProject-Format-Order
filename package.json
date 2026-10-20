@@ -1,0 +1,17 @@
+{
+  "name": "fotonic-web-format-order",
+  "version": "1.0.0",
+  "description": "Web Format Order Rental Kamera & Booking Foto Wisuda Fotonic",
+  "scripts": {
+    "dev": "npx serve .",
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "format-order",
+    "rental-kamera",
+    "booking-foto",
+    "fotonic"
+  ],
+  "author": "Fotonic Project",
+  "license": "MIT"
+}

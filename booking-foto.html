@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Format Order - Booking Foto Wisuda | Fotonic Moments</title>
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#faf5ff',
+              100: '#f3e8ff',
+              500: '#a855f7',
+              600: '#9333ea',
+              700: '#7e22ce',
+              800: '#6b21a8',
+              900: '#581c87',
+            },
+            gold: {
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom radio and checkbox styling */
+    .custom-radio:checked + label {
+      border-color: #a855f7;
+      background-color: #2e1065;
+      box-shadow: 0 4px 14px 0 rgba(168, 85, 247, 0.2);
+    }
+    .custom-radio:checked + label .check-indicator {
+      border-color: #a855f7;
+      background-color: #a855f7;
+    }
+    .custom-radio:checked + label .check-indicator svg {
+      opacity: 1;
+    }
+    @keyframes slideIn {
+      from { transform: translateY(100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .toast-anim {
+      animation: slideIn 0.3s ease-out forwards;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans selection:bg-purple-600 selection:text-white">
+
+  <!-- Background Decorative Glows -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+    <div class="absolute -top-40 -left-40 w-96 h-96 bg-purple-600/15 rounded-full blur-3xl"></div>
+    <div class="absolute top-1/3 -right-40 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute -bottom-40 left-1/3 w-96 h-96 bg-indigo-600/15 rounded-full blur-3xl"></div>
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    
+    <!-- Header -->
+    <header class="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-400 text-xs sm:text-sm font-medium mb-4">
+        <i data-lucide="graduation-cap" class="w-4 h-4"></i>
+        <span>Fotonic Graduation Photography</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-3">
+        Formulir Pemesanan <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-amber-300">Foto Wisuda</span>
+      </h1>
+      <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
+        Abadikan momen kelulusan berharga Anda dengan hasil foto berkelas. Silakan isi detail pemesanan sesi wisuda Anda di bawah ini untuk mengunci jadwal fotografer.
+      </p>
+
+      <!-- Admin WhatsApp Setting -->
+      <div class="mt-5 inline-flex items-center gap-2 bg-slate-900/80 border border-slate-800 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-slate-300">
+        <i data-lucide="phone-outgoing" class="w-4 h-4 text-purple-400"></i>
+        <label for="adminPhone" class="text-slate-400">Kirim ke WA Admin:</label>
+        <input 
+          type="text" 
+          id="adminPhone" 
+          value="6281234567890" 
+          class="bg-slate-950 border border-slate-700 rounded-lg px-2 py-0.5 text-purple-400 font-mono text-xs focus:outline-none focus:border-purple-500 w-36"
+          title="Nomor WhatsApp admin foto wisuda (gunakan awalan 62)"
+        />
+        <span class="text-[11px] text-slate-500 hidden sm:inline">(bisa disesuaikan)</span>
+      </div>
+    </header>
+
+    <!-- Main Layout Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Left Column: Form Sections (7 cols) -->
+      <div class="lg:col-span-7 space-y-6">
+        
+        <!-- CARD 1: Data Klien & Wisudawan -->
+        <section class="bg-slate-900/80 backdrop-blur-md border border-slate-800/90 rounded-2xl p-5 sm:p-7 shadow-xl shadow-black/40">
+          <div class="flex items-center gap-3 pb-4 mb-5 border-b border-slate-800">
+            <div class="w-9 h-9 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-sm">
+              1
+            </div>
+            <div>
+              <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                <i data-lucide="user-check" class="w-5 h-5 text-purple-400"></i>
+                Data Wisudawan & Kontak
+              </h2>
+              <p class="text-xs text-slate-400">Informasi wisudawan dan kontak aktif untuk koordinasi pemotretan</p>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            
+            <!-- Nama Wisudawan -->
+            <div>
+              <label for="namaWisudawan" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                Nama Lengkap Wisudawan <span class="text-rose-400">*</span>
+              </label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
+                  <i data-lucide="graduation-cap" class="w-4 h-4"></i>
+                </div>
+                <input 
+                  type="text" 
+                  id="namaWisudawan" 
+                  name="namaWisudawan"
+                  required
+                  placeholder="Contoh: Amanda Putri Salsabila, S.T." 
+                  class="w-full pl-10 pr-4 py-2.5 bg-slate-950 border border-slate-700/80 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-colors"
+                />
+              </div>
+            </div>
+
+            <!-- No WhatsApp -->
+            <div>
+              <label for="noWhatsapp" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                No. WhatsApp Aktif <span class="text-rose-400">*</span>
+              </label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
+                  <i data-lucide="message-square" class="w-4 h-4"></i>
+                </div>
+                <input 
+                  type="tel" 
+                  id="noWhatsapp" 
+                  name="noWhatsapp"
+                  required
+                  placeholder="Contoh: 081234567890" 
+                  class="w-full pl-10 pr-4 py-2.5 bg-slate-950 border border-slate-700/80 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-colors"
+                />
+              </div>
+              <p class="text-[11px] text-slate-500 mt-1">Nomor koordinasi fotografer di hari H wisuda</p>
+            </div>
+
+            <!-- Kampus & Fakultas -->
+            <div>
+              <label for="asalKampus" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                Asal Kampus / Universitas & Fakultas <span class="text-rose-400">*</span>
+              </label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
+                  <i data-lucide="landmark" class="w-4 h-4"></i>
+                </div>
+                <input 
+                  type="text" 
+                  id="asalKampus" 
+                  name="asalKampus"
+                  required
+                  placeholder="Contoh: UGM - Fakultas Teknik" 
+                  class="w-full pl-10 pr-4 py-2.5 bg-slate-950 border border-slate-700/80 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-colors"
+                />
+              </div>
+            </div>
+
+            <!-- Jenis Sesi -->
+            <div>
+              <span class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                Jenis Pelaksanaan Sesi Foto <span class="text-rose-400">*</span>
+              </span>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                <div>
+                  <input type="radio" id="sesiHariH" name="kategoriSesi" value="Sesi Hari-H Wisuda" class="hidden custom-radio" checked>
+                  <label for="sesiHariH" class="flex flex-col p-3 rounded-xl border border-slate-700 bg-slate-950 cursor-pointer transition-all hover:border-slate-500 text-center">
+                    <span class="font-bold text-xs sm:text-sm text-white">Hari-H Wisuda</span>
+                    <span class="text-[11px] text-purple-400 mt-0.5">Sesi Utama</span>
+                  </label>
+                </div>
+                <div>
+                  <input type="radio" id="sesiPre" name="kategoriSesi" value="Pre-Wisuda (Sebelum Acara)" class="hidden custom-radio">
+                  <label for="sesiPre" class="flex flex-col p-3 rounded-xl border border-slate-700 bg-slate-950 cursor-pointer transition-all hover:border-slate-500 text-center">
+                    <span class="font-bold text-xs sm:text-sm text-white">Pre-Wisuda</span>
+                    <span class="text-[11px] text-slate-400 mt-0.5">Sebelum Hari-H</span>
+                  </label>
+                </div>
+                <div>
+                  <input type="radio" id="sesiPost" name="kategoriSesi" value="Post-Wisuda (Setelah Acara)" class="hidden custom-radio">
+                  <label for="sesiPost" class="flex flex-col p-3 rounded-xl border border-slate-700 bg-slate-950 cursor-pointer transition-all hover:border-slate-500 text-center">
+                    <span class="font-bold text-xs sm:text-sm text-white">Post-Wisuda</span>
+                    <span class="text-[11px] text-slate-400 mt-0.5">Santai & Fleksibel</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- CARD 2: Paket & Detail Sesi Pemotretan -->
+        <section class="bg-slate-900/80 backdrop-blur-md border border-slate-800/90 rounded-2xl p-5 sm:p-7 shadow-xl shadow-black/40">
+          <div class="flex items-center gap-3 pb-4 mb-5 border-b border-slate-800">
+            <div class="w-9 h-9 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-sm">
+              2
+            </div>
+            <div>
+              <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                <i data-lucide="sparkles" class="w-5 h-5 text-purple-400"></i>
+                Detail Paket & Waktu Pemotretan
+              </h2>
+              <p class="text-xs text-slate-400">Pilih paket foto wisuda, jadwal, dan estimasi waktu</p>
+            </div>
+          </div>
+
+          <div class="space-y-6">
+            
+            <!-- Pilihan Paket Foto -->
+            <div>
+              <span class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2.5">
+                Pilihan Paket Foto Wisuda <span class="text-rose-400">*</span>
+              </span>
+              <div class="grid grid-cols-1 gap-2.5">
+                
+                <!-- Paket 1: Personal / Solo -->
+                <div>
+                  <input type="radio" id="pktPersonal" name="paketFoto" value="Paket Solo / Personal (Wisudawan + Keluarga Inti)" class="hidden custom-radio" checked>
+                  <label for="pktPersonal" class="flex items-start gap-3.5 p-3.5 rounded-xl border border-slate-700 bg-slate-950 cursor-pointer transition-all hover:border-slate-500">
+                    <span class="check-indicator w-5 h-5 rounded-full border border-slate-500 flex items-center justify-center mt-0.5 shrink-0 transition-colors">
+                      <svg class="w-3 h-3 text-white opacity-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                    </span>
+                    <div class="flex-1">
+                      <div class="flex items-center justify-between">
+                        <span class="font-bold text-sm text-white">Paket Solo / Personal</span>
+                        <span class="text-[11px] font-semibold text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded-md">Paling Populer</span>
+                      </div>
+                      <p class="text-xs text-slate-400 mt-0.5">Fokus pemotretan wisudawan solo portrait + pendamping & keluarga inti (maks 5 orang).</p>
+                    </div>
+                  </label>
+                </div>
+
+                <!-- Paket 2: Group / Sahabat -->
+                <div>
+                  <input type="radio" id="pktGroup" name="paketFoto" value="Paket Group / Sahabat (3-8 Wisudawan Bareng)" class="hidden custom-radio">
+                  <label for="pktGroup" class="flex items-start gap-3.5 p-3.5 rounded-xl border border-slate-700 bg-slate-950 cursor-pointer transition-all hover:border-slate-500">
+                    <span class="check-indicator w-5 h-5 rounded-full border border-slate-500 flex items-center justify-center mt-0.5 shrink-0 transition-colors">
+                      <svg class="w-3 h-3 text-white opacity-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                    </span>
+                    <div class="flex-1">
+                      <div class="flex items-center justify-between">
+                        <span class="font-bold text-sm text-white">Paket Group Sahabat</span>
+                        <span class="text-[11px] font-semibold text-pink-400 bg-pink-500/10 px-2 py-0.5 rounded-md">Hemat Rombongan</span>
+                      </div>
+                      <p class="text-xs text-slate-400 mt-0.5">Sesi foto bersama kelompok teman sejurusan/sahabat wisuda bareng (3-8 wisudawan).</p>
+                    </div>
+                  </label>
+                </div>
+
+                <!-- Paket 3: Big Family -->
+                <div>
+                  <input type="radio" id="pktFamily" name="paketFoto" value="Paket Big Family (Wisudawan + Rombongan Keluarga Besar)" class="hidden custom-radio">
+                  <label for="pktFamily" class="flex items-start gap-3.5 p-3.5 rounded-xl border border-slate-700 bg-slate-950 cursor-pointer transition-all hover:border-slate-500">
+                    <span class="check-indicator w-5 h-5 rounded-full border border-slate-500 flex items-center justify-center mt-0.5 shrink-0 transition-colors">
+                      <svg class="w-3 h-3 text-white opacity-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                    </span>
+                    <div class="flex-1">
+                      <div class="flex items-center justify-between">
+                        <span class="font-bold text-sm text-white">Paket Big Family</span>
+                        <span class="text-[11px] font-semibold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-md">Keluarga Besar</span>
+                      </div>
+                      <p class="text-xs text-slate-400 mt-0.5">Dokumentasi momen hangat wisudawan bersama keluarga besar tanpa batasan anggota.</p>
+                    </div>
+                  </label>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Inklusi & Benefit (Terkunci / Default) -->
+            <div class="p-4 rounded-xl bg-slate-950/80 border border-slate-800">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-purple-400"></i>
+                  Fasilitas & Output Foto yang Didapat
+                </span>
+                <span class="text-[10px] bg-purple-950 text-purple-300 border border-purple-800 px-2 py-0.5 rounded">All-Inclusive</span>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed font-mono bg-black/40 p-2.5 rounded-lg border border-slate-800">
+                Semua File Original High-Res (Google Drive) + Edit Tone Warna Pilihan (15-30 Foto) + Pengarahan Pose Ramah & Profesional
+              </p>
+              <p class="text-[11px] text-slate-500 mt-1.5 flex items-center gap-1">
+                <i data-lucide="info" class="w-3.5 h-3.5"></i>
+                Link Google Drive akses cepat siap diunduh selambatnya 2-3 hari kerja setelah sesi.
+              </p>
+            </div>
+
+            <!-- Durasi Sesi -->
+            <div>
+              <span class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2.5">
+                Durasi Sesi Foto <span class="text-rose-400">*</span>
+              </span>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                
+                <div>
+                  <input type="radio" id="durasi1" name="durasiFoto" value="1 Jam Sesi Foto" class="hidden custom-radio">
+                  <label for="durasi1" class="flex flex-col p-3 rounded-xl border border-slate-700 bg-slate-950 cursor-pointer transition-all hover:border-slate-500 text-center">
+                    <span class="font-bold text-xs sm:text-sm text-white">1 Jam</span>
+                    <span class="text-[11px] text-slate-400 mt-0.5">Quick & Compact</span>
+                  </label>
+                </div>
+
+                <div>
+                  <input type="radio" id="durasi2" name="durasiFoto" value="2 Jam Sesi Foto (Paling Ideal)" class="hidden custom-radio" checked>
+                  <label for="durasi2" class="flex flex-col p-3 rounded-xl border border-slate-700 bg-slate-950 cursor-pointer transition-all hover:border-slate-500 text-center">
+                    <span class="font-bold text-xs sm:text-sm text-white">2 Jam Sesi</span>
+                    <span class="text-[11px] text-purple-400 mt-0.5 font-medium">Rekomendasi Terbaik</span>
+                  </label>
+                </div>
+
+                <div>
+                  <input type="radio" id="durasi3" name="durasiFoto" value="Full Sesi / Sesuai Rundown Acara" class="hidden custom-radio">
+                  <label for="durasi3" class="flex flex-col p-3 rounded-xl border border-slate-700 bg-slate-950 cursor-pointer transition-all hover:border-slate-500 text-center">
+                    <span class="font-bold text-xs sm:text-sm text-white">Full Sesi</span>
+                    <span class="text-[11px] text-slate-400 mt-0.5">Ikuti Rundown</span>
+                  </label>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Tanggal & Jam Sesi -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+              
+              <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+                <label class="block text-xs font-semibold text-purple-400 uppercase tracking-wider mb-1 flex items-center gap-1">
+                  <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+                  Tanggal Sesi <span class="text-rose-400">*</span>
+                </label>
+                <input 
+                  type="date" 
+                  id="tglSesi" 
+                  name="tglSesi"
+                  required
+                  class="w-full mt-1 px-2.5 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-white focus:outline-none focus:border-purple-500"
+                />
+              </div>
+
+              <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+                <label class="block text-xs font-semibold text-purple-400 uppercase tracking-wider mb-1 flex items-center gap-1">
+                  <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+                  Jam Mulai <span class="text-rose-400">*</span>
+                </label>
+                <input 
+                  type="time" 
+                  id="jamMulai" 
+                  name="jamMulai"
+                  required
+                  value="10:00"
+                  class="w-full mt-1 px-2.5 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-white focus:outline-none focus:border-purple-500"
+                />
+              </div>
+
+              <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+                <label class="block text-xs font-semibold text-purple-400 uppercase tracking-wider mb-1 flex items-center gap-1">
+                  <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+                  Estimasi Selesai <span class="text-rose-400">*</span>
+                </label>
+                <input 
+                  type="time" 
+                  id="jamSelesai" 
+                  name="jamSelesai"
+                  required
+                  value="12:00"
+                  class="w-full mt-1 px-2.5 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-white focus:outline-none focus:border-purple-500"
+                />
+              </div>
+
+            </div>
+
+          </div>
+        </section>
+
+        <!-- CARD 3: Lokasi Sesi & Estimasi Peserta -->
+        <section class="bg-slate-900/80 backdrop-blur-md border border-slate-800/90 rounded-2xl p-5 sm:p-7 shadow-xl shadow-black/40">
+          <div class="flex items-center gap-3 pb-4 mb-4 border-b border-slate-800">
+            <div class="w-9 h-9 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-sm">
+              3
+            </div>
+            <div>
+              <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                <i data-lucide="map-pin" class="w-5 h-5 text-purple-400"></i>
+                Lokasi Pemotretan & Jumlah Orang
+              </h2>
+              <p class="text-xs text-slate-400">Tentukan tempat dan estimasi anggota yang ikut dalam sesi foto</p>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            
+            <!-- Tipe Lokasi -->
+            <div>
+              <span class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                Kategori Lokasi Foto <span class="text-rose-400">*</span>
+              </span>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                <div>
+                  <input type="radio" id="lokKampus" name="tipeLokasi" value="Area Kampus / Gedung Acara Wisuda" class="hidden custom-radio" checked>
+                  <label for="lokKampus" class="flex flex-col p-2.5 rounded-xl border border-slate-700 bg-slate-950 cursor-pointer transition-all hover:border-slate-500 text-center">
+                    <span class="font-bold text-xs text-white">Area Kampus</span>
+                    <span class="text-[11px] text-slate-400">Gedung / Spot Ikonik</span>
+                  </label>
+                </div>
+                <div>
+                  <input type="radio" id="lokStudio" name="tipeLokasi" value="Studio Foto (Indoor)" class="hidden custom-radio">
+                  <label for="lokStudio" class="flex flex-col p-2.5 rounded-xl border border-slate-700 bg-slate-950 cursor-pointer transition-all hover:border-slate-500 text-center">
+                    <span class="font-bold text-xs text-white">Studio Foto</span>
+                    <span class="text-[11px] text-slate-400">Indoor Lighting</span>
+                  </label>
+                </div>
+                <div>
+                  <input type="radio" id="lokOutdoor" name="tipeLokasi" value="Outdoor / Landmark Kota / Cafe" class="hidden custom-radio">
+                  <label for="lokOutdoor" class="flex flex-col p-2.5 rounded-xl border border-slate-700 bg-slate-950 cursor-pointer transition-all hover:border-slate-500 text-center">
+                    <span class="font-bold text-xs text-white">Outdoor Cafe</span>
+                    <span class="text-[11px] text-slate-400">Taman / Landmark</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Detail Titik Kumpul / Lokasi Spesifik -->
+            <div>
+              <label for="detailLokasi" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                Detail Lokasi & Titik Kumpul Spesifik <span class="text-rose-400">*</span>
+              </label>
+              <div class="relative">
+                <div class="absolute top-3 left-0 pl-3.5 pointer-events-none text-slate-500">
+                  <i data-lucide="navigation" class="w-4 h-4"></i>
+                </div>
+                <textarea 
+                  id="detailLokasi" 
+                  name="detailLokasi"
+                  rows="2"
+                  required
+                  placeholder="Contoh: Depan Grha Sabha Pramana UGM / Lobi Gedung Pusat / Studio Kencana" 
+                  class="w-full pl-10 pr-4 py-2.5 bg-slate-950 border border-slate-700/80 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-colors"
+                ></textarea>
+              </div>
+            </div>
+
+            <!-- Estimasi Jumlah Orang & Catatan Khusus -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="jumlahOrang" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                  Estimasi Jumlah Orang Ikut Foto
+                </label>
+                <div class="relative">
+                  <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
+                    <i data-lucide="users" class="w-4 h-4"></i>
+                  </div>
+                  <input 
+                    type="text" 
+                    id="jumlahOrang" 
+                    name="jumlahOrang"
+                    placeholder="Contoh: 4 - 6 Orang (Keluarga)" 
+                    class="w-full pl-10 pr-4 py-2.5 bg-slate-950 border border-slate-700/80 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 transition-colors"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label for="requestKhusus" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                  Request Pose / Konsep Khusus
+                </label>
+                <div class="relative">
+                  <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
+                    <i data-lucide="palette" class="w-4 h-4"></i>
+                  </div>
+                  <input 
+                    type="text" 
+                    id="requestKhusus" 
+                    name="requestKhusus"
+                    placeholder="Contoh: Pose candid, bawa buket bunga besar" 
+                    class="w-full pl-10 pr-4 py-2.5 bg-slate-950 border border-slate-700/80 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 transition-colors"
+                  />
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- CARD 4: Skema Pembayaran & Ketentuan Booking -->
+        <section class="bg-slate-900/80 backdrop-blur-md border border-slate-800/90 rounded-2xl p-5 sm:p-7 shadow-xl shadow-black/40">
+          <div class="flex items-center gap-3 pb-4 mb-4 border-b border-slate-800">
+            <div class="w-9 h-9 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-sm">
+              4
+            </div>
+            <div>
+              <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                <i data-lucide="wallet" class="w-5 h-5 text-purple-400"></i>
+                Komitmen Booking & Pembayaran
+              </h2>
+              <p class="text-xs text-slate-400">Kunci tanggal & jam fotografer khusus untuk hari kelulusan Anda</p>
+            </div>
+          </div>
+
+          <!-- Opsi Skema Pembayaran -->
+          <div class="space-y-3 mb-4">
+            <span class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
+              Pilihan Pembayaran <span class="text-rose-400">*</span>
+            </span>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              
+              <div>
+                <input type="radio" id="bayarDP" name="skemaBayar" value="DP Lock Jadwal Rp 50.000 (Pelunasan H-1 / Pasca Sesi)" class="hidden custom-radio" checked>
+                <label for="bayarDP" class="flex flex-col p-3.5 rounded-xl border border-slate-700 bg-slate-950 cursor-pointer transition-all hover:border-slate-500">
+                  <div class="flex items-center justify-between">
+                    <span class="font-bold text-sm text-white">DP Lock Jadwal</span>
+                    <span class="text-xs font-bold text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded">Rp 50.000</span>
+                  </div>
+                  <span class="text-xs text-slate-400 mt-1">Mengikat tanggal & jam fotografer. Sisa pelunasan dibayar H-1 atau setelah sesi selesai.</span>
+                </label>
+              </div>
+
+              <div>
+                <input type="radio" id="bayarLunas" name="skemaBayar" value="Pembayaran Penuh / Langsung Lunas (Full Payment)" class="hidden custom-radio">
+                <label for="bayarLunas" class="flex flex-col p-3.5 rounded-xl border border-slate-700 bg-slate-950 cursor-pointer transition-all hover:border-slate-500">
+                  <div class="flex items-center justify-between">
+                    <span class="font-bold text-sm text-white">Langsung Lunas</span>
+                    <span class="text-xs font-bold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded">Full Payment</span>
+                  </div>
+                  <span class="text-xs text-slate-400 mt-1">Selesai sekali bayar di awal, fokus menikmati prosesi dan momen wisuda tanpa ribet.</span>
+                </label>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Professional Terms Box -->
+          <div class="rounded-xl bg-slate-950/80 border border-slate-800 p-4 text-xs text-slate-300 space-y-2">
+            <div class="font-bold text-amber-400 flex items-center gap-1.5">
+              <i data-lucide="alert-triangle" class="w-4 h-4"></i>
+              Ketentuan Sesi & Komitmen Jadwal:
+            </div>
+            <ul class="list-disc list-inside space-y-1 text-slate-400 pl-1 text-[11px] sm:text-xs">
+              <li>Jadwal fotografer <strong>resmi terkunci</strong> setelah transfer DP Rp 50.000 atau pelunasan terkonfirmasi.</li>
+              <li>Fotografer hadir di titik kumpul lokasi 15 menit sebelum jam sesi dimulai.</li>
+              <li>Jika terjadi penundaan jam dari pihak wisudawan, durasi pemotretan tetap berjalan sesuai jadwal yang disepakati demi menjaga jadwal sesi wisudawan berikutnya.</li>
+              <li>DP tidak dapat ditarik kembali jika terjadi pembatalan sepihak oleh klien, namun perubahan jam dapat didiskusikan sesuai ketersediaan slot fotografer.</li>
+            </ul>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Right Column: Live Order Preview & Direct Send (5 cols) -->
+      <div class="lg:col-span-5 lg:sticky lg:top-8 space-y-4">
+        
+        <div class="bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-2xl shadow-black/50">
+          
+          <div class="flex items-center justify-between pb-3.5 mb-4 border-b border-slate-800">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-purple-400 animate-pulse"></span>
+              <h3 class="font-bold text-base text-white">Live Format Booking</h3>
+            </div>
+            <button 
+              type="button" 
+              id="btnReset" 
+              class="text-xs text-slate-400 hover:text-rose-400 flex items-center gap-1 transition-colors px-2 py-1 rounded hover:bg-slate-800"
+              title="Reset Formulir"
+            >
+              <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+              Reset
+            </button>
+          </div>
+
+          <p class="text-xs text-slate-400 mb-3">
+            Berikut ringkasan teks otomatis yang akan dikirimkan langsung ke WhatsApp fotografer:
+          </p>
+
+          <!-- Text Preview Window -->
+          <div class="relative group">
+            <pre 
+              id="orderPreviewText" 
+              class="w-full bg-slate-950 text-slate-200 p-4 rounded-xl font-mono text-xs leading-relaxed whitespace-pre-wrap border border-slate-800 max-h-[400px] overflow-y-auto select-all"
+            >Memuat ringkasan booking wisuda...</pre>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="mt-5 space-y-3">
+            <!-- Send to WhatsApp -->
+            <button 
+              type="button" 
+              id="btnKirimWA" 
+              class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-lg shadow-purple-950/50 active:scale-[0.99] transition-all"
+            >
+              <i data-lucide="send" class="w-5 h-5"></i>
+              Kirim Format ke WhatsApp
+            </button>
+
+            <!-- Copy to Clipboard -->
+            <button 
+              type="button" 
+              id="btnSalin" 
+              class="w-full py-2.5 px-4 rounded-xl bg-slate-950 hover:bg-slate-850 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all active:scale-[0.99]"
+            >
+              <i data-lucide="copy" class="w-4 h-4"></i>
+              Salin Format Pesan
+            </button>
+          </div>
+
+          <p class="text-center text-[11px] text-slate-500 mt-3 flex items-center justify-center gap-1">
+            <i data-lucide="check-circle-2" class="w-3 h-3 text-purple-400"></i>
+            Format pesan otomatis terstruktur dan siap kirim
+          </p>
+
+        </div>
+
+        <!-- Help Info Card -->
+        <div class="bg-slate-900/60 border border-slate-800/80 rounded-xl p-4 text-xs text-slate-400 flex items-start gap-3">
+          <i data-lucide="camera" class="w-5 h-5 text-purple-400 shrink-0 mt-0.5"></i>
+          <div>
+            <div class="font-semibold text-slate-200 mb-0.5">Portofolio & Moodboard Foto</div>
+            <p>Admin dapat membagikan katalog pose referensi dan pilihan tone color grading setelah jadwal terkonfirmasi.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-14 pt-8 border-t border-slate-850 text-center text-xs text-slate-500">
+      <p>&copy; 2026 Fotonic Graduation Photography. All rights reserved.</p>
+      <p class="mt-1 text-[11px] text-slate-600">Sistem Format Booking Foto Wisuda Profesional & Terpercaya</p>
+    </footer>
+
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 hidden toast-anim bg-slate-900 border border-purple-500/50 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3">
+    <i data-lucide="check" class="w-5 h-5 text-purple-400"></i>
+    <span id="toastMsg" class="text-xs sm:text-sm font-medium">Format pesanan berhasil disalin!</span>
+  </div>
+
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Elements
+    const formFields = {
+      nama: document.getElementById('namaWisudawan'),
+      wa: document.getElementById('noWhatsapp'),
+      kampus: document.getElementById('asalKampus'),
+      tglSesi: document.getElementById('tglSesi'),
+      jamMulai: document.getElementById('jamMulai'),
+      jamSelesai: document.getElementById('jamSelesai'),
+      detailLokasi: document.getElementById('detailLokasi'),
+      jumlahOrang: document.getElementById('jumlahOrang'),
+      requestKhusus: document.getElementById('requestKhusus'),
+      adminPhone: document.getElementById('adminPhone')
+    };
+
+    const previewEl = document.getElementById('orderPreviewText');
+    const btnKirimWA = document.getElementById('btnKirimWA');
+    const btnSalin = document.getElementById('btnSalin');
+    const btnReset = document.getElementById('btnReset');
+    const toast = document.getElementById('toast');
+    const toastMsg = document.getElementById('toastMsg');
+
+    // Default dates (Next Saturday / Sunday)
+    const today = new Date();
+    const nextGradDay = new Date();
+    nextGradDay.setDate(today.getDate() + 7);
+
+    const formatDateVal = (d) => d.toISOString().split('T')[0];
+    formFields.tglSesi.value = formatDateVal(nextGradDay);
+
+    function formatTanggalIndo(dateStr) {
+      if (!dateStr) return "-";
+      const parts = dateStr.split('-');
+      if (parts.length !== 3) return dateStr;
+      const d = new Date(parts[0], parts[1] - 1, parts[2]);
+      return d.toLocaleDateString('id-ID', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    }
+
+    function getSelectedRadio(name) {
+      const el = document.querySelector(`input[name="${name}"]:checked`);
+      return el ? el.value : '-';
+    }
+
+    function generateOrderText() {
+      const nama = formFields.nama.value.trim() || '[Nama Wisudawan Belum Diisi]';
+      const wa = formFields.wa.value.trim() || '[No. WA Belum Diisi]';
+      const kampus = formFields.kampus.value.trim() || '[Asal Kampus Belum Diisi]';
+      const kategoriSesi = getSelectedRadio('kategoriSesi');
+
+      const paket = getSelectedRadio('paketFoto');
+      const fasilitas = 'Semua Softfile Original High-Res (Google Drive) + Edit Tone Warna Pilihan (15-30 Foto) + Pengarahan Pose Profesional';
+      
+      const tglSesiFormatted = formatTanggalIndo(formFields.tglSesi.value);
+      const jamMulai = formFields.jamMulai.value || '-';
+      const jamSelesai = formFields.jamSelesai.value || '-';
+      const durasi = getSelectedRadio('durasiFoto');
+
+      const tipeLokasi = getSelectedRadio('tipeLokasi');
+      const detailLokasi = formFields.detailLokasi.value.trim() || '[Detail Titik Lokasi Belum Diisi]';
+      const jumlahOrang = formFields.jumlahOrang.value.trim() || 'Wisudawan & Keluarga / Pendamping';
+      const request = formFields.requestKhusus.value.trim() || '-';
+
+      const skemaBayar = getSelectedRadio('skemaBayar');
+
+      const text = 
+`FORMAT BOOKING - FOTO WISUDA
+FOTONIC GRADUATION PHOTOGRAPHY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎓 DATA WISUDAWAN :
+• Nama Wisudawan : ${nama}
+• No. WhatsApp : ${wa}
+• Kampus / Fakultas : ${kampus}
+• Jenis Sesi : ${kategoriSesi}
+
+📸 DETAIL SESI PEMOTRETAN :
+• Paket Foto : ${paket}
+• Fasilitas Didapat : ${fasilitas}
+• Tanggal Sesi : ${tglSesiFormatted}
+• Waktu Sesi : Pukul ${jamMulai} - ${jamSelesai} WIB
+• Durasi : ${durasi}
+• Kategori Lokasi : ${tipeLokasi}
+• Detail Lokasi / Titik Kumpul : ${detailLokasi}
+• Estimasi Jumlah Orang : ${jumlahOrang}
+• Request Khusus / Konsep : ${request}
+
+💳 KOMITMEN PEMBAYARAN :
+• ${skemaBayar}
+
+⚠️ CATATAN :
+Klien memahami ketentuan DP Rp 50.000 / Pelunasan sebagai komitmen penguncian jadwal fotografer di hari wisuda. Fotografer akan standby di lokasi 15 menit sebelum waktu pemotretan.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Halo kak, mohon konfirmasi slot jadwal fotografer untuk tanggal & jam di atas ya. Terima kasih!`;
+
+      return text;
+    }
+
+    function updatePreview() {
+      const text = generateOrderText();
+      previewEl.textContent = text;
+    }
+
+    // Attach listeners
+    Object.values(formFields).forEach(field => {
+      field.addEventListener('input', updatePreview);
+      field.addEventListener('change', updatePreview);
+    });
+
+    document.querySelectorAll('input[type="radio"]').forEach(input => {
+      input.addEventListener('change', updatePreview);
+    });
+
+    // Show toast helper
+    function showToast(message) {
+      toastMsg.textContent = message;
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3000);
+    }
+
+    // Copy to clipboard
+    btnSalin.addEventListener('click', async () => {
+      const text = generateOrderText();
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast('Format booking berhasil disalin ke clipboard!');
+      } catch (err) {
+        // Fallback for clipboard
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        showToast('Format booking berhasil disalin!');
+      }
+    });
+
+    // Send to WhatsApp
+    btnKirimWA.addEventListener('click', () => {
+      if (!formFields.nama.value.trim()) {
+        alert('Mohon lengkapi Nama Lengkap Wisudawan terlebih dahulu.');
+        formFields.nama.focus();
+        return;
+      }
+      if (!formFields.kampus.value.trim()) {
+        alert('Mohon lengkapi Asal Kampus / Universitas.');
+        formFields.kampus.focus();
+        return;
+      }
+      if (!formFields.detailLokasi.value.trim()) {
+        alert('Mohon lengkapi Detail Lokasi atau Titik Kumpul Pemotretan.');
+        formFields.detailLokasi.focus();
+        return;
+      }
+
+      let phone = formFields.adminPhone.value.replace(/[^0-9]/g, '');
+      if (phone.startsWith('0')) {
+        phone = '62' + phone.substring(1);
+      }
+      if (!phone) {
+        phone = '6281234567890';
+      }
+
+      const text = generateOrderText();
+      const encoded = encodeURIComponent(text);
+      const url = `https://wa.me/${phone}?text=${encoded}`;
+      window.open(url, '_blank');
+    });
+
+    // Reset Form
+    btnReset.addEventListener('click', () => {
+      if (confirm('Apakah Anda yakin ingin mereset formulir ini?')) {
+        formFields.nama.value = '';
+        formFields.wa.value = '';
+        formFields.kampus.value = '';
+        formFields.detailLokasi.value = '';
+        formFields.jumlahOrang.value = '';
+        formFields.requestKhusus.value = '';
+        document.getElementById('sesiHariH').checked = true;
+        document.getElementById('pktPersonal').checked = true;
+        document.getElementById('durasi2').checked = true;
+        document.getElementById('lokKampus').checked = true;
+        document.getElementById('bayarDP').checked = true;
+        formFields.tglSesi.value = formatDateVal(nextGradDay);
+        formFields.jamMulai.value = '10:00';
+        formFields.jamSelesai.value = '12:00';
+        updatePreview();
+      }
+    });
+
+    // Initial render
+    updatePreview();
+  </script>
+</body>
+</html>

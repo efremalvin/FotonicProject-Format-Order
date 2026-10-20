@@ -1,0 +1,11 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/rental", "destination": "/rental-kamera/index.html" },
+    { "source": "/rental-kamera", "destination": "/rental-kamera/index.html" },
+    { "source": "/booking", "destination": "/booking-wisuda/index.html" },
+    { "source": "/booking-foto", "destination": "/booking-wisuda/index.html" },
+    { "source": "/booking-wisuda", "destination": "/booking-wisuda/index.html" },
+    { "source": "/", "destination": "/rental-kamera/index.html" }
+  ]
+}
