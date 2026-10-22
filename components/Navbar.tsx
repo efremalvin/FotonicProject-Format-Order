@@ -21,7 +21,7 @@ export default function Navbar() {
           
           {/* Brand Logo Header (Aperture + Serif Fotonic + Photo & Video Project) */}
           <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group">
-            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-stone-900 border border-stone-800 flex items-center justify-center p-1 group-hover:border-[#dfc488]/60 transition-colors shrink-0 overflow-hidden">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-stone-900 border border-stone-800 flex items-center justify-center p-1 group-hover:border-[#d6a350]/60 transition-colors shrink-0 overflow-hidden">
               <Image
                 src="/images/aperture-icon.png"
                 alt="Fotonic Aperture"
@@ -32,7 +32,7 @@ export default function Navbar() {
               />
             </div>
             <div className="flex flex-col text-left">
-              <span className="font-serif text-lg sm:text-xl font-bold text-white tracking-tight leading-none group-hover:text-[#dfc488] transition-colors">
+              <span className="font-serif text-lg sm:text-xl font-bold text-white tracking-tight leading-none group-hover:text-[#e5b869] transition-colors">
                 Fotonic
               </span>
               <span className="text-[8px] sm:text-[9px] uppercase tracking-[0.22em] text-stone-400 font-semibold mt-0.5 leading-none">
@@ -47,7 +47,7 @@ export default function Navbar() {
               href="/"
               className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
                 isHome
-                  ? 'bg-[#dfc488]/15 text-[#faedd4] border border-[#dfc488]/30 shadow-sm'
+                  ? 'bg-[#c89343]/15 text-[#f2cf83] border border-[#c89343]/40 shadow-sm'
                   : 'text-stone-400 hover:text-white hover:bg-stone-900/60'
               }`}
             >
@@ -59,8 +59,8 @@ export default function Navbar() {
               href="/sewa-kamera"
               className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
                 isSewa
-                  ? 'bg-[#6ee7b7]/15 text-[#86efac] border border-[#6ee7b7]/30 shadow-sm'
-                  : 'text-stone-400 hover:text-[#86efac] hover:bg-stone-900/60'
+                  ? 'bg-[#10b981]/15 text-[#34d399] border border-[#10b981]/40 shadow-sm'
+                  : 'text-stone-400 hover:text-[#34d399] hover:bg-stone-900/60'
               }`}
             >
               <Camera className="w-4 h-4" />
@@ -71,8 +71,8 @@ export default function Navbar() {
               href="/jasa-foto"
               className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
                 isFoto
-                  ? 'bg-[#dfc488]/15 text-[#faedd4] border border-[#dfc488]/30 shadow-sm'
-                  : 'text-stone-400 hover:text-[#dfc488] hover:bg-stone-900/60'
+                  ? 'bg-[#c89343]/15 text-[#f2cf83] border border-[#c89343]/40 shadow-sm'
+                  : 'text-stone-400 hover:text-[#e5b869] hover:bg-stone-900/60'
               }`}
             >
               <ImageIcon className="w-4 h-4" />
@@ -88,9 +88,9 @@ export default function Navbar() {
               {isSewa && (
                 <Link
                   href="/jasa-foto"
-                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#dfc488]/15 hover:bg-[#dfc488]/25 border border-[#dfc488]/40 text-[#faedd4] transition-all group"
+                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#c89343]/15 hover:bg-[#c89343]/25 border border-[#c89343]/45 text-[#f2cf83] transition-all group"
                 >
-                  <Sparkles className="w-3.5 h-3.5 text-[#dfc488]" />
+                  <Sparkles className="w-3.5 h-3.5 text-[#e5b869]" />
                   <span>Beralih ke Jasa Foto</span>
                   <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
                 </Link>
@@ -99,21 +99,21 @@ export default function Navbar() {
               {isFoto && (
                 <Link
                   href="/sewa-kamera"
-                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#6ee7b7]/15 hover:bg-[#6ee7b7]/25 border border-[#6ee7b7]/40 text-[#86efac] transition-all group"
+                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#10b981]/15 hover:bg-[#10b981]/25 border border-[#10b981]/45 text-[#34d399] transition-all group"
                 >
-                  <Camera className="w-3.5 h-3.5 text-[#6ee7b7]" />
+                  <Camera className="w-3.5 h-3.5 text-[#10b981]" />
                   <span>Beralih ke Sewa Kamera</span>
                   <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
                 </Link>
               )}
             </div>
 
-            {/* Instagram Circle Button (As in Image 1, NO WA ICON) */}
+            {/* Instagram Circle Button (NO WA ICON) */}
             <a
               href="https://instagram.com/fotonicproject"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-stone-900/90 hover:bg-stone-850 border border-stone-800 hover:border-stone-700 flex items-center justify-center text-stone-300 hover:text-white transition-all shadow-sm active:scale-95"
+              className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-stone-900/90 hover:bg-stone-850 border border-stone-800 hover:border-[#d6a350]/50 flex items-center justify-center text-stone-300 hover:text-white transition-all shadow-sm active:scale-95"
               aria-label="Instagram @fotonicproject"
               title="Instagram @fotonicproject"
             >
@@ -145,10 +145,10 @@ export default function Navbar() {
             href="/"
             onClick={() => setMobileMenuOpen(false)}
             className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs sm:text-sm font-semibold ${
-              isHome ? 'bg-[#dfc488]/15 text-[#faedd4] border border-[#dfc488]/30' : 'text-stone-300 hover:bg-stone-900'
+              isHome ? 'bg-[#c89343]/15 text-[#f2cf83] border border-[#c89343]/40' : 'text-stone-300 hover:bg-stone-900'
             }`}
           >
-            <Home className="w-4 h-4 text-[#dfc488]" />
+            <Home className="w-4 h-4 text-[#e5b869]" />
             Beranda Utama
           </Link>
 
@@ -156,10 +156,10 @@ export default function Navbar() {
             href="/sewa-kamera"
             onClick={() => setMobileMenuOpen(false)}
             className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs sm:text-sm font-semibold ${
-              isSewa ? 'bg-[#6ee7b7]/15 text-[#86efac] border border-[#6ee7b7]/30' : 'text-stone-300 hover:bg-stone-900'
+              isSewa ? 'bg-[#10b981]/15 text-[#34d399] border border-[#10b981]/40' : 'text-stone-300 hover:bg-stone-900'
             }`}
           >
-            <Camera className="w-4 h-4 text-[#6ee7b7]" />
+            <Camera className="w-4 h-4 text-[#10b981]" />
             Sewa Kamera &amp; Gear
           </Link>
 
@@ -167,10 +167,10 @@ export default function Navbar() {
             href="/jasa-foto"
             onClick={() => setMobileMenuOpen(false)}
             className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs sm:text-sm font-semibold ${
-              isFoto ? 'bg-[#dfc488]/15 text-[#faedd4] border border-[#dfc488]/30' : 'text-stone-300 hover:bg-stone-900'
+              isFoto ? 'bg-[#c89343]/15 text-[#f2cf83] border border-[#c89343]/40' : 'text-stone-300 hover:bg-stone-900'
             }`}
           >
-            <ImageIcon className="w-4 h-4 text-[#dfc488]" />
+            <ImageIcon className="w-4 h-4 text-[#e5b869]" />
             Jasa Foto &amp; Video
           </Link>
 
@@ -179,7 +179,7 @@ export default function Navbar() {
               <Link
                 href="/jasa-foto"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-[#dfc488] via-[#cca862] to-[#b89148] text-stone-950 shadow-md"
+                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-[#e7bd70] via-[#d6a350] to-[#be8638] text-stone-950 shadow-md"
               >
                 <Sparkles className="w-4 h-4" />
                 Beralih ke Jasa Foto ➜
@@ -189,7 +189,7 @@ export default function Navbar() {
               <Link
                 href="/sewa-kamera"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-[#86efac] via-[#6ee7b7] to-[#34d399] text-stone-950 shadow-md"
+                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-[#4ade80] via-[#10b981] to-[#059669] text-stone-950 shadow-md"
               >
                 <Camera className="w-4 h-4" />
                 Beralih ke Sewa Kamera ➜
