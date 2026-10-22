@@ -42,21 +42,28 @@ export default function JasaFotoPage() {
   const [whatsapp, setWhatsapp] = useState('');
   const [kampus, setKampus] = useState('');
 
-  // 24-Hour time options
-  const timeSlots24h = [
-    '06:00', '06:30', '07:00', '07:30', '08:00', '08:30',
-    '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
-    '12:00', '12:30', '13:00', '13:30', '14:00', '14:30',
-    '15:00', '15:30', '16:00', '16:30', '17:00', '17:30',
-    '18:00', '19:00', '20:00'
-  ];
+  // Local date helper
+  const getTodayStr = () => {
+    const d = new Date();
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  const todayStr = getTodayStr();
 
   // Date & Session
-  const defaultDate = new Date();
-  defaultDate.setDate(defaultDate.getDate() + 7);
-  const defaultDateStr = defaultDate.toISOString().split('T')[0];
+  const getDefaultDateStr = () => {
+    const d = new Date();
+    d.setDate(d.getDate() + 7);
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
 
-  const [tanggalSesi, setTanggalSesi] = useState(defaultDateStr);
+  const [tanggalSesi, setTanggalSesi] = useState(getDefaultDateStr());
   const [jamSesi, setJamSesi] = useState('09:00');
   const [lokasiTipe, setLokasiTipe] = useState('Area Kampus / Gedung Acara');
   const [lokasiDetail, setLokasiDetail] = useState('');
@@ -595,7 +602,7 @@ ${addOnListText}
                 />
               </div>
 
-              {/* Tanggal & Jam (24-Hour Selector) */}
+              {/* Tanggal & Jam */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className="p-2.5 bg-stone-950 rounded-xl border border-stone-800 space-y-1.5 min-w-0">
                   <span className="text-[11px] font-bold text-[#e5b869] uppercase tracking-wider flex items-center gap-1">
@@ -604,8 +611,10 @@ ${addOnListText}
                   </span>
                   <input
                     type="date"
+                    min={todayStr}
                     value={tanggalSesi}
                     onChange={(e) => setTanggalSesi(e.target.value)}
+                    style={{ colorScheme: 'dark' }}
                     className="w-full px-2 py-1.5 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white focus:outline-none focus:border-[#d6a350]"
                   />
                 </div>
@@ -613,17 +622,15 @@ ${addOnListText}
                 <div className="p-2.5 bg-stone-950 rounded-xl border border-stone-800 space-y-1.5 min-w-0">
                   <span className="text-[11px] font-bold text-[#e5b869] uppercase tracking-wider flex items-center gap-1">
                     <Clock className="w-3.5 h-3.5 shrink-0" />
-                    <span>Jam Mulai (24 Jam WIB)</span> <span className="text-rose-400">*</span>
+                    <span>Jam Mulai (WIB)</span> <span className="text-rose-400">*</span>
                   </span>
-                  <select
+                  <input
+                    type="time"
                     value={jamSesi}
                     onChange={(e) => setJamSesi(e.target.value)}
-                    className="w-full px-2 py-1.5 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white focus:outline-none focus:border-[#d6a350] cursor-pointer"
-                  >
-                    {timeSlots24h.map(t => (
-                      <option key={t} value={t}>Pukul {t} WIB</option>
-                    ))}
-                  </select>
+                    style={{ colorScheme: 'dark' }}
+                    className="w-full px-2 py-1.5 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white focus:outline-none focus:border-[#d6a350]"
+                  />
                 </div>
               </div>
 

@@ -18,18 +18,26 @@ export default function SewaKameraPage() {
   const [selectedPackageId, setSelectedPackageId] = useState('paket-komplit');
   const [singleLensChoice, setSingleLensChoice] = useState('Lensa Kit 16-50mm (Serbaguna/Vlog)');
 
-  // 24-Hour time options list
-  const timeSlots24h = [
-    '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00',
-    '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00',
-    '20:00', '21:00', '22:00'
-  ];
+  // Local date helper
+  const getTodayStr = () => {
+    const d = new Date();
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
 
-  // Dates & hours (24h)
-  const todayStr = new Date().toISOString().split('T')[0];
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  const tomorrowStr = tomorrow.toISOString().split('T')[0];
+  const getTomorrowStr = () => {
+    const d = new Date();
+    d.setDate(d.getDate() + 1);
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  const todayStr = getTodayStr();
+  const tomorrowStr = getTomorrowStr();
 
   const [tanggalAmbil, setTanggalAmbil] = useState(todayStr);
   const [jamAmbil, setJamAmbil] = useState('08:00');
@@ -105,9 +113,9 @@ export default function SewaKameraPage() {
       tarifTotal: grandTotal,
       skemaBayar: paymentText,
       tanggalAmbil,
-      jamAmbil: `${jamAmbil} WIB`,
+      jamAmbil: jamAmbil,
       tanggalKembali,
-      jamKembali: `${jamKembali} WIB`,
+      jamKembali: jamKembali,
       opsiPengantaran: `${selectedDelivery.label} (${selectedDelivery.note})`,
       sistemPengembalian: sistemKembali,
       jaminanIdentitas: `${jaminanIdentitas} (Wajib diserahkan fisik asli saat serah terima)`,
@@ -142,7 +150,7 @@ FOTONIC EQUIPMENT RENTAL
 • Pengantaran : ${selectedDelivery.label}
 • Pengembalian : ${sistemKembali}
 
-🗓️ JADWAL SEWA (FORMAT 24 JAM) :
+🗓️ JADWAL SEWA :
 • Pengambilan : ${tanggalAmbil} (${jamAmbil} WIB)
 • Pengembalian : ${tanggalKembali} (${jamKembali} WIB)
 
@@ -413,7 +421,7 @@ FOTONIC EQUIPMENT RENTAL
             </div>
           </section>
 
-          {/* SECTION 3: Data Penyewa & Jadwal (24 JAM) */}
+          {/* SECTION 3: Data Penyewa & Jadwal */}
           <section className="bg-stone-900/80 border border-stone-800 rounded-2xl p-4 sm:p-6 shadow-xl">
             <div className="flex items-center gap-2.5 pb-3.5 mb-4 border-b border-stone-800">
               <div className="w-8 h-8 rounded-lg bg-[#10b981]/15 text-[#34d399] flex items-center justify-center font-bold text-xs border border-[#10b981]/30">
@@ -422,9 +430,9 @@ FOTONIC EQUIPMENT RENTAL
               <div>
                 <h2 className="text-base font-bold text-white flex items-center gap-2">
                   <Calendar className="w-4 h-4 text-[#10b981]" />
-                  Data Penyewa &amp; Jadwal Sewa (Format 24 Jam)
+                  Data Penyewa &amp; Jadwal Sewa
                 </h2>
-                <p className="text-[11px] text-stone-400">Isi data identitas dan pilih jam pemesanan format 24 jam</p>
+                <p className="text-[11px] text-stone-400">Isi data identitas dan tentukan jadwal sewa alat</p>
               </div>
             </div>
 
@@ -485,53 +493,59 @@ FOTONIC EQUIPMENT RENTAL
                 </div>
               </div>
 
-              {/* Jadwal Ambil & Kembali dalam Format 24 Jam */}
+              {/* Jadwal Ambil & Kembali */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
                 <div className="p-2.5 bg-stone-950 rounded-xl border border-stone-800 space-y-1.5">
                   <span className="text-[11px] font-bold text-[#34d399] uppercase tracking-wider flex items-center gap-1">
                     <Clock className="w-3 h-3 text-[#10b981]" />
-                    Waktu Pengambilan (24 Jam)
+                    Waktu Pengambilan
                   </span>
                   <div className="grid grid-cols-2 gap-2">
                     <input
                       type="date"
+                      min={todayStr}
                       value={tanggalAmbil}
-                      onChange={(e) => setTanggalAmbil(e.target.value)}
-                      className="w-full px-2 py-1.5 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white"
+                      onChange={(e) => {
+                        const newAmbil = e.target.value;
+                        setTanggalAmbil(newAmbil);
+                        if (tanggalKembali && newAmbil > tanggalKembali) {
+                          setTanggalKembali(newAmbil);
+                        }
+                      }}
+                      style={{ colorScheme: 'dark' }}
+                      className="w-full px-2 py-1.5 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white focus:outline-none focus:border-[#10b981]"
                     />
-                    <select
+                    <input
+                      type="time"
                       value={jamAmbil}
                       onChange={(e) => setJamAmbil(e.target.value)}
-                      className="w-full px-2 py-1.5 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white cursor-pointer"
-                    >
-                      {timeSlots24h.map(t => (
-                        <option key={t} value={t}>{t} WIB</option>
-                      ))}
-                    </select>
+                      style={{ colorScheme: 'dark' }}
+                      className="w-full px-2 py-1.5 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white focus:outline-none focus:border-[#10b981]"
+                    />
                   </div>
                 </div>
 
                 <div className="p-2.5 bg-stone-950 rounded-xl border border-stone-800 space-y-1.5">
                   <span className="text-[11px] font-bold text-[#34d399] uppercase tracking-wider flex items-center gap-1">
                     <Clock className="w-3 h-3 text-[#10b981]" />
-                    Waktu Pengembalian (24 Jam)
+                    Waktu Pengembalian
                   </span>
                   <div className="grid grid-cols-2 gap-2">
                     <input
                       type="date"
+                      min={tanggalAmbil || todayStr}
                       value={tanggalKembali}
                       onChange={(e) => setTanggalKembali(e.target.value)}
-                      className="w-full px-2 py-1.5 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white"
+                      style={{ colorScheme: 'dark' }}
+                      className="w-full px-2 py-1.5 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white focus:outline-none focus:border-[#10b981]"
                     />
-                    <select
+                    <input
+                      type="time"
                       value={jamKembali}
                       onChange={(e) => setJamKembali(e.target.value)}
-                      className="w-full px-2 py-1.5 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white cursor-pointer"
-                    >
-                      {timeSlots24h.map(t => (
-                        <option key={t} value={t}>{t} WIB</option>
-                      ))}
-                    </select>
+                      style={{ colorScheme: 'dark' }}
+                      className="w-full px-2 py-1.5 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white focus:outline-none focus:border-[#10b981]"
+                    />
                   </div>
                 </div>
               </div>

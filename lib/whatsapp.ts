@@ -83,7 +83,7 @@ ${addOnsText}
 
 🗓️ JADWAL & LOKASI PEMOTRETAN :
 • Tanggal Sesi : ${order.tanggalSesi || '-'}
-• Jam Sesi : Pukul ${order.jamSesi || '-'} WIB (Format 24 Jam)
+• Jam Sesi : Pukul ${order.jamSesi || '-'} WIB
 • Kategori Lokasi : ${order.lokasiTipe}
 • Titik Kumpul Spesifik : ${order.lokasiDetail || '-'}
 • Estimasi Jumlah Orang : ${order.jumlahOrang || '-'}
@@ -118,7 +118,7 @@ FOTONIC EQUIPMENT RENTAL
 • Unit Kamera / Lensa : ${order.detailUnit}
 • Kelengkapan Bawaan : ${order.aksesorisDefault}
 
-⏱️ DURASI & JADWAL SEWA (24 JAM) :
+⏱️ DURASI & JADWAL SEWA :
 • Opsi Durasi : ${order.durasiTipe}
 • Jadwal Pengambilan : ${order.tanggalAmbil} (Pukul ${order.jamAmbil} WIB)
 • Jadwal Pengembalian : ${order.tanggalKembali} (Pukul ${order.jamKembali} WIB)
