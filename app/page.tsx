@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Camera, Image as ImageIcon, ArrowRight, ShieldCheck, Sparkles, CheckCircle2, Clock, MapPin } from 'lucide-react';
 
 export default function HomePage() {
@@ -18,25 +19,18 @@ export default function HomePage() {
         {/* Simple & Clean Hero Header */}
         <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
           
-          {/* Brand Identity Header in Hero */}
+          {/* Official Brand Identity Header in Hero */}
           <div className="flex flex-col items-center justify-center mb-4">
-            <div className="w-12 h-12 rounded-full bg-stone-900/90 border border-stone-800 flex items-center justify-center p-2.5 mb-2 shadow-inner">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-full h-full text-stone-200">
-                <circle cx="12" cy="12" r="10" />
-                <line x1="14.31" y1="8" x2="20.05" y2="17.94" />
-                <line x1="9.69" y1="8" x2="21.17" y2="8" />
-                <line x1="7.38" y1="12" x2="13.12" y2="2.06" />
-                <line x1="9.69" y1="16" x2="3.95" y2="6.06" />
-                <line x1="14.31" y1="16" x2="2.83" y2="16" />
-                <line x1="16.62" y1="12" x2="10.88" y2="21.94" />
-              </svg>
+            <div className="relative h-14 sm:h-18 w-56 sm:w-64 flex items-center justify-center mb-1">
+              <Image
+                src="/images/fotonic-logo-official.png"
+                alt="Fotonic Photo & Video Project"
+                width={260}
+                height={85}
+                className="object-contain w-auto h-12 sm:h-16 drop-shadow-md"
+                priority
+              />
             </div>
-            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white tracking-tight leading-none">
-              Fotonic
-            </h2>
-            <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.25em] text-stone-400 font-semibold mt-1">
-              PHOTO &amp; VIDEO PROJECT
-            </span>
           </div>
 
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-stone-900 border border-stone-800 text-[11px] sm:text-xs text-[#faedd4] mb-3 shadow-sm">

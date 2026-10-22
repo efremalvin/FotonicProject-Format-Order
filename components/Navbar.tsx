@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Camera, Image as ImageIcon, Home, ArrowRight, Menu, X, Sparkles } from 'lucide-react';
 
@@ -20,17 +21,15 @@ export default function Navbar() {
           
           {/* Brand Logo Header (Aperture + Serif Fotonic + Photo & Video Project) */}
           <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group">
-            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-stone-900/90 border border-stone-800 flex items-center justify-center p-1.5 group-hover:border-[#dfc488]/60 transition-colors shrink-0">
-              {/* Camera Aperture SVG */}
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-full h-full text-stone-200 group-hover:text-[#dfc488] transition-colors">
-                <circle cx="12" cy="12" r="10" />
-                <line x1="14.31" y1="8" x2="20.05" y2="17.94" />
-                <line x1="9.69" y1="8" x2="21.17" y2="8" />
-                <line x1="7.38" y1="12" x2="13.12" y2="2.06" />
-                <line x1="9.69" y1="16" x2="3.95" y2="6.06" />
-                <line x1="14.31" y1="16" x2="2.83" y2="16" />
-                <line x1="16.62" y1="12" x2="10.88" y2="21.94" />
-              </svg>
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-stone-900 border border-stone-800 flex items-center justify-center p-1 group-hover:border-[#dfc488]/60 transition-colors shrink-0 overflow-hidden">
+              <Image
+                src="/images/aperture-icon.png"
+                alt="Fotonic Aperture"
+                width={36}
+                height={36}
+                className="w-full h-full object-contain"
+                priority
+              />
             </div>
             <div className="flex flex-col text-left">
               <span className="font-serif text-lg sm:text-xl font-bold text-white tracking-tight leading-none group-hover:text-[#dfc488] transition-colors">
