@@ -21,13 +21,13 @@ export default function HomePage() {
           
           {/* Official Brand Identity Header in Hero */}
           <div className="flex flex-col items-center justify-center mb-4 sm:mb-5">
-            <div className="relative h-32 sm:h-44 w-128 sm:w-160 flex items-center justify-center">
+            <div className="relative h-32 sm:h-auto w-128 sm:w-160 flex items-center justify-center">
               <Image
                 src="/images/fotonic-logo-official.png"
                 alt="Fotonic Photo & Video Project"
-                width={320}
-                height={105}
-                className="object-contain w-auto h-32 sm:h-44 drop-shadow-md"
+                width={1280}
+                height={420}
+                className="object-contain w-auto h-20 sm:h-40 drop-shadow-md"
                 priority
               />
             </div>
