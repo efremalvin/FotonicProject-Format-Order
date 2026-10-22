@@ -15,7 +15,7 @@ export interface FotoOrderData {
   spotFoto: string;
   editFoto: string;
   fasilitas: string[];
-  addOns: { name: string; price: number }[];
+  addOns: { name: string; price: number; count?: number }[];
   totalHarga: number;
   skemaBayar: string;
   tanggalSesi: string;
@@ -41,10 +41,9 @@ export interface RentalOrderData {
   jamAmbil: string;
   tanggalKembali: string;
   jamKembali: string;
-  sistemAmbil: string;
-  sistemKembali: string;
-  extraGear: { name: string; price: number }[];
-  jaminanIdentitas: string[];
+  opsiPengantaran: string;
+  sistemPengembalian: string;
+  jaminanIdentitas: string;
   aksesorisDefault: string;
 }
 
@@ -54,7 +53,11 @@ export function formatRupiah(num: number): string {
 
 export function generateFotoWhatsAppUrl(order: FotoOrderData): string {
   const addOnsText = order.addOns.length > 0
-    ? order.addOns.map(a => `• ${a.name} (${formatRupiah(a.price)})`).join('\n')
+    ? order.addOns.map(a => {
+        if (a.price === 0) return `• ${a.name} (Promo Free)`;
+        if (a.count && a.count > 1) return `• ${a.name} x${a.count} (${formatRupiah(a.price * a.count)})`;
+        return `• ${a.name} (${formatRupiah(a.price)})`;
+      }).join('\n')
     : 'Tidak ada (Paket Utama Saja)';
 
   const message = 
@@ -80,7 +83,7 @@ ${addOnsText}
 
 🗓️ JADWAL & LOKASI PEMOTRETAN :
 • Tanggal Sesi : ${order.tanggalSesi || '-'}
-• Jam Sesi : Pukul ${order.jamSesi || '-'} WIB
+• Jam Sesi : Pukul ${order.jamSesi || '-'} WIB (Format 24 Jam)
 • Kategori Lokasi : ${order.lokasiTipe}
 • Titik Kumpul Spesifik : ${order.lokasiDetail || '-'}
 • Estimasi Jumlah Orang : ${order.jumlahOrang || '-'}
@@ -91,7 +94,7 @@ ${addOnsText}
 • Skema Bayar : ${order.skemaBayar}
 
 ⚠️ CATATAN :
-Klien memahami ketentuan DP Rp 50.000 / Pelunasan sebagai penguncian slot jadwal fotografer resmi. Fotografer akan standby di lokasi 15 menit sebelum waktu pemotretan.
+Klien memahami ketentuan DP Rp 50.000 / Pelunasan sebagai penguncian slot jadwal fotografer resmi. Fotografer hadir 15 menit sebelum waktu pemotretan.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Halo kak, mohon konfirmasi slot fotografer untuk jadwal dan paket di atas ya. Terima kasih!`;
 
@@ -99,14 +102,6 @@ Halo kak, mohon konfirmasi slot fotografer untuk jadwal dan paket di atas ya. Te
 }
 
 export function generateRentalWhatsAppUrl(order: RentalOrderData): string {
-  const extraGearText = order.extraGear.length > 0
-    ? order.extraGear.map(g => `• ${g.name} (${formatRupiah(g.price)})`).join('\n')
-    : 'Tidak ada';
-
-  const jaminanText = order.jaminanIdentitas.length > 0
-    ? order.jaminanIdentitas.join(' & ')
-    : 'Belum dipilih (Wajib Bawa Asli Saat Serah Terima)';
-
   const message = 
 `FORMAT ORDER - SEWA KAMERA & GEAR
 FOTONIC EQUIPMENT RENTAL
@@ -120,27 +115,27 @@ FOTONIC EQUIPMENT RENTAL
 
 📸 DETAIL PERALATAN SEWA :
 • Paket Sewa : ${order.paketNama}
-• Unit Kamera/Lensa : ${order.detailUnit}
-• Aksesoris Bawaan : ${order.aksesorisDefault}
-• Tambahan Extra Gear :
-${extraGearText}
+• Unit Kamera / Lensa : ${order.detailUnit}
+• Kelengkapan Bawaan : ${order.aksesorisDefault}
 
-⏱️ DURASI & JADWAL SEWA :
-• Opsi Durasi : ${order.durasiTipe} (${order.durasiHari} Hari)
+⏱️ DURASI & JADWAL SEWA (24 JAM) :
+• Opsi Durasi : ${order.durasiTipe}
 • Jadwal Pengambilan : ${order.tanggalAmbil} (Pukul ${order.jamAmbil} WIB)
 • Jadwal Pengembalian : ${order.tanggalKembali} (Pukul ${order.jamKembali} WIB)
-• Sistem Pengambilan : ${order.sistemAmbil}
-• Sistem Pengembalian : ${order.sistemKembali}
+
+🚚 SISTEM PENGANTARAN & PENGEMBALIAN :
+• Pengantaran/Pengambilan : ${order.opsiPengantaran}
+• Sistem Pengembalian : ${order.sistemPengembalian}
 
 🪪 JAMINAN IDENTITAS (Wajib Bawa Fisik Asli) :
-• ${jaminanText}
+• ${order.jaminanIdentitas || 'Belum dipilih'}
 
 💰 TOTAL TARIF & PEMBAYARAN :
 • Total Biaya Sewa : ${formatRupiah(order.tarifTotal)}
 • Skema Pembayaran : ${order.skemaBayar}
 
 ⚠️ S&K RENTAL :
-Penyewa menyetujui S&K: Wajib menyerahkan identitas asli, DP untuk booking unit, toleransi keterlambatan 1–2 jam dengan info admin, dan bertanggung jawab penuh atas keutuhan alat selama masa sewa.
+Penyewa menyetujui S&K: Wajib menyerahkan 1 identitas fisik asli, DP Rp 50.000 untuk penguncian unit, dan bertanggung jawab penuh atas keutuhan alat selama masa sewa.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Halo admin Fotonic Rental, mohon konfirmasi ketersediaan alat dan nomor rekening untuk booking unit ya. Terima kasih!`;
 

@@ -1,96 +1,53 @@
 import React from 'react';
 import Link from 'next/link';
-import { Camera, Image, ShieldCheck, Clock, MapPin, Phone } from 'lucide-react';
+import { Camera, Image as ImageIcon, Phone } from 'lucide-react';
 import { ADMIN_WHATSAPP_DISPLAY, ADMIN_WHATSAPP_NUMBER } from '@/lib/whatsapp';
 
 export default function Footer() {
   return (
-    <footer className="mt-20 border-t border-slate-800/80 bg-slate-950/90 text-slate-400 text-xs sm:text-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 lg:gap-12">
+    <footer className="mt-14 sm:mt-20 border-t border-stone-850 bg-[#0a0807] text-stone-400 text-xs">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
           
-          {/* Brand Info */}
-          <div className="md:col-span-2 space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-500 to-purple-600 p-[1.5px]">
-                <div className="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
-                  <Camera className="w-4 h-4 text-emerald-400" />
-                </div>
-              </div>
-              <span className="font-extrabold text-xl text-white tracking-tight">FOTONIC</span>
+          {/* Brand & Tagline */}
+          <div className="space-y-1">
+            <div className="flex items-center justify-center sm:justify-start gap-2">
+              <span className="font-extrabold text-sm sm:text-base text-white tracking-tight">FOTONIC</span>
+              <span className="text-[10px] text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20 font-semibold">
+                Creative Studio & Equipment
+              </span>
             </div>
-            <p className="text-slate-400 text-xs sm:text-sm leading-relaxed max-w-md">
-              Creative studio & equipment rental terpercaya untuk mahasiswa dan kreator konten. Menyediakan sewa kamera mirrorless berkualitas dan jasa dokumentasi wisuda, seminar, serta momen berharga Anda dengan standar profesional.
+            <p className="text-[11px] text-stone-400">
+              Sewa Kamera Nikon Z50 Mark II & Jasa Foto Wisuda/Sidang Terpercaya.
             </p>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-300">
-              <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-              <span>Fast Response Admin WhatsApp: </span>
-              <a 
-                href={`https://wa.me/${ADMIN_WHATSAPP_NUMBER}`} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="text-emerald-400 font-bold font-mono hover:underline"
-              >
-                {ADMIN_WHATSAPP_DISPLAY}
-              </a>
-            </div>
           </div>
 
-          {/* Quick Links */}
-          <div className="space-y-3">
-            <h4 className="text-white font-bold text-xs uppercase tracking-wider">Layanan Utama</h4>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/sewa-kamera" className="flex items-center gap-2 hover:text-emerald-400 transition-colors">
-                  <Camera className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Rental Nikon Z50 Mark II</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/sewa-kamera" className="flex items-center gap-2 hover:text-emerald-400 transition-colors">
-                  <Camera className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Sewa Lensa Viltrox 35mm</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/jasa-foto" className="flex items-center gap-2 hover:text-purple-400 transition-colors">
-                  <Image className="w-3.5 h-3.5 text-purple-400" />
-                  <span>Foto Wisuda Single & Group</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/jasa-foto" className="flex items-center gap-2 hover:text-purple-400 transition-colors">
-                  <Image className="w-3.5 h-3.5 text-purple-400" />
-                  <span>Dokumentasi Sempro & Sidang</span>
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* S&K Ringkas */}
-          <div className="space-y-3">
-            <h4 className="text-white font-bold text-xs uppercase tracking-wider">Komitmen Pelayanan</h4>
-            <ul className="space-y-2 text-xs text-slate-400">
-              <li className="flex items-start gap-2">
-                <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                <span>Jaminan Identitas Asli (KTP / KTM) aman & transparan.</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <Clock className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />
-                <span>Fotografer hadir 15 menit sebelum waktu pemotretan.</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-teal-400 shrink-0 mt-0.5" />
-                <span>Melayani seluruh area kampus & spot fotografi Yogyakarta.</span>
-              </li>
-            </ul>
+          {/* Quick Links & WhatsApp */}
+          <div className="flex flex-wrap items-center justify-center gap-4 text-xs">
+            <Link href="/sewa-kamera" className="hover:text-emerald-400 transition-colors">
+              Sewa Kamera
+            </Link>
+            <span className="text-stone-700">•</span>
+            <Link href="/jasa-foto" className="hover:text-amber-400 transition-colors">
+              Jasa Foto
+            </Link>
+            <span className="text-stone-700">•</span>
+            <a 
+              href={`https://wa.me/${ADMIN_WHATSAPP_NUMBER}`} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-amber-400 font-mono font-bold hover:underline"
+            >
+              WA: {ADMIN_WHATSAPP_DISPLAY}
+            </a>
           </div>
 
         </div>
 
-        <div className="mt-12 pt-6 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-3 text-slate-500 text-xs">
-          <p>&copy; {new Date().getFullYear()} Fotonic Creative & Equipment. All rights reserved.</p>
-          <p className="text-[11px] text-slate-600">Built with Next.js App Router, Tailwind CSS & TypeScript</p>
+        {/* Copyright notice (Dipertahankan) */}
+        <div className="mt-6 pt-5 border-t border-stone-900/80 flex flex-col sm:flex-row items-center justify-between gap-2 text-stone-400 text-[11px]">
+          <p>&copy; {new Date().getFullYear()} Fotonic. All rights reserved.</p>
+          <p className="text-stone-400">Yogyakarta & Bandar Lampung (Area Kampus Unila)</p>
         </div>
       </div>
     </footer>

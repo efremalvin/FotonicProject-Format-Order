@@ -16,13 +16,6 @@ export interface FotoPackage {
   recommended?: boolean;
 }
 
-export interface FotoAddOn {
-  id: string;
-  name: string;
-  price: number;
-  description: string;
-}
-
 export const FOTO_CATEGORIES = [
   {
     id: 'Single Packet',
@@ -55,7 +48,7 @@ export const FOTO_PACKAGES: FotoPackage[] = [
     durationMinutes: 30,
     spots: '1 Spot Foto',
     editedPhotos: 5,
-    includes: ['All Files RAW & JPG via Google Drive', 'Pengarahan Pose Cepat'],
+    includes: ['All Files RAW & JPG via Google Drive'],
     description: 'Sesi kilat untuk portrait inti wisudawan personal.',
     badge: 'Kilat'
   },
@@ -68,7 +61,7 @@ export const FOTO_PACKAGES: FotoPackage[] = [
     durationMinutes: 60,
     spots: '3 Spot Foto',
     editedPhotos: 10,
-    includes: ['All Files RAW & JPG via Google Drive', 'Pengarahan Pose Santai & Natural'],
+    includes: ['All Files RAW & JPG via Google Drive'],
     description: 'Pilihan paling ideal untuk wisudawan solo bersama orang tua.',
     badge: 'Paling Populer',
     recommended: true
@@ -82,7 +75,7 @@ export const FOTO_PACKAGES: FotoPackage[] = [
     durationMinutes: 120,
     spots: '5 Spot Foto',
     editedPhotos: 15,
-    includes: ['All Files RAW & JPG via Google Drive', 'Eksplorasi Spot Kampus Bebas'],
+    includes: ['All Files RAW & JPG via Google Drive'],
     description: 'Waktu leluasa untuk foto portrait wisudawan di berbagai sudut kampus.',
     badge: 'Best Value'
   },
@@ -139,7 +132,7 @@ export const FOTO_PACKAGES: FotoPackage[] = [
     durationMinutes: 30,
     spots: '1 Spot Foto',
     editedPhotos: 10,
-    includes: ['All Files RAW & JPG via Google Drive', 'Selebrasi Kelulusan Sidang'],
+    includes: ['All Files RAW & JPG via Google Drive'],
     description: 'Foto selebrasi kilat seusai yudisium, sempro, atau sidang.',
     badge: 'Hemat'
   },
@@ -152,7 +145,7 @@ export const FOTO_PACKAGES: FotoPackage[] = [
     durationMinutes: 90,
     spots: '3 Spot Foto',
     editedPhotos: 15,
-    includes: ['All Files RAW & JPG via Google Drive', 'Foto Bareng Dosen & Teman'],
+    includes: ['All Files RAW & JPG via Google Drive'],
     description: 'Liputan lengkap momen bersama dosen penguji, pembimbing, dan teman satu angkatan.',
     badge: 'Rekomendasi',
     recommended: true
@@ -166,43 +159,14 @@ export const FOTO_PACKAGES: FotoPackage[] = [
     durationMinutes: 120,
     spots: '5 Spot Foto',
     editedPhotos: 20,
-    includes: ['All Files RAW & JPG via Google Drive', 'Liputan Menyeluruh'],
+    includes: ['All Files RAW & JPG via Google Drive'],
     description: 'Dokumentasi maksimal dari prosesi pengumuman hasil hingga selebrasi luar gedung.',
     badge: 'Full Sesi'
   }
 ];
 
-export const FOTO_ADDONS: FotoAddOn[] = [
-  {
-    id: 'reels-video',
-    name: 'Cinematic Reels / TikTok Video',
-    price: 50000,
-    description: 'Shot pendek di sela sesi, video vertikal estetis hasil edit maks 1 menit.'
-  },
-  {
-    id: 'xtra-1',
-    name: 'Xtra Edited 1 Foto',
-    price: 10000,
-    description: 'Tambahan 1 foto pilihan ber-color grading khusus.'
-  },
-  {
-    id: 'xtra-5',
-    name: 'Xtra Edited 5 Foto (Hemat)',
-    price: 40000,
-    description: 'Paket hemat tambahan 5 foto pilihan ber-color grading khusus.'
-  },
-  {
-    id: 'express-edit',
-    name: 'Express Edit (One Day Service 1x24 Jam)',
-    price: 200000,
-    description: 'Layanan kilat prioritas: hasil foto edit selesai 1x24 jam setelah pemilihan foto.'
-  }
-];
-
 export const FOTO_BOOKING_RULES = {
   dpAmount: 50000,
-  arrivalBuffer: 'Fotografer standby di lokasi 15 menit sebelum jam pemotretan.',
-  googleDriveDuration: 'Google Drive aktif dapat diunduh kapan saja.',
   terms: [
     'Jadwal fotografer resmi terkunci setelah pembayaran DP Rp 50.000 atau pelunasan.',
     'Fotografer hadir di titik kumpul 15 menit sebelum jam sesi dimulai.',
@@ -210,3 +174,45 @@ export const FOTO_BOOKING_RULES = {
     'DP tidak dapat di-refund jika pembatalan sepihak, namun dapat reschedule sesuai ketersediaan slot.'
   ]
 };
+
+export interface FotoAddon {
+  id: string;
+  name: string;
+  price: number;
+  description: string;
+  badge?: string;
+  isPromoFree?: boolean;
+  canIncrement?: boolean;
+}
+
+export const FOTO_ADDONS: FotoAddon[] = [
+  {
+    id: 'cinematic-reels',
+    name: 'Cinematic Reels / TikTok Video',
+    price: 0,
+    description: 'Shot video vertikal 1 menit, cinematic slow-motion di sela sesi pemotretan.',
+    badge: 'PROMO FREE',
+    isPromoFree: true
+  },
+  {
+    id: 'extra-edit-1',
+    name: 'Xtra Edited 1 Foto',
+    price: 10000,
+    description: 'Tambahan 1 foto pilihan untuk diedit profesional (tone color & retouching).',
+    canIncrement: true
+  },
+  {
+    id: 'extra-edit-5',
+    name: 'Xtra Edited 5 Foto',
+    price: 40000,
+    description: 'Paket hemat 5 foto tambahan diedit profesional (hemat Rp 10.000).',
+    canIncrement: true
+  },
+  {
+    id: 'express-edit',
+    name: 'Express Edit (One Day Service)',
+    price: 50000,
+    description: 'Hasil foto editan final diserahkan 1x24 jam setelah klien memilih nomor foto.',
+    badge: '1x24 Jam'
+  }
+];

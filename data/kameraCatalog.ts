@@ -17,21 +17,13 @@ export interface KameraPackage {
   lensOptions?: string[];
 }
 
-export interface ExtraGear {
-  id: string;
-  name: string;
-  pricePerDay: number;
-  category: 'Tripod' | 'Lighting' | 'Power & Storage';
-  description: string;
-}
-
 export const KAMERA_PACKAGES: KameraPackage[] = [
   {
     id: 'paket-komplit',
     name: '1. PAKET KOMPLIT (Best Value!)',
     category: 'Paket Kamera + Lensa',
     badge: 'Best Value 🔥',
-    description: 'Body Nikon Z50 Mark II + Lensa Kit 16-50mm + Lensa Fix Viltrox 35mm f/1.7',
+    description: 'Bodi Nikon Z50 Mark II + Lensa Kit 16-50mm + Lensa Fix Viltrox 35mm f/1.7',
     includesText: 'Bodi Kamera + 2 Lensa Sekaligus (Sudut Lebar & Bokeh Tajam)',
     pricing: {
       shortTime: 90000,
@@ -44,8 +36,8 @@ export const KAMERA_PACKAGES: KameraPackage[] = [
     name: '2. PAKET SINGLE LENS',
     category: 'Paket Kamera + Lensa',
     badge: 'Paling Populer',
-    description: 'Body Nikon Z50 Mark II + Pilih 1 Lensa (Kit 16-50mm ATAU Viltrox 35mm f/1.7)',
-    includesText: 'Bodi Kamera + 1 Lensa Sesuai Pilihan Anda',
+    description: 'Bodi Nikon Z50 Mark II + Pilih 1 Lensa (Kit 16-50mm ATAU Viltrox 35mm f/1.7)',
+    includesText: 'Bodi Kamera + 1 Lensa Pilihan',
     pricing: {
       shortTime: 65000,
       halfDay: 85000,
@@ -53,7 +45,7 @@ export const KAMERA_PACKAGES: KameraPackage[] = [
     },
     hasLensChoice: true,
     lensOptions: [
-      'Lensa Kit 16-50mm (Serbaguna/Vlog/Landscape)',
+      'Lensa Kit 16-50mm (Serbaguna/Vlog)',
       'Lensa Fix Viltrox 35mm f/1.7 (Bokeh Portrait Estetis)'
     ]
   },
@@ -63,7 +55,7 @@ export const KAMERA_PACKAGES: KameraPackage[] = [
     category: 'Lensa Saja',
     badge: 'Lensa Saja',
     description: 'Viltrox Air 35mm f/1.7 (Nikon Z Mount)',
-    includesText: 'Lensa Viltrox 35mm f/1.7 saja bagi yang sudah memiliki bodi Nikon Z Mount',
+    includesText: 'Hanya Lensa Viltrox 35mm f/1.7 bagi yang sudah memiliki bodi Nikon Z Mount',
     pricing: {
       shortTime: 25000,
       halfDay: 35000,
@@ -74,60 +66,50 @@ export const KAMERA_PACKAGES: KameraPackage[] = [
 
 export const STANDARD_ACCESSORIES = [
   '2x Baterai Kamera',
-  'SD Card Lexar 32GB High-Speed',
-  'Kabel Type-C to C',
-  'Card Reader OTG',
-  'Strap Kamera Nyaman',
-  '1x Lap Microfiber Pembersih',
-  'Tas Kamera Protektif'
+  'Kartu Memori SD Lexar 32GB Kecepatan Tinggi',
+  'Kabel Data Tipe-C ke Tipe-C',
+  'Pembaca Kartu Memori (Card Reader OTG)',
+  'Tali Gantungan Kamera (Strap)',
+  '1x Kain Lap Pembersih Microfiber',
+  'Tas Pelindung Kamera'
 ];
 
-export const EXTRA_GEAR_ADDONS: ExtraGear[] = [
+export const DELIVERY_OPTIONS = [
   {
-    id: 'gear-tripod',
-    name: 'Tripod Kamera Kokoh',
-    pricePerDay: 20000,
-    category: 'Tripod',
-    description: 'Tripod aluminium stabil untuk foto grup, landscape, atau video stabil.'
+    id: 'ambil-sendiri',
+    label: 'Ambil Sendiri di Tempat Rental',
+    fee: 0,
+    note: 'Gratis (Langsung ke lokasi penyedia rental)'
   },
   {
-    id: 'gear-led',
-    name: 'Mini LED On-Camera Light',
-    pricePerDay: 20000,
-    category: 'Lighting',
-    description: 'Lampu LED portabel bi-color dengan pengaturan intensitas cahaya.'
+    id: 'antar-unila',
+    label: 'Antar ke Area Kampus Unila',
+    fee: 0,
+    note: 'Gratis (Free antar ke area dalam kampus Unila)'
   },
   {
-    id: 'gear-batt-extra',
-    name: 'Extra Baterai Cadangan (Baterai ke-3)',
-    pricePerDay: 15000,
-    category: 'Power & Storage',
-    description: 'Tambahan 1 unit baterai cadangan terisi penuh untuk sesi seharian.'
-  },
-  {
-    id: 'gear-sd-extra',
-    name: 'Extra SD Card Sandisk 64GB',
-    pricePerDay: 15000,
-    category: 'Power & Storage',
-    description: 'Penyimpanan cadangan 64GB ekstra cepat class 10.'
+    id: 'antar-luar-unila',
+    label: 'Antar ke Luar Area Kampus',
+    fee: 10000,
+    note: '+Rp 10.000 atau lebih tergantung jarak pengantaran'
   }
 ];
 
 export const RENTAL_RULES = [
   {
-    title: 'Jaminan Identitas Fisik Asli',
-    desc: 'Wajib menyerahkan identitas resmi asli (KTP / Kartu Mahasiswa KTM Aktif) selama masa sewa sebagai tanda jaminan keamanan.'
+    title: 'Jaminan Identitas Fisik Asli (Wajib 1)',
+    desc: 'Wajib menyerahkan salah satu identitas fisik asli (KTP Asli ATAU Kartu Mahasiswa KTM Asli) selama masa sewa sebagai tanda jaminan keamanan.'
   },
   {
     title: 'Hitungan Waktu Sewa',
-    desc: 'Hitungan 1 Hari adalah 24 jam penuh sejak serah terima alat. Tersedia pula opsi Setengah Hari (6–12 Jam) dan Short Time (Maks. 4 Jam).'
+    desc: 'Hitungan 1 Hari adalah 24 jam penuh sejak serah terima alat. Tersedia juga opsi Setengah Hari (6–12 Jam) dan Short Time (Maks. 4 Jam).'
   },
   {
     title: 'Uang Muka (DP) Booking Unit',
-    desc: 'DP sebesar Rp 20.000 – Rp 50.000 wajib dibayarkan untuk mengunci unit dan tanggal yang diinginkan.'
+    desc: 'DP sebesar Rp 50.000 wajib dibayarkan untuk mengunci unit dan tanggal yang diinginkan.'
   },
   {
-    title: 'Toleransi & Ketentuan Keterlambatan',
-    desc: 'Toleransi keterlambatan 1–2 jam bebas denda (wajib konfirmasi admin terlebih dahulu). Keterlambatan >2 jam tanpa konfirmasi dikenakan denda Rp 15.000 – Rp 20.000/jam.'
+    title: 'Pengantaran & Toleransi Waktu',
+    desc: 'Pengantaran area Unila gratis, luar Unila mulai Rp 10.000. Toleransi keterlambatan 1–2 jam bebas denda (wajib info admin lebih awal).'
   }
 ];
