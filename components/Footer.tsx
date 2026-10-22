@@ -4,19 +4,20 @@ import { ADMIN_WHATSAPP_NUMBER } from '@/lib/whatsapp';
 
 export default function Footer() {
   return (
-    <footer className="mt-16 sm:mt-24 border-t border-stone-900 bg-[#0a0908] py-10 sm:py-14 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+    <footer className="mt-16 sm:mt-24 border-t border-stone-900 bg-[#0a0908] py-10 sm:py-14">
+      {/* Container aligned with Header margins */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         
-        {/* Top row: Responsive (Mobile: column centered, Desktop: flex row between) */}
-        <div className="flex flex-col md:flex-row items-center md:items-center justify-between gap-6 md:gap-8 text-center md:text-left">
+        {/* Responsive Layout: Stacked on mobile, Left-Right Split on Desktop (md:) */}
+        <div className="flex flex-col md:flex-row items-center md:items-center justify-between gap-6 sm:gap-8">
           
-          {/* Left Column (Brand + Slogan + Location) */}
-          <div className="space-y-1.5">
+          {/* Left Block: Brand, Subtitle, Slogan & Location */}
+          <div className="text-center md:text-left space-y-1.5">
             <div>
-              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white tracking-tight">
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white tracking-tight leading-none">
                 Fotonic
               </h2>
-              <p className="text-[9px] sm:text-[10px] uppercase tracking-[0.25em] text-stone-400 font-semibold mt-0.5">
+              <p className="text-[9px] sm:text-[10px] uppercase tracking-[0.25em] text-stone-400 font-semibold mt-1">
                 PHOTO &amp; VIDEO PROJECT
               </p>
             </div>
@@ -24,21 +25,21 @@ export default function Footer() {
             <p className="italic text-xs sm:text-sm text-stone-300 font-serif pt-1">
               &ldquo;Capture your moment and tell your story&rdquo;
             </p>
-
-            <div className="flex items-center justify-center md:justify-start gap-1.5 text-xs text-[#e5b869] font-medium pt-0.5">
+            
+            <div className="inline-flex items-center gap-1.5 text-xs text-[#e5b869] font-medium pt-0.5">
               <MapPin className="w-3.5 h-3.5 text-[#e5b869]" />
               <span>Bandar Lampung &amp; Sekitarnya</span>
             </div>
           </div>
 
-          {/* Right Column: 2 Rounded Action Pill Buttons (Horizontal on Desktop, Stacked on Mobile) */}
-          <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto max-w-xs sm:max-w-none">
+          {/* Right Block: 2 Action Pill Buttons (Stacked on mobile, side-by-side on desktop) */}
+          <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto max-w-xs sm:max-w-none mx-auto md:mx-0">
             {/* Button 1: Reservasi Sekarang! */}
             <a
               href={`https://wa.me/${ADMIN_WHATSAPP_NUMBER}?text=Halo%20Fotonic%2C%20saya%20ingin%20reservasi%20%2F%20tanya%20layanan`}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-6 py-3 rounded-full bg-stone-900/90 hover:bg-stone-850 border border-stone-800 hover:border-[#10b981]/50 text-white text-xs sm:text-sm font-semibold transition-all group shadow-sm active:scale-[0.99] whitespace-nowrap"
+              className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-6 py-3 rounded-full bg-stone-900/90 hover:bg-stone-850 border border-stone-800 hover:border-[#10b981]/50 text-white text-xs sm:text-sm font-semibold transition-all group shadow-sm active:scale-[0.99] shrink-0"
             >
               {/* WhatsApp Icon */}
               <svg className="w-4 h-4 text-[#34d399] group-hover:scale-110 transition-transform shrink-0" fill="currentColor" viewBox="0 0 24 24">
@@ -52,7 +53,7 @@ export default function Footer() {
               href="https://instagram.com/fotonicproject"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-6 py-3 rounded-full bg-stone-900/90 hover:bg-stone-850 border border-stone-800 hover:border-[#d6a350]/50 text-white text-xs sm:text-sm font-semibold transition-all group shadow-sm active:scale-[0.99] whitespace-nowrap"
+              className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-6 py-3 rounded-full bg-stone-900/90 hover:bg-stone-850 border border-stone-800 hover:border-[#d6a350]/50 text-white text-xs sm:text-sm font-semibold transition-all group shadow-sm active:scale-[0.99] shrink-0"
             >
               <svg className="w-4 h-4 text-[#e5b869] group-hover:scale-110 transition-transform shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
@@ -65,8 +66,8 @@ export default function Footer() {
 
         </div>
 
-        {/* Divider & Copyright (Centered below) */}
-        <div className="mt-8 pt-6 border-t border-stone-900 text-center">
+        {/* Divider & Copyright Centered */}
+        <div className="pt-6 border-t border-stone-900 text-center">
           <p className="text-[11px] text-stone-400">
             &copy; {new Date().getFullYear()} Fotonic Project. All rights reserved.
           </p>

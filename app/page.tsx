@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Camera, Image as ImageIcon, ArrowRight, ShieldCheck, Sparkles, CheckCircle2, Clock, MapPin } from 'lucide-react';
+import { Camera, Image as ImageIcon, ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react';
 
 export default function HomePage() {
   return (
@@ -138,22 +138,6 @@ export default function HomePage() {
             </div>
           </Link>
 
-        </div>
-
-        {/* Minimal Value Bar */}
-        <div className="mt-6 sm:mt-8 p-3.5 sm:p-4 rounded-xl bg-stone-900/50 border border-stone-800/70 flex flex-wrap items-center justify-around gap-3 text-center text-xs text-stone-400">
-          <div className="flex items-center gap-1.5">
-            <ShieldCheck className="w-4 h-4 text-[#e5b869]" />
-            <span>Jaminan 1 Identitas Fisik</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <Clock className="w-4 h-4 text-[#34d399]" />
-            <span>DP Booking Rp 50.000</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <MapPin className="w-4 h-4 text-[#e5b869]" />
-            <span>Free Antar Area Kampus Unila</span>
-          </div>
         </div>
 
       </div>
