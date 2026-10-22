@@ -20,7 +20,8 @@ import {
   Plus,
   Minus,
   Film,
-  Zap
+  Zap,
+  ShieldCheck
 } from 'lucide-react';
 import { FOTO_CATEGORIES, FOTO_PACKAGES, FOTO_BOOKING_RULES } from '@/data/fotoPricelist';
 import { generateFotoWhatsAppUrl, formatRupiah, ADMIN_WHATSAPP_DISPLAY } from '@/lib/whatsapp';
@@ -222,18 +223,18 @@ ${addOnListText}
   const filteredPackages = FOTO_PACKAGES.filter(p => p.category === selectedCategory);
 
   return (
-    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10">
+    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-5 sm:py-10">
       
       {/* Header Page (NO WA BADGE ON TOP) */}
-      <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#c89343]/10 border border-[#c89343]/35 text-[#f2cf83] text-xs font-semibold mb-2.5">
+      <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-10">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#c89343]/10 border border-[#c89343]/35 text-[#f2cf83] text-xs font-semibold mb-2">
           <Sparkles className="w-3.5 h-3.5 text-[#e5b869]" />
           <span>Fotonic Graduation &amp; Sidang Photography</span>
         </div>
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-2">
           Katalog &amp; Booking <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f2cf83] via-[#d9a756] to-[#be873b]">Jasa Foto &amp; Video</span>
         </h1>
-        <p className="text-stone-400 text-xs sm:text-sm leading-relaxed max-w-lg mx-auto">
+        <p className="text-stone-400 text-xs sm:text-sm leading-relaxed max-w-lg mx-auto px-2">
           Dokumentasikan momen wisuda, yudisium, dan sidang skripsi Anda dengan karya visual berkelas. Pilih paket resmi, tentukan layanan add-on, dan kirim format order ke WhatsApp fotografer.
         </p>
       </div>
@@ -241,25 +242,25 @@ ${addOnListText}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start">
         
         {/* Left Column: Form & Catalog (7 Cols) */}
-        <div className="lg:col-span-7 space-y-5">
+        <div className="lg:col-span-7 space-y-4 sm:space-y-5 min-w-0 w-full">
           
           {/* SECTION 1: Pilih Kategori & Paket Foto */}
           <section className="bg-stone-900/80 border border-stone-800 rounded-2xl p-4 sm:p-6 shadow-xl">
-            <div className="flex items-center gap-2.5 pb-3.5 mb-4 border-b border-stone-800">
-              <div className="w-8 h-8 rounded-lg bg-[#c89343]/15 text-[#e5b869] flex items-center justify-center font-bold text-xs border border-[#c89343]/35">
+            <div className="flex items-center gap-2.5 pb-3 mb-4 border-b border-stone-800">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#c89343]/15 text-[#e5b869] flex items-center justify-center font-bold text-xs border border-[#c89343]/35 shrink-0">
                 1
               </div>
-              <div>
-                <h2 className="text-base font-bold text-white flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-[#e5b869]" />
-                  Pilih Paket Foto Resmi
+              <div className="min-w-0 flex-1">
+                <h2 className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-[#e5b869] shrink-0" />
+                  <span>Pilih Paket Foto Resmi</span>
                 </h2>
-                <p className="text-[11px] text-stone-400">Pilih kategori layanan dan paket durasi sesuai kebutuhan momen Anda</p>
+                <p className="text-[11px] text-stone-400">Pilih kategori layanan dan paket durasi sesuai momen Anda</p>
               </div>
             </div>
 
             {/* Category Tabs */}
-            <div className="mb-5">
+            <div className="mb-4 sm:mb-5">
               <label className="block text-[11px] font-semibold text-stone-300 uppercase tracking-wider mb-2">
                 Kategori Layanan <span className="text-rose-400">*</span>
               </label>
@@ -278,12 +279,12 @@ ${addOnListText}
                       }`}
                     >
                       <div className="font-bold text-xs sm:text-sm text-white flex items-center gap-1.5">
-                        {cat.id === 'Single Packet' && <User className="w-3.5 h-3.5 text-[#e5b869]" />}
-                        {cat.id === 'Group / Family' && <Users className="w-3.5 h-3.5 text-[#e5b869]" />}
-                        {cat.id === 'Seminar & Sidang' && <Award className="w-3.5 h-3.5 text-[#e5b869]" />}
-                        <span>{cat.title}</span>
+                        {cat.id === 'Single Packet' && <User className="w-3.5 h-3.5 text-[#e5b869] shrink-0" />}
+                        {cat.id === 'Group / Family' && <Users className="w-3.5 h-3.5 text-[#e5b869] shrink-0" />}
+                        {cat.id === 'Seminar & Sidang' && <Award className="w-3.5 h-3.5 text-[#e5b869] shrink-0" />}
+                        <span className="truncate">{cat.title}</span>
                       </div>
-                      <p className="text-[10px] text-stone-400 mt-1 line-clamp-1">{cat.subtitle}</p>
+                      <p className="text-[10px] text-stone-400 mt-0.5 line-clamp-1">{cat.subtitle}</p>
                     </button>
                   );
                 })}
@@ -309,14 +310,14 @@ ${addOnListText}
                         : 'border-stone-800 bg-stone-950/70 hover:border-stone-700'
                     }`}
                   >
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="flex items-start gap-3">
+                    <div className="flex items-start justify-between gap-2.5">
+                      <div className="flex items-start gap-2.5 min-w-0 flex-1">
                         <div className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full border mt-0.5 flex items-center justify-center transition-colors shrink-0 ${
                           isSelected ? 'border-[#d6a350] bg-[#d6a350]' : 'border-stone-700'
                         }`}>
                           {isSelected && <Check className="w-3 h-3 text-stone-950 stroke-[3]" />}
                         </div>
-                        <div>
+                        <div className="min-w-0 flex-1">
                           <div className="flex items-center gap-1.5 flex-wrap">
                             <span className="font-bold text-xs sm:text-sm text-white">{pkg.name}</span>
                             {pkg.badge && (
@@ -336,7 +337,7 @@ ${addOnListText}
                               🎨 Edit {pkg.editedPhotos} Foto
                             </span>
                           </div>
-                          <p className="text-[11px] text-stone-400">{pkg.description}</p>
+                          <p className="text-[11px] text-stone-400 leading-relaxed">{pkg.description}</p>
                         </div>
                       </div>
                       <div className="text-right shrink-0">
@@ -350,31 +351,31 @@ ${addOnListText}
               })}
             </div>
 
-            {/* Inclusions Box - Pose directing removed per user request */}
-            <div className="mt-4 p-3.5 rounded-xl bg-stone-950 border border-stone-800 flex items-start gap-2.5 text-xs text-stone-300">
+            {/* Inclusions Box - Clean & Responsive */}
+            <div className="mt-4 p-3 sm:p-3.5 rounded-xl bg-stone-950 border border-stone-800 flex items-start gap-2.5 text-xs text-stone-300">
               <Cloud className="w-4 h-4 text-[#e5b869] shrink-0 mt-0.5" />
-              <div>
-                <span className="font-bold text-white">Fasilitas Termasuk Bebas Biaya:</span>
-                <p className="text-stone-400 mt-0.5 text-[11px]">
+              <div className="min-w-0 flex-1">
+                <span className="font-bold text-white block sm:inline">Fasilitas Termasuk Bebas Biaya: </span>
+                <span className="text-stone-400 text-[11px] leading-relaxed">
                   Semua file RAW &amp; JPG High-Resolution via Google Drive tanpa kompresi.
-                </p>
+                </span>
               </div>
             </div>
 
           </section>
 
-          {/* SECTION 2: Add-On Services */}
+          {/* SECTION 2: Add-On Services (Mobile Optimized) */}
           <section className="bg-stone-900/80 border border-stone-800 rounded-2xl p-4 sm:p-6 shadow-xl">
-            <div className="flex items-center gap-2.5 pb-3.5 mb-4 border-b border-stone-800">
-              <div className="w-8 h-8 rounded-lg bg-[#c89343]/15 text-[#e5b869] flex items-center justify-center font-bold text-xs border border-[#c89343]/35">
+            <div className="flex items-center gap-2.5 pb-3 mb-4 border-b border-stone-800">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#c89343]/15 text-[#e5b869] flex items-center justify-center font-bold text-xs border border-[#c89343]/35 shrink-0">
                 2
               </div>
-              <div>
-                <h2 className="text-base font-bold text-white flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-[#e5b869]" />
-                  Layanan Tambahan (Add-On Services)
+              <div className="min-w-0 flex-1">
+                <h2 className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-[#e5b869] shrink-0" />
+                  <span>Layanan Tambahan (Add-On)</span>
                 </h2>
-                <p className="text-[11px] text-stone-400">Pilih layanan ekstra opsional untuk menyempurnakan hasil foto &amp; video</p>
+                <p className="text-[11px] text-stone-400">Pilih opsi ekstra untuk menyempurnakan hasil dokumentasi</p>
               </div>
             </div>
 
@@ -395,17 +396,17 @@ ${addOnListText}
                   }`}>
                     {cinematicReels && <Check className="w-3 h-3 text-stone-950 stroke-[3]" />}
                   </div>
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between gap-2 flex-wrap">
-                      <div className="flex items-center gap-2">
-                        <Film className="w-3.5 h-3.5 text-[#e5b869]" />
-                        <span className="font-bold text-xs sm:text-sm text-white">Cinematic Reels / TikTok Video</span>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between gap-1.5 flex-wrap">
+                      <div className="flex items-center gap-1.5">
+                        <Film className="w-3.5 h-3.5 text-[#e5b869] shrink-0" />
+                        <span className="font-bold text-xs sm:text-sm text-white">Cinematic Reels / TikTok</span>
                       </div>
-                      <span className="text-[10px] sm:text-[11px] font-bold text-[#34d399] px-2 py-0.5 rounded bg-[#10b981]/15 border border-[#10b981]/30">
+                      <span className="text-[10px] sm:text-[11px] font-bold text-[#34d399] px-2 py-0.5 rounded bg-[#10b981]/15 border border-[#10b981]/30 shrink-0">
                         PROMO FREE 🔥
                       </span>
                     </div>
-                    <p className="text-[11px] text-stone-400 mt-1">
+                    <p className="text-[11px] text-stone-400 mt-1 leading-relaxed">
                       Shot video vertikal 1 menit, cinematic slow-motion di sela sesi pemotretan.
                     </p>
                   </div>
@@ -413,26 +414,27 @@ ${addOnListText}
               </div>
 
               {/* 2. Extra Edit 1 Foto (Quantity Counter) */}
-              <div className="p-3.5 rounded-xl border border-stone-800 bg-stone-950/70">
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <Sparkles className="w-3.5 h-3.5 text-[#e5b869]" />
+              <div className="p-3.5 rounded-xl border border-stone-800 bg-stone-950/70 space-y-2">
+                <div className="flex items-center justify-between gap-2.5">
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <Sparkles className="w-3.5 h-3.5 text-[#e5b869] shrink-0" />
                       <span className="font-bold text-xs sm:text-sm text-white">Xtra Edited 1 Foto</span>
-                      <span className="text-xs font-mono font-bold text-[#e5b869]">Rp 10.000 / foto</span>
+                      <span className="text-[11px] font-mono font-bold text-[#e5b869]">Rp 10.000/foto</span>
                     </div>
-                    <p className="text-[11px] text-stone-400 mt-1">
-                      Tambahan foto pilihan untuk diedit profesional (tone color &amp; retouching).
+                    <p className="text-[11px] text-stone-400 mt-0.5 leading-relaxed">
+                      Tambahan 1 foto diedit profesional (tone &amp; retouching).
                     </p>
                   </div>
 
-                  {/* Increment/Decrement Buttons */}
-                  <div className="flex items-center gap-2 shrink-0 bg-stone-900 border border-stone-800 rounded-lg p-1">
+                  {/* Counter Buttons */}
+                  <div className="flex items-center gap-1 shrink-0 bg-stone-900 border border-stone-800 rounded-lg p-1">
                     <button
                       type="button"
                       disabled={extraEdit1Count <= 0}
                       onClick={() => setExtraEdit1Count(prev => Math.max(0, prev - 1))}
-                      className="w-7 h-7 rounded flex items-center justify-center bg-stone-800 text-stone-300 hover:text-white disabled:opacity-40 transition-colors"
+                      className="w-7 h-7 rounded flex items-center justify-center bg-stone-800 text-stone-300 hover:text-white disabled:opacity-30 transition-colors"
+                      aria-label="Kurangi foto"
                     >
                       <Minus className="w-3.5 h-3.5" />
                     </button>
@@ -443,39 +445,42 @@ ${addOnListText}
                       type="button"
                       onClick={() => setExtraEdit1Count(prev => prev + 1)}
                       className="w-7 h-7 rounded flex items-center justify-center bg-[#c89343]/20 text-[#e5b869] hover:bg-[#d6a350] hover:text-stone-950 transition-colors"
+                      aria-label="Tambah foto"
                     >
                       <Plus className="w-3.5 h-3.5" />
                     </button>
                   </div>
                 </div>
                 {extraEdit1Count > 0 && (
-                  <div className="mt-2 text-right text-[11px] text-[#e5b869] font-medium">
-                    Total: {extraEdit1Count} foto × Rp 10.000 = <span className="font-mono font-bold">{formatRupiah(extra1Total)}</span>
+                  <div className="pt-2 border-t border-stone-900 flex justify-between items-center text-[11px] text-stone-400">
+                    <span>Total Tambahan ({extraEdit1Count} foto):</span>
+                    <span className="font-mono font-bold text-[#e5b869]">{formatRupiah(extra1Total)}</span>
                   </div>
                 )}
               </div>
 
               {/* 3. Extra Edit 5 Foto (Quantity Counter) */}
-              <div className="p-3.5 rounded-xl border border-stone-800 bg-stone-950/70">
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <Sparkles className="w-3.5 h-3.5 text-[#e5b869]" />
+              <div className="p-3.5 rounded-xl border border-stone-800 bg-stone-950/70 space-y-2">
+                <div className="flex items-center justify-between gap-2.5">
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <Sparkles className="w-3.5 h-3.5 text-[#e5b869] shrink-0" />
                       <span className="font-bold text-xs sm:text-sm text-white">Xtra Edited 5 Foto</span>
-                      <span className="text-xs font-mono font-bold text-[#e5b869]">Rp 40.000 / 5 foto</span>
+                      <span className="text-[11px] font-mono font-bold text-[#e5b869]">Rp 40.000/5 foto</span>
                     </div>
-                    <p className="text-[11px] text-stone-400 mt-1">
-                      Paket hemat 5 foto tambahan diedit profesional (hemat Rp 10.000).
+                    <p className="text-[11px] text-stone-400 mt-0.5 leading-relaxed">
+                      Paket hemat 5 foto diedit profesional (hemat Rp 10.000).
                     </p>
                   </div>
 
-                  {/* Increment/Decrement Buttons */}
-                  <div className="flex items-center gap-2 shrink-0 bg-stone-900 border border-stone-800 rounded-lg p-1">
+                  {/* Counter Buttons */}
+                  <div className="flex items-center gap-1 shrink-0 bg-stone-900 border border-stone-800 rounded-lg p-1">
                     <button
                       type="button"
                       disabled={extraEdit5Count <= 0}
                       onClick={() => setExtraEdit5Count(prev => Math.max(0, prev - 1))}
-                      className="w-7 h-7 rounded flex items-center justify-center bg-stone-800 text-stone-300 hover:text-white disabled:opacity-40 transition-colors"
+                      className="w-7 h-7 rounded flex items-center justify-center bg-stone-800 text-stone-300 hover:text-white disabled:opacity-30 transition-colors"
+                      aria-label="Kurangi paket"
                     >
                       <Minus className="w-3.5 h-3.5" />
                     </button>
@@ -486,14 +491,16 @@ ${addOnListText}
                       type="button"
                       onClick={() => setExtraEdit5Count(prev => prev + 1)}
                       className="w-7 h-7 rounded flex items-center justify-center bg-[#c89343]/20 text-[#e5b869] hover:bg-[#d6a350] hover:text-stone-950 transition-colors"
+                      aria-label="Tambah paket"
                     >
                       <Plus className="w-3.5 h-3.5" />
                     </button>
                   </div>
                 </div>
                 {extraEdit5Count > 0 && (
-                  <div className="mt-2 text-right text-[11px] text-[#e5b869] font-medium">
-                    Total: {extraEdit5Count} paket (={extraEdit5Count * 5} foto) = <span className="font-mono font-bold">{formatRupiah(extra5Total)}</span>
+                  <div className="pt-2 border-t border-stone-900 flex justify-between items-center text-[11px] text-stone-400">
+                    <span>Total ({extraEdit5Count * 5} foto):</span>
+                    <span className="font-mono font-bold text-[#e5b869]">{formatRupiah(extra5Total)}</span>
                   </div>
                 )}
               </div>
@@ -511,17 +518,17 @@ ${addOnListText}
                   <div className={`w-4 h-4 sm:w-5 sm:h-5 rounded mt-0.5 flex items-center justify-center border transition-colors shrink-0 ${
                     expressEdit ? 'border-[#d6a350] bg-[#d6a350]' : 'border-stone-700'
                   }`}>
-                    {expressEdit && <Check className="w-3.5 h-3.5 text-stone-950 stroke-[3]" />}
+                    {expressEdit && <Check className="w-3 h-3 text-stone-950 stroke-[3]" />}
                   </div>
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between gap-2 flex-wrap">
-                      <div className="flex items-center gap-2">
-                        <Zap className="w-3.5 h-3.5 text-[#e5b869]" />
-                        <span className="font-bold text-xs sm:text-sm text-white">Express Edit (One Day Service)</span>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between gap-1.5 flex-wrap">
+                      <div className="flex items-center gap-1.5">
+                        <Zap className="w-3.5 h-3.5 text-[#e5b869] shrink-0" />
+                        <span className="font-bold text-xs sm:text-sm text-white">Express Edit (1x24 Jam)</span>
                       </div>
-                      <span className="text-xs font-mono font-bold text-[#e5b869]">+Rp 50.000</span>
+                      <span className="text-xs font-mono font-bold text-[#e5b869] shrink-0">+Rp 50.000</span>
                     </div>
-                    <p className="text-[11px] text-stone-400 mt-1">
+                    <p className="text-[11px] text-stone-400 mt-1 leading-relaxed">
                       Hasil foto editan final diserahkan 1x24 jam setelah klien memilih nomor foto.
                     </p>
                   </div>
@@ -533,14 +540,14 @@ ${addOnListText}
 
           {/* SECTION 3: Data Wisudawan & Jadwal */}
           <section className="bg-stone-900/80 border border-stone-800 rounded-2xl p-4 sm:p-6 shadow-xl">
-            <div className="flex items-center gap-2.5 pb-3.5 mb-4 border-b border-stone-800">
-              <div className="w-8 h-8 rounded-lg bg-[#c89343]/15 text-[#e5b869] flex items-center justify-center font-bold text-xs border border-[#c89343]/35">
+            <div className="flex items-center gap-2.5 pb-3 mb-4 border-b border-stone-800">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#c89343]/15 text-[#e5b869] flex items-center justify-center font-bold text-xs border border-[#c89343]/35 shrink-0">
                 3
               </div>
-              <div>
-                <h2 className="text-base font-bold text-white flex items-center gap-2">
-                  <Calendar className="w-4 h-4 text-[#e5b869]" />
-                  Data Diri &amp; Jadwal Pemotretan
+              <div className="min-w-0 flex-1">
+                <h2 className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+                  <Calendar className="w-4 h-4 text-[#e5b869] shrink-0" />
+                  <span>Data Diri &amp; Jadwal Pemotretan</span>
                 </h2>
                 <p className="text-[11px] text-stone-400">Isi identitas wisudawan/klien dan tentukan lokasi serta jam sesi foto</p>
               </div>
@@ -590,10 +597,10 @@ ${addOnListText}
 
               {/* Tanggal & Jam (24-Hour Selector) */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="p-2.5 bg-stone-950 rounded-xl border border-stone-800 space-y-1.5">
+                <div className="p-2.5 bg-stone-950 rounded-xl border border-stone-800 space-y-1.5 min-w-0">
                   <span className="text-[11px] font-bold text-[#e5b869] uppercase tracking-wider flex items-center gap-1">
-                    <Calendar className="w-3.5 h-3.5" />
-                    Tanggal Sesi <span className="text-rose-400">*</span>
+                    <Calendar className="w-3.5 h-3.5 shrink-0" />
+                    <span>Tanggal Sesi</span> <span className="text-rose-400">*</span>
                   </span>
                   <input
                     type="date"
@@ -603,10 +610,10 @@ ${addOnListText}
                   />
                 </div>
 
-                <div className="p-2.5 bg-stone-950 rounded-xl border border-stone-800 space-y-1.5">
+                <div className="p-2.5 bg-stone-950 rounded-xl border border-stone-800 space-y-1.5 min-w-0">
                   <span className="text-[11px] font-bold text-[#e5b869] uppercase tracking-wider flex items-center gap-1">
-                    <Clock className="w-3.5 h-3.5" />
-                    Jam Mulai Sesi (24 Jam WIB) <span className="text-rose-400">*</span>
+                    <Clock className="w-3.5 h-3.5 shrink-0" />
+                    <span>Jam Mulai (24 Jam WIB)</span> <span className="text-rose-400">*</span>
                   </span>
                   <select
                     value={jamSesi}
@@ -620,7 +627,7 @@ ${addOnListText}
                 </div>
               </div>
 
-              {/* Lokasi Tipe & Detail (Studio Foto REMOVED) */}
+              {/* Lokasi Tipe & Detail */}
               <div className="space-y-2.5">
                 <div>
                   <span className="block text-[11px] font-semibold text-stone-300 uppercase tracking-wider mb-1.5">
@@ -690,23 +697,31 @@ ${addOnListText}
             </div>
           </section>
 
-          {/* S&K Ketentuan Sesi Ringkas */}
-          <section className="bg-stone-900/60 border border-stone-800 rounded-2xl p-4 text-xs text-stone-300 space-y-2">
-            <h3 className="font-bold text-xs text-white flex items-center gap-1.5">
-              <Clock className="w-3.5 h-3.5 text-[#e5b869]" />
-              Ketentuan Komitmen Jadwal Fotografer:
-            </h3>
-            <ul className="list-disc list-inside space-y-1 text-stone-400 pl-1 text-[11px]">
+          {/* S&K Ketentuan Sesi Ringkas (RESTRUCTURED: Clean Cards without cramped bullets) */}
+          <section className="bg-stone-900/60 border border-stone-800 rounded-2xl p-4 sm:p-5 space-y-3">
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 rounded-lg bg-[#c89343]/15 flex items-center justify-center shrink-0">
+                <Clock className="w-3.5 h-3.5 text-[#e5b869]" />
+              </div>
+              <h3 className="font-bold text-xs sm:text-sm text-white">
+                Ketentuan Komitmen Jadwal Fotografer:
+              </h3>
+            </div>
+
+            <div className="space-y-2">
               {FOTO_BOOKING_RULES.terms.map((term, idx) => (
-                <li key={idx}>{term}</li>
+                <div key={idx} className="flex items-start gap-2.5 p-2.5 rounded-xl bg-stone-950/70 border border-stone-800/80 text-[11px] sm:text-xs text-stone-300">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#d6a350] shrink-0 mt-1.5"></span>
+                  <p className="leading-relaxed min-w-0 flex-1">{term}</p>
+                </div>
               ))}
-            </ul>
+            </div>
           </section>
 
         </div>
 
         {/* Right Column: Live Order Preview & Actions (5 Cols) */}
-        <div className="lg:col-span-5 lg:sticky lg:top-24 space-y-4">
+        <div className="lg:col-span-5 lg:sticky lg:top-24 space-y-4 min-w-0 w-full">
           
           <div className="bg-stone-900/90 border border-stone-800 rounded-2xl p-4 sm:p-5 shadow-2xl">
             
@@ -728,8 +743,8 @@ ${addOnListText}
             {/* Price Breakdown Box */}
             <div className="bg-stone-950 p-3.5 rounded-xl border border-stone-800 space-y-1.5 text-xs mb-3.5">
               <div className="flex justify-between items-center text-stone-300">
-                <span className="font-medium text-[11px]">{currentPackage.name}</span>
-                <span className="font-bold text-[#e5b869] font-mono">{formatRupiah(basePrice)}</span>
+                <span className="font-medium text-[11px] truncate">{currentPackage.name}</span>
+                <span className="font-bold text-[#e5b869] font-mono shrink-0 ml-2">{formatRupiah(basePrice)}</span>
               </div>
               <div className="flex justify-between items-center text-stone-400 text-[10px]">
                 <span>Durasi: {currentPackage.duration}</span>
@@ -835,9 +850,9 @@ ${addOnListText}
 
           {/* Quick Switch to Camera Rental Card */}
           <div className="p-3.5 rounded-xl bg-[#10b981]/10 border border-[#10b981]/30 flex items-center justify-between gap-3 text-xs">
-            <div>
-              <span className="font-bold text-white block">Mau Hunting Foto Sendiri?</span>
-              <p className="text-stone-400 text-[11px] mt-0.5">Sewa kamera Nikon Z50 Mark II &amp; lensa mulai Rp 25k.</p>
+            <div className="min-w-0 flex-1">
+              <span className="font-bold text-white block truncate">Mau Hunting Foto Sendiri?</span>
+              <p className="text-stone-400 text-[11px] mt-0.5 truncate">Sewa kamera Nikon Z50 Mark II &amp; lensa mulai Rp 25k.</p>
             </div>
             <Link
               href="/sewa-kamera"

@@ -198,7 +198,7 @@ FOTONIC EQUIPMENT RENTAL
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start">
         
         {/* Left Column: Form & Catalog (7 Cols) */}
-        <div className="lg:col-span-7 space-y-5">
+        <div className="lg:col-span-7 space-y-4 sm:space-y-5 min-w-0 w-full">
           
           {/* SECTION 1: Pilih Durasi & Paket Alat */}
           <section className="bg-stone-900/80 border border-stone-800 rounded-2xl p-4 sm:p-6 shadow-xl">
@@ -578,25 +578,29 @@ FOTONIC EQUIPMENT RENTAL
           </section>
 
           {/* S&K Ringkas */}
-          <section className="bg-stone-900/60 border border-stone-800 rounded-2xl p-4 text-xs text-stone-300 space-y-2">
-            <h3 className="font-bold text-xs text-white flex items-center gap-1.5">
-              <ShieldAlert className="w-3.5 h-3.5 text-[#10b981]" />
-              Ketentuan Sewa Fotonic:
-            </h3>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] text-stone-400">
+          <section className="bg-stone-900/60 border border-stone-800 rounded-2xl p-4 sm:p-5 text-xs text-stone-300 space-y-3">
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 rounded-lg bg-[#10b981]/15 flex items-center justify-center shrink-0">
+                <ShieldAlert className="w-3.5 h-3.5 text-[#10b981]" />
+              </div>
+              <h3 className="font-bold text-xs sm:text-sm text-white">
+                Ketentuan Sewa Fotonic:
+              </h3>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
               {RENTAL_RULES.map((rule, idx) => (
-                <li key={idx} className="p-2 rounded-lg bg-stone-950 border border-stone-800/70">
+                <div key={idx} className="p-2.5 rounded-xl bg-stone-950/70 border border-stone-800/80">
                   <span className="font-semibold text-[#34d399] block mb-0.5">{rule.title}</span>
-                  {rule.desc}
-                </li>
+                  <p className="text-stone-400 leading-relaxed">{rule.desc}</p>
+                </div>
               ))}
-            </ul>
+            </div>
           </section>
 
         </div>
 
         {/* Right Column: Live Order Preview & Mobile Optimized Card (5 Cols) */}
-        <div className="lg:col-span-5 lg:sticky lg:top-24 space-y-4">
+        <div className="lg:col-span-5 lg:sticky lg:top-24 space-y-4 min-w-0 w-full">
           
           <div className="bg-stone-900/90 border border-stone-800 rounded-2xl p-4 sm:p-5 shadow-2xl">
             
