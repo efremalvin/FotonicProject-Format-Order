@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Camera, Calendar, Clock, MapPin, ShieldAlert, Check, Copy, Send, Sparkles, RotateCcw, CheckCircle2, ChevronRight, Truck } from 'lucide-react';
+import { Camera, Calendar, Clock, ShieldAlert, Check, Copy, Send, RotateCcw, CheckCircle2, ChevronRight, Truck } from 'lucide-react';
 import { KAMERA_PACKAGES, STANDARD_ACCESSORIES, DELIVERY_OPTIONS, RENTAL_RULES } from '@/data/kameraCatalog';
 import { generateRentalWhatsAppUrl, formatRupiah, ADMIN_WHATSAPP_DISPLAY } from '@/lib/whatsapp';
 
@@ -58,7 +58,7 @@ export default function SewaKameraPage() {
   const currentPackage = KAMERA_PACKAGES.find(p => p.id === selectedPackageId) || KAMERA_PACKAGES[0];
   const basePrice = currentPackage.pricing[selectedDurationKey];
 
-  const selectedDelivery = DELIVERY_OPTIONS.find(d => d.id === deliveryOptionId) || DELIVERY_OPTIONS[1];
+  const selectedDelivery = DELIVERY_OPTIONS.find(d => d.id === deliveryOptionId) || DELIVERY_OPTIONS[0];
   const deliveryFee = selectedDelivery.fee;
 
   const grandTotal = basePrice + deliveryFee;
@@ -68,55 +68,63 @@ export default function SewaKameraPage() {
   const durasiLabel = selectedDurationKey === 'fullDay' 
     ? '1 Hari / Full Day (24 Jam)' 
     : selectedDurationKey === 'halfDay' 
-    ? 'Setengah Hari (6–12 Jam)' 
-    : 'Short Time (Maks. 4 Jam)';
-
-  const detailUnitText = selectedPackageId === 'paket-single-lens' 
-    ? `Bodi Nikon Z50 Mark II + ${singleLensChoice}`
-    : currentPackage.includesText;
+      ? 'Setengah Hari (6–12 Jam)' 
+      : 'Short Time (Maks. 4 Jam)';
 
   const handleKirimWA = () => {
     if (!nama.trim()) {
-      alert('Mohon lengkapi Nama Lengkap terlebih dahulu.');
+      alert('Mohon isi Nama Lengkap Penyewa terlebih dahulu.');
       return;
     }
     if (!whatsapp.trim()) {
-      alert('Mohon lengkapi Nomor WhatsApp terlebih dahulu.');
+      alert('Mohon isi No. WhatsApp Aktif.');
+      return;
+    }
+    if (!alamatDomisili.trim()) {
+      alert('Mohon isi Alamat Domisili Sekarang.');
       return;
     }
 
+    const detailUnitKamera = selectedPackageId === 'paket-single-lens'
+      ? `${currentPackage.name} (${singleLensChoice})`
+      : currentPackage.name;
+
     const paymentText = skemaBayar === 'dp'
-      ? `DP Booking : Rp 50.000 (Sisa ${formatRupiah(sisaPelunasan)} saat serah terima unit)`
+      ? `DP Booking : Rp 50.000 (Sisa pelunasan ${formatRupiah(sisaPelunasan)} saat serah terima)`
       : `Pembayaran Lunas : ${formatRupiah(grandTotal)} (Full Payment)`;
 
     const url = generateRentalWhatsAppUrl({
       nama,
       whatsapp,
-      instagram,
+      instagram: instagram || '-',
       alamatDomisili,
       paketNama: currentPackage.name,
-      detailUnit: detailUnitText,
+      detailUnit: detailUnitKamera,
       durasiTipe: durasiLabel,
       durasiHari: selectedDurationKey === 'fullDay' ? 1 : 0.5,
       tarifTotal: grandTotal,
       skemaBayar: paymentText,
       tanggalAmbil,
-      jamAmbil,
+      jamAmbil: `${jamAmbil} WIB`,
       tanggalKembali,
-      jamKembali,
+      jamKembali: `${jamKembali} WIB`,
       opsiPengantaran: `${selectedDelivery.label} (${selectedDelivery.note})`,
       sistemPengembalian: sistemKembali,
-      jaminanIdentitas: jaminanIdentitas,
-      aksesorisDefault: '2x Baterai, SD Card Lexar 32GB, Kabel Type-C, Card Reader OTG, Strap Kamera, Lap Microfiber, Tas Kamera'
+      jaminanIdentitas: `${jaminanIdentitas} (Wajib diserahkan fisik asli saat serah terima)`,
+      aksesorisDefault: STANDARD_ACCESSORIES.join(', ')
     });
 
     window.open(url, '_blank');
   };
 
   const handleSalinFormat = async () => {
+    const detailUnitKamera = selectedPackageId === 'paket-single-lens'
+      ? `${currentPackage.name} (${singleLensChoice})`
+      : currentPackage.name;
+
     const paymentText = skemaBayar === 'dp'
-      ? `DP Booking : Rp 50.000 (Sisa ${formatRupiah(sisaPelunasan)} saat serah terima)`
-      : `Pembayaran Lunas : ${formatRupiah(grandTotal)}`;
+      ? `DP Booking Rp 50.000 (Sisa: ${formatRupiah(sisaPelunasan)})`
+      : `Lunas (${formatRupiah(grandTotal)})`;
 
     const text = 
 `FORMAT ORDER - SEWA KAMERA & GEAR
@@ -125,33 +133,37 @@ FOTONIC EQUIPMENT RENTAL
 📋 DATA PENYEWA :
 • Nama Lengkap : ${nama || '[Nama]'}
 • No. WhatsApp : ${whatsapp || '[WhatsApp]'}
-• Instagram : ${instagram ? '@' + instagram.replace('@', '') : '-'}
+• Akun IG : ${instagram ? '@' + instagram.replace('@', '') : '-'}
 • Domisili : ${alamatDomisili || '-'}
 
-📸 DETAIL PERALATAN :
-• Paket : ${currentPackage.name}
-• Unit : ${detailUnitText}
+📸 DETAIL PERALATAN SEWA :
+• Paket : ${detailUnitKamera}
 • Durasi : ${durasiLabel}
-• Jadwal Ambil : ${tanggalAmbil} (${jamAmbil} WIB)
-• Jadwal Kembali : ${tanggalKembali} (${jamKembali} WIB)
-• Pengantaran : ${selectedDelivery.label} (${selectedDelivery.note})
-• Jaminan Identitas : ${jaminanIdentitas}
+• Pengantaran : ${selectedDelivery.label}
+• Pengembalian : ${sistemKembali}
 
-💰 BIAYA & PEMBAYARAN :
-• Total Biaya : ${formatRupiah(grandTotal)}
-• Skema Bayar : ${paymentText}
+🗓️ JADWAL SEWA (FORMAT 24 JAM) :
+• Pengambilan : ${tanggalAmbil} (${jamAmbil} WIB)
+• Pengembalian : ${tanggalKembali} (${jamKembali} WIB)
+
+🪪 JAMINAN IDENTITAS FISIK :
+• ${jaminanIdentitas} (Wajib bawa asli saat serah terima)
+
+💰 TOTAL TARIF & SKEMA :
+• Total : ${formatRupiah(grandTotal)}
+• Pembayaran : ${paymentText}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
 
     try {
       await navigator.clipboard.writeText(text);
-      showToast('Format sewa kamera berhasil disalin ke clipboard!');
+      showToast('Format order sewa berhasil disalin ke clipboard!');
     } catch {
       showToast('Gagal menyalin format.');
     }
   };
 
   const handleReset = () => {
-    if (confirm('Reset formulir sewa kamera?')) {
+    if (confirm('Reset seluruh formulir sewa kamera?')) {
       setNama('');
       setWhatsapp('');
       setInstagram('');
@@ -171,19 +183,19 @@ FOTONIC EQUIPMENT RENTAL
       
       {/* Header Page */}
       <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold mb-2.5">
-          <Camera className="w-3.5 h-3.5" />
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#6ee7b7]/10 border border-[#6ee7b7]/30 text-[#86efac] text-xs font-semibold mb-2.5">
+          <Camera className="w-3.5 h-3.5 text-[#6ee7b7]" />
           <span>Fotonic Equipment Rental</span>
         </div>
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-2">
-          Format Order <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">Sewa Nikon Z50 Mark II</span>
+          Format Order <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#a7f3d0] via-[#6ee7b7] to-[#34d399]">Sewa Nikon Z50 Mark II</span>
         </h1>
         <p className="text-stone-400 text-xs sm:text-sm leading-relaxed max-w-lg mx-auto">
           Pilih durasi dan paket alat di bawah ini. Selesaikan pengisian form untuk mengirimkan rincian sewa resmi ke WhatsApp admin.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start">
         
         {/* Left Column: Form & Catalog (7 Cols) */}
         <div className="lg:col-span-7 space-y-5">
@@ -191,13 +203,13 @@ FOTONIC EQUIPMENT RENTAL
           {/* SECTION 1: Pilih Durasi & Paket Alat */}
           <section className="bg-stone-900/80 border border-stone-800 rounded-2xl p-4 sm:p-6 shadow-xl">
             <div className="flex items-center gap-2.5 pb-3.5 mb-4 border-b border-stone-800">
-              <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs border border-emerald-500/30">
+              <div className="w-8 h-8 rounded-lg bg-[#6ee7b7]/15 text-[#86efac] flex items-center justify-center font-bold text-xs border border-[#6ee7b7]/30">
                 1
               </div>
               <div>
                 <h2 className="text-base font-bold text-white flex items-center gap-2">
-                  <Camera className="w-4 h-4 text-emerald-400" />
-                  Pilih Durasi & Paket Kamera
+                  <Camera className="w-4 h-4 text-[#6ee7b7]" />
+                  Pilih Durasi &amp; Paket Kamera
                 </h2>
                 <p className="text-[11px] text-stone-400">Pricelist resmi sewa Nikon Z50 Mark II</p>
               </div>
@@ -214,12 +226,12 @@ FOTONIC EQUIPMENT RENTAL
                   onClick={() => setSelectedDurationKey('fullDay')}
                   className={`p-2.5 rounded-xl border text-center transition-all ${
                     selectedDurationKey === 'fullDay'
-                      ? 'border-emerald-500 bg-emerald-950/40 text-white font-bold ring-1 ring-emerald-500/50'
+                      ? 'border-[#6ee7b7] bg-[#6ee7b7]/15 text-white font-bold ring-1 ring-[#6ee7b7]/40'
                       : 'border-stone-800 bg-stone-950 text-stone-400 hover:border-stone-700'
                   }`}
                 >
                   <div className="text-xs">1 Hari (24 Jam)</div>
-                  <div className="text-[10px] text-emerald-400 mt-0.5">Full Day 🔥</div>
+                  <div className="text-[10px] text-[#86efac] mt-0.5 font-semibold">Full Day 🔥</div>
                 </button>
 
                 <button
@@ -227,7 +239,7 @@ FOTONIC EQUIPMENT RENTAL
                   onClick={() => setSelectedDurationKey('halfDay')}
                   className={`p-2.5 rounded-xl border text-center transition-all ${
                     selectedDurationKey === 'halfDay'
-                      ? 'border-emerald-500 bg-emerald-950/40 text-white font-bold ring-1 ring-emerald-500/50'
+                      ? 'border-[#6ee7b7] bg-[#6ee7b7]/15 text-white font-bold ring-1 ring-[#6ee7b7]/40'
                       : 'border-stone-800 bg-stone-950 text-stone-400 hover:border-stone-700'
                   }`}
                 >
@@ -240,12 +252,12 @@ FOTONIC EQUIPMENT RENTAL
                   onClick={() => setSelectedDurationKey('shortTime')}
                   className={`p-2.5 rounded-xl border text-center transition-all ${
                     selectedDurationKey === 'shortTime'
-                      ? 'border-emerald-500 bg-emerald-950/40 text-white font-bold ring-1 ring-emerald-500/50'
+                      ? 'border-[#6ee7b7] bg-[#6ee7b7]/15 text-white font-bold ring-1 ring-[#6ee7b7]/40'
                       : 'border-stone-800 bg-stone-950 text-stone-400 hover:border-stone-700'
                   }`}
                 >
                   <div className="text-xs">Short Time</div>
-                  <div className="text-[10px] text-amber-400 mt-0.5">Maks. 4 Jam</div>
+                  <div className="text-[10px] text-[#dfc488] mt-0.5">Maks. 4 Jam</div>
                 </button>
               </div>
             </div>
@@ -266,14 +278,14 @@ FOTONIC EQUIPMENT RENTAL
                     onClick={() => setSelectedPackageId(pkg.id)}
                     className={`p-3 sm:p-4 rounded-xl border cursor-pointer transition-all ${
                       isSelected
-                        ? 'border-emerald-500 bg-emerald-950/30 ring-1 ring-emerald-500/40'
+                        ? 'border-[#6ee7b7] bg-[#6ee7b7]/10 ring-1 ring-[#6ee7b7]/30'
                         : 'border-stone-800 bg-stone-950/80 hover:border-stone-700'
                     }`}
                   >
                     <div className="flex items-start justify-between gap-2.5">
                       <div className="flex items-start gap-2.5">
-                        <div className={`w-4 h-4 rounded-full border mt-0.5 flex items-center justify-center transition-colors ${
-                          isSelected ? 'border-emerald-500 bg-emerald-500' : 'border-stone-600'
+                        <div className={`w-4 h-4 rounded-full border mt-0.5 flex items-center justify-center transition-colors shrink-0 ${
+                          isSelected ? 'border-[#6ee7b7] bg-[#6ee7b7]' : 'border-stone-600'
                         }`}>
                           {isSelected && <Check className="w-2.5 h-2.5 text-stone-950 stroke-[3]" />}
                         </div>
@@ -281,7 +293,7 @@ FOTONIC EQUIPMENT RENTAL
                           <div className="flex items-center gap-1.5 flex-wrap">
                             <span className="font-bold text-xs sm:text-sm text-white">{pkg.name}</span>
                             {pkg.badge && (
-                              <span className="text-[10px] px-1.5 py-0.2 rounded bg-emerald-950 border border-emerald-700/60 text-emerald-300 font-medium">
+                              <span className="text-[10px] px-1.5 py-0.2 rounded bg-[#6ee7b7]/10 border border-[#6ee7b7]/25 text-[#86efac] font-medium">
                                 {pkg.badge}
                               </span>
                             )}
@@ -290,7 +302,7 @@ FOTONIC EQUIPMENT RENTAL
                         </div>
                       </div>
                       <div className="text-right shrink-0">
-                        <span className="font-extrabold text-xs sm:text-sm text-emerald-400 font-mono">
+                        <span className="font-extrabold text-xs sm:text-sm text-[#86efac] font-mono">
                           {formatRupiah(priceVal)}
                         </span>
                       </div>
@@ -299,7 +311,7 @@ FOTONIC EQUIPMENT RENTAL
                     {/* Wajib Pilih 1 Lensa Khusus Paket Single Lens */}
                     {pkg.id === 'paket-single-lens' && isSelected && (
                       <div className="mt-3 pt-2.5 border-t border-stone-800 pl-6 sm:pl-7">
-                        <span className="block text-[11px] font-bold text-emerald-400 uppercase tracking-wider mb-1.5">
+                        <span className="block text-[11px] font-bold text-[#86efac] uppercase tracking-wider mb-1.5">
                           Pilih 1 Lensa yang Digunakan (Wajib):
                         </span>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -312,7 +324,7 @@ FOTONIC EQUIPMENT RENTAL
                               }}
                               className={`flex items-center gap-2 p-2 rounded-lg border text-xs cursor-pointer transition-all ${
                                 singleLensChoice === lens
-                                  ? 'border-emerald-500 bg-stone-900 text-white font-semibold'
+                                  ? 'border-[#6ee7b7] bg-stone-900 text-white font-semibold'
                                   : 'border-stone-800 bg-stone-950 text-stone-400 hover:border-stone-700'
                               }`}
                             >
@@ -321,7 +333,7 @@ FOTONIC EQUIPMENT RENTAL
                                 name="singleLensOption"
                                 checked={singleLensChoice === lens}
                                 onChange={() => setSingleLensChoice(lens)}
-                                className="accent-emerald-500 w-3.5 h-3.5"
+                                className="accent-[#6ee7b7] w-3.5 h-3.5"
                               />
                               <span>{lens}</span>
                             </label>
@@ -337,13 +349,13 @@ FOTONIC EQUIPMENT RENTAL
             {/* Kelengkapan Bawaan Unit (Bahasa Indonesia Saja) */}
             <div className="mt-4 p-3.5 rounded-xl bg-stone-950 border border-stone-800">
               <span className="text-[11px] font-bold uppercase tracking-wider text-stone-200 flex items-center gap-1.5 mb-2">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#6ee7b7]" />
                 Kelengkapan Bawaan Unit (Termasuk Bebas Biaya):
               </span>
               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-[11px] text-stone-300">
                 {STANDARD_ACCESSORIES.map(acc => (
                   <li key={acc} className="flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0"></span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#6ee7b7] shrink-0"></span>
                     <span>{acc}</span>
                   </li>
                 ))}
@@ -355,13 +367,13 @@ FOTONIC EQUIPMENT RENTAL
           {/* SECTION 2: Opsi Pengantaran Kamera (Unila Free vs Luar Unila) */}
           <section className="bg-stone-900/80 border border-stone-800 rounded-2xl p-4 sm:p-6 shadow-xl">
             <div className="flex items-center gap-2.5 pb-3.5 mb-4 border-b border-stone-800">
-              <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs border border-emerald-500/30">
+              <div className="w-8 h-8 rounded-lg bg-[#6ee7b7]/15 text-[#86efac] flex items-center justify-center font-bold text-xs border border-[#6ee7b7]/30">
                 2
               </div>
               <div>
                 <h2 className="text-base font-bold text-white flex items-center gap-2">
-                  <Truck className="w-4 h-4 text-emerald-400" />
-                  Opsi Pengantaran & Pengambilan
+                  <Truck className="w-4 h-4 text-[#6ee7b7]" />
+                  Opsi Pengantaran &amp; Pengambilan
                 </h2>
                 <p className="text-[11px] text-stone-400">Pilih titik serah terima kamera</p>
               </div>
@@ -375,7 +387,7 @@ FOTONIC EQUIPMENT RENTAL
                     key={opt.id}
                     className={`flex items-start justify-between gap-3 p-3 rounded-xl border cursor-pointer transition-all ${
                       isSelected
-                        ? 'border-emerald-500 bg-emerald-950/30 ring-1 ring-emerald-500/40 text-white'
+                        ? 'border-[#6ee7b7] bg-[#6ee7b7]/10 ring-1 ring-[#6ee7b7]/30 text-white'
                         : 'border-stone-800 bg-stone-950 text-stone-400 hover:border-stone-700'
                     }`}
                   >
@@ -385,14 +397,14 @@ FOTONIC EQUIPMENT RENTAL
                         name="deliveryOption"
                         checked={isSelected}
                         onChange={() => setDeliveryOptionId(opt.id)}
-                        className="accent-emerald-500 w-4 h-4 mt-0.5"
+                        className="accent-[#6ee7b7] w-4 h-4 mt-0.5"
                       />
                       <div>
                         <div className="font-semibold text-xs sm:text-sm text-white">{opt.label}</div>
                         <div className="text-[11px] text-stone-400 mt-0.5">{opt.note}</div>
                       </div>
                     </div>
-                    <div className="text-xs font-mono font-bold text-emerald-400 shrink-0">
+                    <div className="text-xs font-mono font-bold text-[#86efac] shrink-0">
                       {opt.fee === 0 ? 'Gratis' : `+${formatRupiah(opt.fee)}`}
                     </div>
                   </label>
@@ -404,13 +416,13 @@ FOTONIC EQUIPMENT RENTAL
           {/* SECTION 3: Data Penyewa & Jadwal (24 JAM) */}
           <section className="bg-stone-900/80 border border-stone-800 rounded-2xl p-4 sm:p-6 shadow-xl">
             <div className="flex items-center gap-2.5 pb-3.5 mb-4 border-b border-stone-800">
-              <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs border border-emerald-500/30">
+              <div className="w-8 h-8 rounded-lg bg-[#6ee7b7]/15 text-[#86efac] flex items-center justify-center font-bold text-xs border border-[#6ee7b7]/30">
                 3
               </div>
               <div>
                 <h2 className="text-base font-bold text-white flex items-center gap-2">
-                  <Calendar className="w-4 h-4 text-emerald-400" />
-                  Data Penyewa & Jadwal Sewa (Format 24 Jam)
+                  <Calendar className="w-4 h-4 text-[#6ee7b7]" />
+                  Data Penyewa &amp; Jadwal Sewa (Format 24 Jam)
                 </h2>
                 <p className="text-[11px] text-stone-400">Isi data identitas dan pilih jam pemesanan format 24 jam</p>
               </div>
@@ -427,7 +439,7 @@ FOTONIC EQUIPMENT RENTAL
                     value={nama}
                     onChange={(e) => setNama(e.target.value)}
                     placeholder="Contoh: Muhammad Raihan Pratama"
-                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-xl text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-500"
+                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-xl text-xs sm:text-sm text-white focus:outline-none focus:border-[#6ee7b7]"
                   />
                 </div>
 
@@ -440,7 +452,7 @@ FOTONIC EQUIPMENT RENTAL
                     value={whatsapp}
                     onChange={(e) => setWhatsapp(e.target.value)}
                     placeholder="Contoh: 081234567890"
-                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-xl text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-500"
+                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-xl text-xs sm:text-sm text-white focus:outline-none focus:border-[#6ee7b7]"
                   />
                 </div>
               </div>
@@ -455,7 +467,7 @@ FOTONIC EQUIPMENT RENTAL
                     value={instagram}
                     onChange={(e) => setInstagram(e.target.value)}
                     placeholder="Contoh: @raihan.pratama"
-                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-xl text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-500"
+                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-xl text-xs sm:text-sm text-white focus:outline-none focus:border-[#6ee7b7]"
                   />
                 </div>
 
@@ -468,7 +480,7 @@ FOTONIC EQUIPMENT RENTAL
                     value={alamatDomisili}
                     onChange={(e) => setAlamatDomisili(e.target.value)}
                     placeholder="Contoh: Kost Wisma Unila, Jl. Sumantri"
-                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-xl text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-500"
+                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-xl text-xs sm:text-sm text-white focus:outline-none focus:border-[#6ee7b7]"
                   />
                 </div>
               </div>
@@ -476,8 +488,8 @@ FOTONIC EQUIPMENT RENTAL
               {/* Jadwal Ambil & Kembali dalam Format 24 Jam */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
                 <div className="p-2.5 bg-stone-950 rounded-xl border border-stone-800 space-y-1.5">
-                  <span className="text-[11px] font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1">
-                    <Clock className="w-3 h-3" />
+                  <span className="text-[11px] font-bold text-[#86efac] uppercase tracking-wider flex items-center gap-1">
+                    <Clock className="w-3 h-3 text-[#6ee7b7]" />
                     Waktu Pengambilan (24 Jam)
                   </span>
                   <div className="grid grid-cols-2 gap-2">
@@ -490,7 +502,7 @@ FOTONIC EQUIPMENT RENTAL
                     <select
                       value={jamAmbil}
                       onChange={(e) => setJamAmbil(e.target.value)}
-                      className="w-full px-2 py-1.5 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white"
+                      className="w-full px-2 py-1.5 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white cursor-pointer"
                     >
                       {timeSlots24h.map(t => (
                         <option key={t} value={t}>{t} WIB</option>
@@ -500,8 +512,8 @@ FOTONIC EQUIPMENT RENTAL
                 </div>
 
                 <div className="p-2.5 bg-stone-950 rounded-xl border border-stone-800 space-y-1.5">
-                  <span className="text-[11px] font-bold text-teal-400 uppercase tracking-wider flex items-center gap-1">
-                    <Clock className="w-3 h-3" />
+                  <span className="text-[11px] font-bold text-[#86efac] uppercase tracking-wider flex items-center gap-1">
+                    <Clock className="w-3 h-3 text-[#6ee7b7]" />
                     Waktu Pengembalian (24 Jam)
                   </span>
                   <div className="grid grid-cols-2 gap-2">
@@ -514,7 +526,7 @@ FOTONIC EQUIPMENT RENTAL
                     <select
                       value={jamKembali}
                       onChange={(e) => setJamKembali(e.target.value)}
-                      className="w-full px-2 py-1.5 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white"
+                      className="w-full px-2 py-1.5 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white cursor-pointer"
                     >
                       {timeSlots24h.map(t => (
                         <option key={t} value={t}>{t} WIB</option>
@@ -526,13 +538,13 @@ FOTONIC EQUIPMENT RENTAL
 
               {/* Jaminan Identitas (Wajib Pilih 1) */}
               <div className="pt-1">
-                <span className="block text-[11px] font-bold text-amber-400 uppercase tracking-wider mb-2">
+                <span className="block text-[11px] font-bold text-[#dfc488] uppercase tracking-wider mb-2">
                   Jaminan Identitas Fisik (Wajib Pilih 1):
                 </span>
                 <div className="grid grid-cols-2 gap-2">
                   <label className={`flex items-center gap-2 p-2.5 rounded-xl border cursor-pointer text-xs ${
                     jaminanIdentitas === 'KTP Asli'
-                      ? 'border-amber-500 bg-amber-950/20 text-white font-semibold'
+                      ? 'border-[#dfc488] bg-[#dfc488]/15 text-white font-semibold'
                       : 'border-stone-800 bg-stone-950 text-stone-400'
                   }`}>
                     <input
@@ -540,14 +552,14 @@ FOTONIC EQUIPMENT RENTAL
                       name="jaminanRadio"
                       checked={jaminanIdentitas === 'KTP Asli'}
                       onChange={() => setJaminanIdentitas('KTP Asli')}
-                      className="accent-amber-500 w-3.5 h-3.5"
+                      className="accent-[#dfc488] w-3.5 h-3.5"
                     />
                     <span>KTP Asli</span>
                   </label>
 
                   <label className={`flex items-center gap-2 p-2.5 rounded-xl border cursor-pointer text-xs ${
                     jaminanIdentitas === 'KTM / Kartu Pelajar Asli'
-                      ? 'border-amber-500 bg-amber-950/20 text-white font-semibold'
+                      ? 'border-[#dfc488] bg-[#dfc488]/15 text-white font-semibold'
                       : 'border-stone-800 bg-stone-950 text-stone-400'
                   }`}>
                     <input
@@ -555,7 +567,7 @@ FOTONIC EQUIPMENT RENTAL
                       name="jaminanRadio"
                       checked={jaminanIdentitas === 'KTM / Kartu Pelajar Asli'}
                       onChange={() => setJaminanIdentitas('KTM / Kartu Pelajar Asli')}
-                      className="accent-amber-500 w-3.5 h-3.5"
+                      className="accent-[#dfc488] w-3.5 h-3.5"
                     />
                     <span>KTM / Kartu Pelajar Asli</span>
                   </label>
@@ -568,13 +580,13 @@ FOTONIC EQUIPMENT RENTAL
           {/* S&K Ringkas */}
           <section className="bg-stone-900/60 border border-stone-800 rounded-2xl p-4 text-xs text-stone-300 space-y-2">
             <h3 className="font-bold text-xs text-white flex items-center gap-1.5">
-              <ShieldAlert className="w-3.5 h-3.5 text-emerald-400" />
+              <ShieldAlert className="w-3.5 h-3.5 text-[#6ee7b7]" />
               Ketentuan Sewa Fotonic:
             </h3>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] text-stone-400">
               {RENTAL_RULES.map((rule, idx) => (
                 <li key={idx} className="p-2 rounded-lg bg-stone-950 border border-stone-800/70">
-                  <span className="font-semibold text-emerald-300 block mb-0.5">{rule.title}</span>
+                  <span className="font-semibold text-[#86efac] block mb-0.5">{rule.title}</span>
                   {rule.desc}
                 </li>
               ))}
@@ -590,8 +602,8 @@ FOTONIC EQUIPMENT RENTAL
             
             <div className="flex items-center justify-between pb-3 mb-3 border-b border-stone-800">
               <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <h3 className="font-bold text-sm sm:text-base text-white">Rincian & Total Tarif</h3>
+                <span className="w-2 h-2 rounded-full bg-[#6ee7b7] animate-pulse"></span>
+                <h3 className="font-bold text-sm sm:text-base text-white">Rincian &amp; Total Tarif</h3>
               </div>
               <button
                 type="button"
@@ -607,7 +619,7 @@ FOTONIC EQUIPMENT RENTAL
             <div className="bg-stone-950 p-3.5 rounded-xl border border-stone-800 space-y-1.5 text-xs mb-3.5">
               <div className="flex justify-between items-center text-stone-300">
                 <span className="font-medium text-[11px]">{currentPackage.name}</span>
-                <span className="font-bold text-emerald-400 font-mono">{formatRupiah(basePrice)}</span>
+                <span className="font-bold text-[#86efac] font-mono">{formatRupiah(basePrice)}</span>
               </div>
               <div className="flex justify-between items-center text-stone-400 text-[10px]">
                 <span>Durasi: {durasiLabel}</span>
@@ -615,13 +627,13 @@ FOTONIC EQUIPMENT RENTAL
               </div>
               <div className="flex justify-between items-center text-stone-300 pt-1 border-t border-stone-900 text-[11px]">
                 <span>Pengantaran: {selectedDelivery.label}</span>
-                <span className="font-bold text-emerald-400 font-mono">
+                <span className="font-bold text-[#86efac] font-mono">
                   {deliveryFee === 0 ? 'Gratis' : `+${formatRupiah(deliveryFee)}`}
                 </span>
               </div>
               <div className="pt-2 border-t border-stone-800 flex justify-between items-center text-xs sm:text-sm">
                 <span className="font-bold text-white">Total Tarif:</span>
-                <span className="font-extrabold text-amber-300 text-sm sm:text-base font-mono">{formatRupiah(grandTotal)}</span>
+                <span className="font-extrabold text-[#faedd4] text-sm sm:text-base font-mono">{formatRupiah(grandTotal)}</span>
               </div>
             </div>
 
@@ -636,11 +648,11 @@ FOTONIC EQUIPMENT RENTAL
                   onClick={() => setSkemaBayar('dp')}
                   className={`p-2 rounded-xl border text-center text-xs font-semibold transition-all ${
                     skemaBayar === 'dp'
-                      ? 'border-emerald-500 bg-emerald-950/40 text-white ring-1 ring-emerald-500/50'
+                      ? 'border-[#6ee7b7] bg-[#6ee7b7]/15 text-white ring-1 ring-[#6ee7b7]/40'
                       : 'border-stone-800 bg-stone-950 text-stone-400'
                   }`}
                 >
-                  <div>DP Rp 50.000</div>
+                  <div className="font-bold text-white">DP Rp 50.000</div>
                   <span className="text-[10px] text-stone-400 font-normal">Sisa: {formatRupiah(sisaPelunasan)}</span>
                 </button>
 
@@ -649,11 +661,11 @@ FOTONIC EQUIPMENT RENTAL
                   onClick={() => setSkemaBayar('lunas')}
                   className={`p-2 rounded-xl border text-center text-xs font-semibold transition-all ${
                     skemaBayar === 'lunas'
-                      ? 'border-emerald-500 bg-emerald-950/40 text-white ring-1 ring-emerald-500/50'
+                      ? 'border-[#6ee7b7] bg-[#6ee7b7]/15 text-white ring-1 ring-[#6ee7b7]/40'
                       : 'border-stone-800 bg-stone-950 text-stone-400'
                   }`}
                 >
-                  <div>Langsung Lunas</div>
+                  <div className="font-bold text-white">Langsung Lunas</div>
                   <span className="text-[10px] text-stone-400 font-normal">{formatRupiah(grandTotal)}</span>
                 </button>
               </div>
@@ -664,7 +676,7 @@ FOTONIC EQUIPMENT RENTAL
               <button
                 type="button"
                 onClick={handleKirimWA}
-                className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-stone-950 font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg active:scale-[0.99] transition-all"
+                className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-[#86efac] via-[#6ee7b7] to-[#34d399] hover:brightness-105 text-stone-950 font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#34d399]/20 active:scale-[0.99] transition-all"
               >
                 <Send className="w-4 h-4 text-stone-950" />
                 <span>Kirim Format Sewa via WhatsApp</span>
@@ -687,17 +699,17 @@ FOTONIC EQUIPMENT RENTAL
           </div>
 
           {/* Quick Switch to Photo Card */}
-          <div className="p-3.5 rounded-xl bg-amber-950/20 border border-amber-800/40 flex items-center justify-between gap-3 text-xs">
+          <div className="p-3.5 rounded-xl bg-[#dfc488]/10 border border-[#dfc488]/25 flex items-center justify-between gap-3 text-xs">
             <div>
               <span className="font-bold text-white block">Butuh Jasa Fotografer Wisuda?</span>
-              <p className="text-amber-300/80 text-[11px] mt-0.5">Sesi foto personal & group mulai Rp 80k.</p>
+              <p className="text-stone-400 text-[11px] mt-0.5">Sesi foto personal &amp; group mulai Rp 80k.</p>
             </div>
             <Link
               href="/jasa-foto"
-              className="px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-stone-950 font-bold shrink-0 flex items-center gap-1 shadow"
+              className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#dfc488] via-[#cca862] to-[#b89148] text-stone-950 font-bold shrink-0 flex items-center gap-1 shadow"
             >
               <span>Jasa Foto</span>
-              <ChevronRight className="w-3 h-3" />
+              <ChevronRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
@@ -707,8 +719,8 @@ FOTONIC EQUIPMENT RENTAL
 
       {/* Toast */}
       {toastMessage && (
-        <div className="fixed bottom-5 right-5 z-50 bg-stone-900 border border-emerald-500 text-white px-3.5 py-2.5 rounded-xl shadow-2xl flex items-center gap-2 text-xs">
-          <Check className="w-4 h-4 text-emerald-400" />
+        <div className="fixed bottom-5 right-5 z-50 bg-stone-900 border border-[#6ee7b7] text-white px-3.5 py-2.5 rounded-xl shadow-2xl flex items-center gap-2 text-xs">
+          <Check className="w-4 h-4 text-[#6ee7b7]" />
           <span>{toastMessage}</span>
         </div>
       )}
