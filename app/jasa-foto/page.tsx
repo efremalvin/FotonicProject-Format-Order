@@ -634,7 +634,7 @@ ${addOnListText}
                     Kategori Lokasi Foto <span className="text-rose-400">*</span>
                   </span>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {['Area Kampus / Gedung Acara', 'Outdoor / Taman / Landmark'].map(loc => (
+                    {['Area Kampus / Gedung Acara', 'Cafe / Taman / Landmark'].map(loc => (
                       <button
                         key={loc}
                         type="button"
