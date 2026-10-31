@@ -141,3 +141,9 @@ Halo admin Fotonic Rental, mohon konfirmasi ketersediaan alat dan nomor rekening
 
   return `https://wa.me/${ADMIN_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
+
+export function getGeneralChatLink(): string {
+  return `https://wa.me/${ADMIN_WHATSAPP_NUMBER}?text=${encodeURIComponent(
+    'Halo Admin Fotonic Project! Saya ingin bertanya mengenai paket foto & layanan rental. Mohon infonya ya. Terima kasih.'
+  )}`;
+}

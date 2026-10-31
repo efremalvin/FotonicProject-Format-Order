@@ -1,0 +1,23 @@
+/**
+ * Konfigurasi brand & kontak Fotonic. Ubah di sini untuk memperbarui seluruh situs.
+ */
+export const siteConfig = {
+  name: "Fotonic",
+  subtitle: "Photo & Video Project",
+  fullName: "Fotonic - Photo & Video Project",
+  location: "Bandar Lampung & Sekitarnya",
+  description:
+    "Layanan dokumentasi foto & video untuk wisuda, seminar & sidang, portrait, dan event di area Bandar Lampung dan sekitarnya. Booking mudah langsung via WhatsApp.",
+  url: "https://fotonic.vercel.app",
+  /** Nomor WhatsApp admin, format internasional tanpa "+" atau spasi. */
+  whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "6281994218428",
+  instagram: {
+    handle: "@fotonicproject",
+    url: "https://www.instagram.com/fotonicproject",
+  },
+} as const;
+
+/** Nomor WhatsApp dalam format tampilan, mis. "+62 819-9421-8428". */
+export function displayPhone(phone: string = siteConfig.whatsappNumber): string {
+  return `+${phone.replace(/\D/g, "").replace(/^(\d{2})(\d{3})(\d{4})(\d+)$/, "$1 $2-$3-$4")}`;
+}

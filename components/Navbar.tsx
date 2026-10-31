@@ -4,7 +4,10 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Camera, Image as ImageIcon, Home, ArrowRight, Menu, X, Sparkles } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
+import { InstagramIcon, WhatsAppIcon } from '@/components/icons/SocialIcons';
+import { siteConfig } from '@/lib/site';
+import { getGeneralChatLink } from '@/lib/whatsapp';
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -15,187 +18,129 @@ export default function Navbar() {
   const isFoto = pathname === '/jasa-foto';
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-[#0c0a09]/95 backdrop-blur-md border-b border-stone-800/80 transition-all">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 sm:h-20">
-          
-          {/* Brand Logo Header (Aperture + Serif Fotonic + Photo & Video Project) */}
-          <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group">
-            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-stone-900 border border-stone-800 flex items-center justify-center p-1 group-hover:border-[#d6a350]/60 transition-colors shrink-0 overflow-hidden">
-              <Image
-                src="/images/aperture-icon.png"
-                alt="Fotonic Aperture"
-                width={36}
-                height={36}
-                className="w-full h-full object-contain"
-                priority
-              />
-            </div>
-            <div className="flex flex-col text-left">
-              <span className="font-serif text-lg sm:text-xl font-bold text-white tracking-tight leading-none group-hover:text-[#e5b869] transition-colors">
-                Fotonic
-              </span>
-              <span className="text-[8px] sm:text-[9px] uppercase tracking-[0.22em] text-stone-400 font-semibold mt-0.5 leading-none">
-                PHOTO &amp; VIDEO PROJECT
-              </span>
-            </div>
-          </Link>
-
-          {/* Desktop Nav Items */}
-          <nav className="hidden md:flex items-center gap-1.5">
-            <Link
-              href="/"
-              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
-                isHome
-                  ? 'bg-[#c89343]/15 text-[#f2cf83] border border-[#c89343]/40 shadow-sm'
-                  : 'text-stone-400 hover:text-white hover:bg-stone-900/60'
-              }`}
-            >
-              <Home className="w-4 h-4" />
-              Beranda
-            </Link>
-
-            <Link
-              href="/sewa-kamera"
-              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
-                isSewa
-                  ? 'bg-[#10b981]/15 text-[#34d399] border border-[#10b981]/40 shadow-sm'
-                  : 'text-stone-400 hover:text-[#34d399] hover:bg-stone-900/60'
-              }`}
-            >
-              <Camera className="w-4 h-4" />
-              Sewa Kamera &amp; Gear
-            </Link>
-
-            <Link
-              href="/jasa-foto"
-              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
-                isFoto
-                  ? 'bg-[#c89343]/15 text-[#f2cf83] border border-[#c89343]/40 shadow-sm'
-                  : 'text-stone-400 hover:text-[#e5b869] hover:bg-stone-900/60'
-              }`}
-            >
-              <ImageIcon className="w-4 h-4" />
-              Jasa Foto &amp; Video
-            </Link>
-          </nav>
-
-          {/* Right Action: Instagram Icon & Quick Switcher (NO WA ICON) */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            
-            {/* Quick Switcher (Desktop) */}
-            <div className="hidden lg:flex items-center">
-              {isSewa && (
-                <Link
-                  href="/jasa-foto"
-                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#c89343]/15 hover:bg-[#c89343]/25 border border-[#c89343]/45 text-[#f2cf83] transition-all group"
-                >
-                  <Sparkles className="w-3.5 h-3.5 text-[#e5b869]" />
-                  <span>Beralih ke Jasa Foto</span>
-                  <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-                </Link>
-              )}
-
-              {isFoto && (
-                <Link
-                  href="/sewa-kamera"
-                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#10b981]/15 hover:bg-[#10b981]/25 border border-[#10b981]/45 text-[#34d399] transition-all group"
-                >
-                  <Camera className="w-3.5 h-3.5 text-[#10b981]" />
-                  <span>Beralih ke Sewa Kamera</span>
-                  <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-                </Link>
-              )}
-            </div>
-
-            {/* Instagram Circle Button (NO WA ICON) */}
-            <a
-              href="https://instagram.com/fotonicproject"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-stone-900/90 hover:bg-stone-850 border border-stone-800 hover:border-[#d6a350]/50 flex items-center justify-center text-stone-300 hover:text-white transition-all shadow-sm active:scale-95"
-              aria-label="Instagram @fotonicproject"
-              title="Instagram @fotonicproject"
-            >
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-              </svg>
-            </a>
-
-            {/* Mobile Menu Button */}
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-xl text-stone-400 hover:text-white hover:bg-stone-900 border border-stone-800 focus:outline-none"
-              aria-label="Toggle menu"
-            >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
+    <header className="sticky top-0 z-40 border-b border-white/5 bg-ink/95 sm:bg-ink/80 sm:backdrop-blur-xl">
+      <nav className="mx-auto flex h-16 sm:h-[72px] max-w-6xl items-center justify-between px-4 sm:px-8">
+        {/* Brand / Logo */}
+        <Link
+          href="/"
+          className="group flex items-center gap-2 sm:gap-3 transition-opacity hover:opacity-90 shrink-0"
+          aria-label="Fotonic — kembali ke beranda"
+        >
+          <div className="relative size-8 sm:size-9 overflow-hidden rounded-full border border-gold/40 bg-gold/10 p-1 sm:p-1.5 transition duration-500 group-hover:rotate-90 group-hover:bg-gold/20 shrink-0">
+            <Image
+              src="/images/aperture-white.png"
+              alt="Fotonic Shutter Icon"
+              width={36}
+              height={36}
+              priority
+              className="size-full object-contain"
+            />
           </div>
+          <div className="flex flex-col justify-center">
+            <span className="block font-display text-base sm:text-xl font-bold leading-tight tracking-wide text-white">
+              {siteConfig.name}
+            </span>
+            <span className="block text-[8px] sm:text-[10px] uppercase tracking-[0.18em] sm:tracking-[0.25em] text-zinc-400 leading-tight mt-0.5">
+              {siteConfig.subtitle}
+            </span>
+          </div>
+        </Link>
 
+        {/* Quick Nav Anchor (Desktop) */}
+        <div className="hidden items-center gap-6 md:flex">
+          <Link
+            href="/"
+            className={`text-xs uppercase tracking-widest transition ${
+              isHome ? 'text-gold font-semibold' : 'text-zinc-400 hover:text-gold'
+            }`}
+          >
+            Beranda
+          </Link>
+          <Link
+            href="/sewa-kamera"
+            className={`text-xs uppercase tracking-widest transition ${
+              isSewa ? 'text-gold font-semibold' : 'text-zinc-400 hover:text-gold'
+            }`}
+          >
+            Sewa Kamera
+          </Link>
+          <Link
+            href="/jasa-foto"
+            className={`text-xs uppercase tracking-widest transition ${
+              isFoto ? 'text-gold font-semibold' : 'text-zinc-400 hover:text-gold'
+            }`}
+          >
+            Jasa Foto
+          </Link>
         </div>
-      </div>
+
+        {/* Action Buttons - Simpel & Minimalis */}
+        <div className="flex items-center gap-2 sm:gap-2.5">
+          <a
+            href={siteConfig.instagram.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Instagram ${siteConfig.instagram.handle}`}
+            className="flex size-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-zinc-300 transition hover:border-gold/50 hover:bg-gold/10 hover:text-white"
+          >
+            <InstagramIcon size={16} className="text-zinc-300 hover:text-white" />
+          </a>
+          <a
+            href={getGeneralChatLink()}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Reservasi WhatsApp Fotonic"
+            title="Reservasi via WhatsApp"
+            className="flex size-9 items-center justify-center rounded-full bg-wa text-black shadow-lg shadow-wa/20 transition hover:brightness-110 active:scale-95"
+          >
+            <WhatsAppIcon size={17} />
+          </a>
+
+          {/* Mobile Menu Toggle Button */}
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden flex size-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-zinc-300 transition hover:border-gold/50 hover:bg-gold/10 hover:text-white"
+            aria-label="Toggle navigation menu"
+          >
+            {mobileMenuOpen ? <X size={16} /> : <Menu size={16} />}
+          </button>
+        </div>
+      </nav>
 
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-b border-stone-800 bg-[#0c0a09]/98 backdrop-blur-xl px-4 pt-2 pb-5 space-y-2">
+        <div className="md:hidden border-b border-white/5 bg-ink/98 backdrop-blur-xl px-4 py-3 space-y-1">
           <Link
             href="/"
             onClick={() => setMobileMenuOpen(false)}
-            className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs sm:text-sm font-semibold ${
-              isHome ? 'bg-[#c89343]/15 text-[#f2cf83] border border-[#c89343]/40' : 'text-stone-300 hover:bg-stone-900'
+            className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-xs uppercase tracking-widest transition ${
+              isHome ? 'text-gold font-semibold bg-white/[0.04]' : 'text-zinc-400 hover:text-gold'
             }`}
           >
-            <Home className="w-4 h-4 text-[#e5b869]" />
-            Beranda Utama
+            <span>Beranda</span>
+            {isHome && <span className="size-1.5 rounded-full bg-gold" />}
           </Link>
-
           <Link
             href="/sewa-kamera"
             onClick={() => setMobileMenuOpen(false)}
-            className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs sm:text-sm font-semibold ${
-              isSewa ? 'bg-[#10b981]/15 text-[#34d399] border border-[#10b981]/40' : 'text-stone-300 hover:bg-stone-900'
+            className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-xs uppercase tracking-widest transition ${
+              isSewa ? 'text-gold font-semibold bg-white/[0.04]' : 'text-zinc-400 hover:text-gold'
             }`}
           >
-            <Camera className="w-4 h-4 text-[#10b981]" />
-            Sewa Kamera &amp; Gear
+            <span>Sewa Kamera &amp; Gear</span>
+            {isSewa && <span className="size-1.5 rounded-full bg-gold" />}
           </Link>
-
           <Link
             href="/jasa-foto"
             onClick={() => setMobileMenuOpen(false)}
-            className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs sm:text-sm font-semibold ${
-              isFoto ? 'bg-[#c89343]/15 text-[#f2cf83] border border-[#c89343]/40' : 'text-stone-300 hover:bg-stone-900'
+            className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-xs uppercase tracking-widest transition ${
+              isFoto ? 'text-gold font-semibold bg-white/[0.04]' : 'text-zinc-400 hover:text-gold'
             }`}
           >
-            <ImageIcon className="w-4 h-4 text-[#e5b869]" />
-            Jasa Foto &amp; Video
+            <span>Jasa Foto &amp; Video</span>
+            {isFoto && <span className="size-1.5 rounded-full bg-gold" />}
           </Link>
-
-          <div className="pt-2 border-t border-stone-800/80">
-            {isSewa && (
-              <Link
-                href="/jasa-foto"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-[#e7bd70] via-[#d6a350] to-[#be8638] text-stone-950 shadow-md"
-              >
-                <Sparkles className="w-4 h-4" />
-                Beralih ke Jasa Foto ➜
-              </Link>
-            )}
-            {isFoto && (
-              <Link
-                href="/sewa-kamera"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-[#4ade80] via-[#10b981] to-[#059669] text-stone-950 shadow-md"
-              >
-                <Camera className="w-4 h-4" />
-                Beralih ke Sewa Kamera ➜
-              </Link>
-            )}
-          </div>
         </div>
       )}
     </header>
