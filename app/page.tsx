@@ -10,8 +10,8 @@ const SERVICES = [
     desc: 'Mirrorless Nikon Z50 Mark II dengan lensa Viltrox 35mm f/1.7. Durasi 4 jam, setengah hari, atau sehari penuh. Antar gratis ke area kampus Unila.',
     points: ['Paket komplit, single lens, atau lensa saja', '2 baterai, SD card 32GB, dan tas', 'Jaminan satu identitas asli (KTP / KTM)'],
     cta: 'Isi formulir sewa',
-    accent: 'text-emerald-400',
-    hover: 'hover:border-emerald-500/50',
+    accent: 'text-gold',
+    hover: 'hover:border-gold/50',
   },
   {
     no: '02',

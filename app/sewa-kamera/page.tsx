@@ -191,12 +191,12 @@ FOTONIC EQUIPMENT RENTAL
       
       {/* Header Page */}
       <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#10b981]/15 border border-[#10b981]/35 text-[#34d399] text-xs font-semibold mb-2.5">
-          <Camera className="w-3.5 h-3.5 text-[#10b981]" />
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#d6a85a]/15 border border-[#d6a85a]/35 text-[#e5b869] text-xs font-semibold mb-2.5">
+          <Camera className="w-3.5 h-3.5 text-[#d6a85a]" />
           <span>Fotonic Equipment Rental</span>
         </div>
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-2">
-          Format Order <span className="text-[#34d399]">Sewa Nikon Z50 Mark II</span>
+          Format Order <span className="text-[#e5b869]">Sewa Nikon Z50 Mark II</span>
         </h1>
         <p className="text-stone-400 text-xs sm:text-sm leading-relaxed max-w-lg mx-auto">
           Pilih durasi dan paket alat di bawah ini. Selesaikan pengisian form untuk mengirimkan rincian sewa resmi ke WhatsApp admin.
@@ -211,12 +211,12 @@ FOTONIC EQUIPMENT RENTAL
           {/* SECTION 1: Pilih Durasi & Paket Alat */}
           <section className="bg-stone-900/80 border border-stone-800 rounded-lg p-4 sm:p-6 ">
             <div className="flex items-center gap-2.5 pb-3.5 mb-4 border-b border-stone-800">
-              <div className="w-8 h-8 rounded-lg bg-[#10b981]/15 text-[#34d399] flex items-center justify-center font-bold text-xs border border-[#10b981]/30">
+              <div className="w-8 h-8 rounded-lg bg-[#d6a85a]/15 text-[#e5b869] flex items-center justify-center font-bold text-xs border border-[#d6a85a]/30">
                 1
               </div>
               <div>
                 <h2 className="text-base font-bold text-white flex items-center gap-2">
-                  <Camera className="w-4 h-4 text-[#10b981]" />
+                  <Camera className="w-4 h-4 text-[#d6a85a]" />
                   Pilih Durasi &amp; Paket Kamera
                 </h2>
                 <p className="text-[11px] text-stone-400">Pricelist resmi sewa Nikon Z50 Mark II</p>
@@ -234,12 +234,12 @@ FOTONIC EQUIPMENT RENTAL
                   onClick={() => setSelectedDurationKey('fullDay')}
                   className={`p-2.5 rounded-md border text-center transition-all ${
                     selectedDurationKey === 'fullDay'
-                      ? 'border-[#10b981] bg-[#10b981]/15 text-white font-bold ring-1 ring-[#10b981]/40'
+                      ? 'border-[#d6a85a] bg-[#d6a85a]/15 text-white font-bold ring-1 ring-[#d6a85a]/40'
                       : 'border-stone-800 bg-stone-950 text-stone-400 hover:border-stone-700'
                   }`}
                 >
                   <div className="text-xs">1 Hari (24 Jam)</div>
-                  <div className="text-[10px] text-[#34d399] mt-0.5 font-semibold">Full Day 🔥</div>
+                  <div className="text-[10px] text-[#e5b869] mt-0.5 font-semibold">Full Day 🔥</div>
                 </button>
 
                 <button
@@ -247,7 +247,7 @@ FOTONIC EQUIPMENT RENTAL
                   onClick={() => setSelectedDurationKey('halfDay')}
                   className={`p-2.5 rounded-md border text-center transition-all ${
                     selectedDurationKey === 'halfDay'
-                      ? 'border-[#10b981] bg-[#10b981]/15 text-white font-bold ring-1 ring-[#10b981]/40'
+                      ? 'border-[#d6a85a] bg-[#d6a85a]/15 text-white font-bold ring-1 ring-[#d6a85a]/40'
                       : 'border-stone-800 bg-stone-950 text-stone-400 hover:border-stone-700'
                   }`}
                 >
@@ -260,7 +260,7 @@ FOTONIC EQUIPMENT RENTAL
                   onClick={() => setSelectedDurationKey('shortTime')}
                   className={`p-2.5 rounded-md border text-center transition-all ${
                     selectedDurationKey === 'shortTime'
-                      ? 'border-[#10b981] bg-[#10b981]/15 text-white font-bold ring-1 ring-[#10b981]/40'
+                      ? 'border-[#d6a85a] bg-[#d6a85a]/15 text-white font-bold ring-1 ring-[#d6a85a]/40'
                       : 'border-stone-800 bg-stone-950 text-stone-400 hover:border-stone-700'
                   }`}
                 >
@@ -286,14 +286,14 @@ FOTONIC EQUIPMENT RENTAL
                     onClick={() => setSelectedPackageId(pkg.id)}
                     className={`p-3 sm:p-4 rounded-md border cursor-pointer transition-all ${
                       isSelected
-                        ? 'border-[#10b981] bg-[#10b981]/10 ring-1 ring-[#10b981]/35'
+                        ? 'border-[#d6a85a] bg-[#d6a85a]/10 ring-1 ring-[#d6a85a]/35'
                         : 'border-stone-800 bg-stone-950/80 hover:border-stone-700'
                     }`}
                   >
                     <div className="flex items-start justify-between gap-2.5">
                       <div className="flex items-start gap-2.5">
                         <div className={`w-4 h-4 rounded-full border mt-0.5 flex items-center justify-center transition-colors shrink-0 ${
-                          isSelected ? 'border-[#10b981] bg-[#10b981]' : 'border-stone-600'
+                          isSelected ? 'border-[#d6a85a] bg-[#d6a85a]' : 'border-stone-600'
                         }`}>
                           {isSelected && <Check className="w-2.5 h-2.5 text-stone-950 stroke-[3]" />}
                         </div>
@@ -301,7 +301,7 @@ FOTONIC EQUIPMENT RENTAL
                           <div className="flex items-center gap-1.5 flex-wrap">
                             <span className="font-bold text-xs sm:text-sm text-white">{pkg.name}</span>
                             {pkg.badge && (
-                              <span className="text-[10px] px-1.5 py-0.2 rounded bg-[#10b981]/15 border border-[#10b981]/30 text-[#34d399] font-medium">
+                              <span className="text-[10px] px-1.5 py-0.2 rounded bg-[#d6a85a]/15 border border-[#d6a85a]/30 text-[#e5b869] font-medium">
                                 {pkg.badge}
                               </span>
                             )}
@@ -310,7 +310,7 @@ FOTONIC EQUIPMENT RENTAL
                         </div>
                       </div>
                       <div className="text-right shrink-0">
-                        <span className="font-extrabold text-xs sm:text-sm text-[#34d399] font-mono">
+                        <span className="font-extrabold text-xs sm:text-sm text-[#e5b869] font-mono">
                           {formatRupiah(priceVal)}
                         </span>
                       </div>
@@ -319,7 +319,7 @@ FOTONIC EQUIPMENT RENTAL
                     {/* Wajib Pilih 1 Lensa Khusus Paket Single Lens */}
                     {pkg.id === 'paket-single-lens' && isSelected && (
                       <div className="mt-3 pt-2.5 border-t border-stone-800 pl-6 sm:pl-7">
-                        <span className="block text-[11px] font-bold text-[#34d399] uppercase tracking-wider mb-1.5">
+                        <span className="block text-[11px] font-bold text-[#e5b869] uppercase tracking-wider mb-1.5">
                           Pilih 1 Lensa yang Digunakan (Wajib):
                         </span>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -332,7 +332,7 @@ FOTONIC EQUIPMENT RENTAL
                               }}
                               className={`flex items-center gap-2 p-2 rounded-lg border text-xs cursor-pointer transition-all ${
                                 singleLensChoice === lens
-                                  ? 'border-[#10b981] bg-stone-900 text-white font-semibold'
+                                  ? 'border-[#d6a85a] bg-stone-900 text-white font-semibold'
                                   : 'border-stone-800 bg-stone-950 text-stone-400 hover:border-stone-700'
                               }`}
                             >
@@ -341,7 +341,7 @@ FOTONIC EQUIPMENT RENTAL
                                 name="singleLensOption"
                                 checked={singleLensChoice === lens}
                                 onChange={() => setSingleLensChoice(lens)}
-                                className="accent-[#10b981] w-3.5 h-3.5"
+                                className="accent-[#d6a85a] w-3.5 h-3.5"
                               />
                               <span>{lens}</span>
                             </label>
@@ -357,13 +357,13 @@ FOTONIC EQUIPMENT RENTAL
             {/* Kelengkapan Bawaan Unit (Bahasa Indonesia Saja) */}
             <div className="mt-4 p-3.5 rounded-md bg-stone-950 border border-stone-800">
               <span className="text-[11px] font-bold uppercase tracking-wider text-stone-200 flex items-center gap-1.5 mb-2">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#10b981]" />
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#d6a85a]" />
                 Kelengkapan Bawaan Unit (Termasuk Bebas Biaya):
               </span>
               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-[11px] text-stone-300">
                 {STANDARD_ACCESSORIES.map(acc => (
                   <li key={acc} className="flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#10b981] shrink-0"></span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#d6a85a] shrink-0"></span>
                     <span>{acc}</span>
                   </li>
                 ))}
@@ -375,12 +375,12 @@ FOTONIC EQUIPMENT RENTAL
           {/* SECTION 2: Opsi Pengantaran Kamera (Unila Free vs Luar Unila) */}
           <section className="bg-stone-900/80 border border-stone-800 rounded-lg p-4 sm:p-6 ">
             <div className="flex items-center gap-2.5 pb-3.5 mb-4 border-b border-stone-800">
-              <div className="w-8 h-8 rounded-lg bg-[#10b981]/15 text-[#34d399] flex items-center justify-center font-bold text-xs border border-[#10b981]/30">
+              <div className="w-8 h-8 rounded-lg bg-[#d6a85a]/15 text-[#e5b869] flex items-center justify-center font-bold text-xs border border-[#d6a85a]/30">
                 2
               </div>
               <div>
                 <h2 className="text-base font-bold text-white flex items-center gap-2">
-                  <Truck className="w-4 h-4 text-[#10b981]" />
+                  <Truck className="w-4 h-4 text-[#d6a85a]" />
                   Opsi Pengantaran &amp; Pengambilan
                 </h2>
                 <p className="text-[11px] text-stone-400">Pilih titik serah terima kamera</p>
@@ -395,7 +395,7 @@ FOTONIC EQUIPMENT RENTAL
                     key={opt.id}
                     className={`flex items-start justify-between gap-3 p-3 rounded-md border cursor-pointer transition-all ${
                       isSelected
-                        ? 'border-[#10b981] bg-[#10b981]/10 ring-1 ring-[#10b981]/35 text-white'
+                        ? 'border-[#d6a85a] bg-[#d6a85a]/10 ring-1 ring-[#d6a85a]/35 text-white'
                         : 'border-stone-800 bg-stone-950 text-stone-400 hover:border-stone-700'
                     }`}
                   >
@@ -405,14 +405,14 @@ FOTONIC EQUIPMENT RENTAL
                         name="deliveryOption"
                         checked={isSelected}
                         onChange={() => setDeliveryOptionId(opt.id)}
-                        className="accent-[#10b981] w-4 h-4 mt-0.5"
+                        className="accent-[#d6a85a] w-4 h-4 mt-0.5"
                       />
                       <div>
                         <div className="font-semibold text-xs sm:text-sm text-white">{opt.label}</div>
                         <div className="text-[11px] text-stone-400 mt-0.5">{opt.note}</div>
                       </div>
                     </div>
-                    <div className="text-xs font-mono font-bold text-[#34d399] shrink-0">
+                    <div className="text-xs font-mono font-bold text-[#e5b869] shrink-0">
                       {opt.fee === 0 ? 'Gratis' : `+${formatRupiah(opt.fee)}`}
                     </div>
                   </label>
@@ -424,12 +424,12 @@ FOTONIC EQUIPMENT RENTAL
           {/* SECTION 3: Data Penyewa & Jadwal */}
           <section className="bg-stone-900/80 border border-stone-800 rounded-lg p-4 sm:p-6 ">
             <div className="flex items-center gap-2.5 pb-3.5 mb-4 border-b border-stone-800">
-              <div className="w-8 h-8 rounded-lg bg-[#10b981]/15 text-[#34d399] flex items-center justify-center font-bold text-xs border border-[#10b981]/30">
+              <div className="w-8 h-8 rounded-lg bg-[#d6a85a]/15 text-[#e5b869] flex items-center justify-center font-bold text-xs border border-[#d6a85a]/30">
                 3
               </div>
               <div>
                 <h2 className="text-base font-bold text-white flex items-center gap-2">
-                  <Calendar className="w-4 h-4 text-[#10b981]" />
+                  <Calendar className="w-4 h-4 text-[#d6a85a]" />
                   Data Penyewa &amp; Jadwal Sewa
                 </h2>
                 <p className="text-[11px] text-stone-400">Isi data identitas dan tentukan jadwal sewa alat</p>
@@ -447,7 +447,7 @@ FOTONIC EQUIPMENT RENTAL
                     value={nama}
                     onChange={(e) => setNama(e.target.value)}
                     placeholder="Contoh: Muhammad Raihan Pratama"
-                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-md text-xs sm:text-sm text-white focus:outline-none focus:border-[#10b981]"
+                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-md text-xs sm:text-sm text-white focus:outline-none focus:border-[#d6a85a]"
                   />
                 </div>
 
@@ -460,7 +460,7 @@ FOTONIC EQUIPMENT RENTAL
                     value={whatsapp}
                     onChange={(e) => setWhatsapp(e.target.value)}
                     placeholder="Contoh: 081234567890"
-                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-md text-xs sm:text-sm text-white focus:outline-none focus:border-[#10b981]"
+                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-md text-xs sm:text-sm text-white focus:outline-none focus:border-[#d6a85a]"
                   />
                 </div>
               </div>
@@ -475,7 +475,7 @@ FOTONIC EQUIPMENT RENTAL
                     value={instagram}
                     onChange={(e) => setInstagram(e.target.value)}
                     placeholder="Contoh: @raihan.pratama"
-                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-md text-xs sm:text-sm text-white focus:outline-none focus:border-[#10b981]"
+                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-md text-xs sm:text-sm text-white focus:outline-none focus:border-[#d6a85a]"
                   />
                 </div>
 
@@ -488,7 +488,7 @@ FOTONIC EQUIPMENT RENTAL
                     value={alamatDomisili}
                     onChange={(e) => setAlamatDomisili(e.target.value)}
                     placeholder="Contoh: Kost Wisma Unila, Jl. Sumantri"
-                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-md text-xs sm:text-sm text-white focus:outline-none focus:border-[#10b981]"
+                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-md text-xs sm:text-sm text-white focus:outline-none focus:border-[#d6a85a]"
                   />
                 </div>
               </div>
@@ -496,8 +496,8 @@ FOTONIC EQUIPMENT RENTAL
               {/* Jadwal Ambil & Kembali */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
                 <div className="p-2.5 bg-stone-950 rounded-md border border-stone-800 space-y-1.5">
-                  <span className="text-[11px] font-bold text-[#34d399] uppercase tracking-wider flex items-center gap-1">
-                    <Clock className="w-3 h-3 text-[#10b981]" />
+                  <span className="text-[11px] font-bold text-[#e5b869] uppercase tracking-wider flex items-center gap-1">
+                    <Clock className="w-3 h-3 text-[#d6a85a]" />
                     Waktu Pengambilan
                   </span>
                   <div className="grid grid-cols-2 gap-2">
@@ -513,21 +513,21 @@ FOTONIC EQUIPMENT RENTAL
                         }
                       }}
                       style={{ colorScheme: 'dark' }}
-                      className="w-full px-2 py-1.5 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white focus:outline-none focus:border-[#10b981]"
+                      className="w-full px-2 py-1.5 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white focus:outline-none focus:border-[#d6a85a]"
                     />
                     <input
                       type="time"
                       value={jamAmbil}
                       onChange={(e) => setJamAmbil(e.target.value)}
                       style={{ colorScheme: 'dark' }}
-                      className="w-full px-2 py-1.5 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white focus:outline-none focus:border-[#10b981]"
+                      className="w-full px-2 py-1.5 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white focus:outline-none focus:border-[#d6a85a]"
                     />
                   </div>
                 </div>
 
                 <div className="p-2.5 bg-stone-950 rounded-md border border-stone-800 space-y-1.5">
-                  <span className="text-[11px] font-bold text-[#34d399] uppercase tracking-wider flex items-center gap-1">
-                    <Clock className="w-3 h-3 text-[#10b981]" />
+                  <span className="text-[11px] font-bold text-[#e5b869] uppercase tracking-wider flex items-center gap-1">
+                    <Clock className="w-3 h-3 text-[#d6a85a]" />
                     Waktu Pengembalian
                   </span>
                   <div className="grid grid-cols-2 gap-2">
@@ -537,14 +537,14 @@ FOTONIC EQUIPMENT RENTAL
                       value={tanggalKembali}
                       onChange={(e) => setTanggalKembali(e.target.value)}
                       style={{ colorScheme: 'dark' }}
-                      className="w-full px-2 py-1.5 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white focus:outline-none focus:border-[#10b981]"
+                      className="w-full px-2 py-1.5 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white focus:outline-none focus:border-[#d6a85a]"
                     />
                     <input
                       type="time"
                       value={jamKembali}
                       onChange={(e) => setJamKembali(e.target.value)}
                       style={{ colorScheme: 'dark' }}
-                      className="w-full px-2 py-1.5 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white focus:outline-none focus:border-[#10b981]"
+                      className="w-full px-2 py-1.5 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white focus:outline-none focus:border-[#d6a85a]"
                     />
                   </div>
                 </div>
@@ -558,7 +558,7 @@ FOTONIC EQUIPMENT RENTAL
                 <div className="grid grid-cols-2 gap-2">
                   <label className={`flex items-center gap-2 p-2.5 rounded-md border cursor-pointer text-xs ${
                     jaminanIdentitas === 'KTP Asli'
-                      ? 'border-[#d6a350] bg-[#c89343]/15 text-white font-semibold'
+                      ? 'border-[#d6a85a] bg-[#d6a85a]/15 text-white font-semibold'
                       : 'border-stone-800 bg-stone-950 text-stone-400'
                   }`}>
                     <input
@@ -566,14 +566,14 @@ FOTONIC EQUIPMENT RENTAL
                       name="jaminanRadio"
                       checked={jaminanIdentitas === 'KTP Asli'}
                       onChange={() => setJaminanIdentitas('KTP Asli')}
-                      className="accent-[#d6a350] w-3.5 h-3.5"
+                      className="accent-[#d6a85a] w-3.5 h-3.5"
                     />
                     <span>KTP Asli</span>
                   </label>
 
                   <label className={`flex items-center gap-2 p-2.5 rounded-md border cursor-pointer text-xs ${
                     jaminanIdentitas === 'KTM / Kartu Pelajar Asli'
-                      ? 'border-[#d6a350] bg-[#c89343]/15 text-white font-semibold'
+                      ? 'border-[#d6a85a] bg-[#d6a85a]/15 text-white font-semibold'
                       : 'border-stone-800 bg-stone-950 text-stone-400'
                   }`}>
                     <input
@@ -581,7 +581,7 @@ FOTONIC EQUIPMENT RENTAL
                       name="jaminanRadio"
                       checked={jaminanIdentitas === 'KTM / Kartu Pelajar Asli'}
                       onChange={() => setJaminanIdentitas('KTM / Kartu Pelajar Asli')}
-                      className="accent-[#d6a350] w-3.5 h-3.5"
+                      className="accent-[#d6a85a] w-3.5 h-3.5"
                     />
                     <span>KTM / Kartu Pelajar Asli</span>
                   </label>
@@ -594,8 +594,8 @@ FOTONIC EQUIPMENT RENTAL
           {/* S&K Ringkas */}
           <section className="bg-stone-900/60 border border-stone-800 rounded-lg p-4 sm:p-5 text-xs text-stone-300 space-y-3">
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-lg bg-[#10b981]/15 flex items-center justify-center shrink-0">
-                <ShieldAlert className="w-3.5 h-3.5 text-[#10b981]" />
+              <div className="w-6 h-6 rounded-lg bg-[#d6a85a]/15 flex items-center justify-center shrink-0">
+                <ShieldAlert className="w-3.5 h-3.5 text-[#d6a85a]" />
               </div>
               <h3 className="font-bold text-xs sm:text-sm text-white">
                 Ketentuan Sewa Fotonic:
@@ -604,7 +604,7 @@ FOTONIC EQUIPMENT RENTAL
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
               {RENTAL_RULES.map((rule, idx) => (
                 <div key={idx} className="p-2.5 rounded-md bg-stone-950/70 border border-stone-800/80">
-                  <span className="font-semibold text-[#34d399] block mb-0.5">{rule.title}</span>
+                  <span className="font-semibold text-[#e5b869] block mb-0.5">{rule.title}</span>
                   <p className="text-stone-400 leading-relaxed">{rule.desc}</p>
                 </div>
               ))}
@@ -620,7 +620,7 @@ FOTONIC EQUIPMENT RENTAL
             
             <div className="flex items-center justify-between pb-3 mb-3 border-b border-stone-800">
               <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#10b981]"></span>
+                <span className="w-2 h-2 rounded-full bg-[#d6a85a]"></span>
                 <h3 className="font-bold text-sm sm:text-base text-white">Rincian &amp; Total Tarif</h3>
               </div>
               <button
@@ -637,7 +637,7 @@ FOTONIC EQUIPMENT RENTAL
             <div className="bg-stone-950 p-3.5 rounded-md border border-stone-800 space-y-1.5 text-xs mb-3.5">
               <div className="flex justify-between items-center text-stone-300">
                 <span className="font-medium text-[11px]">{currentPackage.name}</span>
-                <span className="font-bold text-[#34d399] font-mono">{formatRupiah(basePrice)}</span>
+                <span className="font-bold text-[#e5b869] font-mono">{formatRupiah(basePrice)}</span>
               </div>
               <div className="flex justify-between items-center text-stone-400 text-[10px]">
                 <span>Durasi: {durasiLabel}</span>
@@ -645,13 +645,13 @@ FOTONIC EQUIPMENT RENTAL
               </div>
               <div className="flex justify-between items-center text-stone-300 pt-1 border-t border-stone-900 text-[11px]">
                 <span>Pengantaran: {selectedDelivery.label}</span>
-                <span className="font-bold text-[#34d399] font-mono">
+                <span className="font-bold text-[#e5b869] font-mono">
                   {deliveryFee === 0 ? 'Gratis' : `+${formatRupiah(deliveryFee)}`}
                 </span>
               </div>
               <div className="pt-2 border-t border-stone-800 flex justify-between items-center text-xs sm:text-sm">
                 <span className="font-bold text-white">Total Tarif:</span>
-                <span className="font-extrabold text-[#f2cf83] text-sm sm:text-base font-mono">{formatRupiah(grandTotal)}</span>
+                <span className="font-extrabold text-[#f0cf8e] text-sm sm:text-base font-mono">{formatRupiah(grandTotal)}</span>
               </div>
             </div>
 
@@ -666,7 +666,7 @@ FOTONIC EQUIPMENT RENTAL
                   onClick={() => setSkemaBayar('dp')}
                   className={`p-2 rounded-md border text-center text-xs font-semibold transition-all ${
                     skemaBayar === 'dp'
-                      ? 'border-[#10b981] bg-[#10b981]/15 text-white ring-1 ring-[#10b981]/40'
+                      ? 'border-[#d6a85a] bg-[#d6a85a]/15 text-white ring-1 ring-[#d6a85a]/40'
                       : 'border-stone-800 bg-stone-950 text-stone-400'
                   }`}
                 >
@@ -679,7 +679,7 @@ FOTONIC EQUIPMENT RENTAL
                   onClick={() => setSkemaBayar('lunas')}
                   className={`p-2 rounded-md border text-center text-xs font-semibold transition-all ${
                     skemaBayar === 'lunas'
-                      ? 'border-[#10b981] bg-[#10b981]/15 text-white ring-1 ring-[#10b981]/40'
+                      ? 'border-[#d6a85a] bg-[#d6a85a]/15 text-white ring-1 ring-[#d6a85a]/40'
                       : 'border-stone-800 bg-stone-950 text-stone-400'
                   }`}
                 >
@@ -694,7 +694,7 @@ FOTONIC EQUIPMENT RENTAL
               <button
                 type="button"
                 onClick={handleKirimWA}
-                className="w-full py-3 px-4 rounded-md bg-[#10b981] hover:brightness-105 text-stone-950 font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2  shadow-[#10b981]/25 active:scale-[0.99] transition-all"
+                className="w-full py-3 px-4 rounded-md bg-[#d6a85a] hover:brightness-105 text-stone-950 font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2  shadow-[#d6a85a]/25 active:scale-[0.99] transition-all"
               >
                 <Send className="w-4 h-4 text-stone-950" />
                 <span>Kirim Format Sewa via WhatsApp</span>
@@ -717,14 +717,14 @@ FOTONIC EQUIPMENT RENTAL
           </div>
 
           {/* Quick Switch to Photo Card */}
-          <div className="p-3.5 rounded-md bg-[#c89343]/10 border border-[#c89343]/30 flex items-center justify-between gap-3 text-xs">
+          <div className="p-3.5 rounded-md bg-[#d6a85a]/10 border border-[#d6a85a]/30 flex items-center justify-between gap-3 text-xs">
             <div>
               <span className="font-bold text-white block">Butuh Jasa Fotografer Wisuda?</span>
               <p className="text-stone-400 text-[11px] mt-0.5">Sesi foto personal &amp; group mulai Rp 80k.</p>
             </div>
             <Link
               href="/jasa-foto"
-              className="px-3 py-1.5 rounded-lg bg-[#10b981] text-stone-950 font-bold shrink-0 flex items-center gap-1 shadow"
+              className="px-3 py-1.5 rounded-lg bg-[#d6a85a] text-stone-950 font-bold shrink-0 flex items-center gap-1 shadow"
             >
               <span>Jasa Foto</span>
               <ChevronRight className="w-3.5 h-3.5" />
@@ -737,8 +737,8 @@ FOTONIC EQUIPMENT RENTAL
 
       {/* Toast */}
       {toastMessage && (
-        <div className="fixed bottom-5 right-5 z-50 bg-stone-900 border border-[#10b981] text-white px-3.5 py-2.5 rounded-md  flex items-center gap-2 text-xs">
-          <Check className="w-4 h-4 text-[#34d399]" />
+        <div className="fixed bottom-5 right-5 z-50 bg-stone-900 border border-[#d6a85a] text-white px-3.5 py-2.5 rounded-md  flex items-center gap-2 text-xs">
+          <Check className="w-4 h-4 text-[#e5b869]" />
           <span>{toastMessage}</span>
         </div>
       )}

@@ -234,7 +234,7 @@ ${addOnListText}
       
       {/* Header Page (NO WA BADGE ON TOP) */}
       <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-10">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#c89343]/10 border border-[#c89343]/35 text-[#f2cf83] text-xs font-semibold mb-2">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#d6a85a]/10 border border-[#d6a85a]/35 text-[#f0cf8e] text-xs font-semibold mb-2">
           <Sparkles className="w-3.5 h-3.5 text-[#e5b869]" />
           <span>Fotonic Graduation &amp; Sidang Photography</span>
         </div>
@@ -254,7 +254,7 @@ ${addOnListText}
           {/* SECTION 1: Pilih Kategori & Paket Foto */}
           <section className="bg-stone-900/80 border border-stone-800 rounded-lg p-4 sm:p-6 ">
             <div className="flex items-center gap-2.5 pb-3 mb-4 border-b border-stone-800">
-              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#c89343]/15 text-[#e5b869] flex items-center justify-center font-bold text-xs border border-[#c89343]/35 shrink-0">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#d6a85a]/15 text-[#e5b869] flex items-center justify-center font-bold text-xs border border-[#d6a85a]/35 shrink-0">
                 1
               </div>
               <div className="min-w-0 flex-1">
@@ -281,7 +281,7 @@ ${addOnListText}
                       onClick={() => handleCategoryChange(cat.id)}
                       className={`p-2.5 sm:p-3 rounded-md border text-left transition-all ${
                         isActive
-                          ? 'border-[#d6a350] bg-[#c89343]/15 ring-1 ring-[#d6a350]/40 text-white'
+                          ? 'border-[#d6a85a] bg-[#d6a85a]/15 ring-1 ring-[#d6a85a]/40 text-white'
                           : 'border-stone-800 bg-stone-950/70 text-stone-400 hover:border-stone-700 hover:text-stone-200'
                       }`}
                     >
@@ -313,14 +313,14 @@ ${addOnListText}
                     onClick={() => setSelectedPackageId(pkg.id)}
                     className={`p-3.5 sm:p-4 rounded-md border cursor-pointer transition-all ${
                       isSelected
-                        ? 'border-[#d6a350] bg-[#c89343]/10 ring-1 ring-[#d6a350]/35'
+                        ? 'border-[#d6a85a] bg-[#d6a85a]/10 ring-1 ring-[#d6a85a]/35'
                         : 'border-stone-800 bg-stone-950/70 hover:border-stone-700'
                     }`}
                   >
                     <div className="flex items-start justify-between gap-2.5">
                       <div className="flex items-start gap-2.5 min-w-0 flex-1">
                         <div className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full border mt-0.5 flex items-center justify-center transition-colors shrink-0 ${
-                          isSelected ? 'border-[#d6a350] bg-[#d6a350]' : 'border-stone-700'
+                          isSelected ? 'border-[#d6a85a] bg-[#d6a85a]' : 'border-stone-700'
                         }`}>
                           {isSelected && <Check className="w-3 h-3 text-stone-950 stroke-[3]" />}
                         </div>
@@ -328,7 +328,7 @@ ${addOnListText}
                           <div className="flex items-center gap-1.5 flex-wrap">
                             <span className="font-bold text-xs sm:text-sm text-white">{pkg.name}</span>
                             {pkg.badge && (
-                              <span className="text-[10px] px-2 py-0.2 rounded bg-[#c89343]/15 border border-[#c89343]/30 text-[#f2cf83] font-medium">
+                              <span className="text-[10px] px-2 py-0.2 rounded bg-[#d6a85a]/15 border border-[#d6a85a]/30 text-[#f0cf8e] font-medium">
                                 {pkg.badge}
                               </span>
                             )}
@@ -340,7 +340,7 @@ ${addOnListText}
                             <span className="text-[10px] sm:text-[11px] bg-stone-900 border border-stone-800 text-stone-300 px-2 py-0.5 rounded-md font-medium">
                               📍 {pkg.spots}
                             </span>
-                            <span className="text-[10px] sm:text-[11px] bg-[#c89343]/15 border border-[#c89343]/30 text-[#f2cf83] px-2 py-0.5 rounded-md font-medium">
+                            <span className="text-[10px] sm:text-[11px] bg-[#d6a85a]/15 border border-[#d6a85a]/30 text-[#f0cf8e] px-2 py-0.5 rounded-md font-medium">
                               🎨 Edit {pkg.editedPhotos} Foto
                             </span>
                           </div>
@@ -374,7 +374,7 @@ ${addOnListText}
           {/* SECTION 2: Add-On Services (Mobile Optimized) */}
           <section className="bg-stone-900/80 border border-stone-800 rounded-lg p-4 sm:p-6 ">
             <div className="flex items-center gap-2.5 pb-3 mb-4 border-b border-stone-800">
-              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#c89343]/15 text-[#e5b869] flex items-center justify-center font-bold text-xs border border-[#c89343]/35 shrink-0">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#d6a85a]/15 text-[#e5b869] flex items-center justify-center font-bold text-xs border border-[#d6a85a]/35 shrink-0">
                 2
               </div>
               <div className="min-w-0 flex-1">
@@ -393,13 +393,13 @@ ${addOnListText}
                 onClick={() => setCinematicReels(!cinematicReels)}
                 className={`p-3.5 rounded-md border cursor-pointer transition-all ${
                   cinematicReels
-                    ? 'border-[#d6a350] bg-[#c89343]/10 ring-1 ring-[#d6a350]/35'
+                    ? 'border-[#d6a85a] bg-[#d6a85a]/10 ring-1 ring-[#d6a85a]/35'
                     : 'border-stone-800 bg-stone-950/70 hover:border-stone-700'
                 }`}
               >
                 <div className="flex items-start gap-3">
                   <div className={`w-4 h-4 sm:w-5 sm:h-5 rounded mt-0.5 flex items-center justify-center border transition-colors shrink-0 ${
-                    cinematicReels ? 'border-[#d6a350] bg-[#d6a350]' : 'border-stone-700'
+                    cinematicReels ? 'border-[#d6a85a] bg-[#d6a85a]' : 'border-stone-700'
                   }`}>
                     {cinematicReels && <Check className="w-3 h-3 text-stone-950 stroke-[3]" />}
                   </div>
@@ -409,7 +409,7 @@ ${addOnListText}
                         <Film className="w-3.5 h-3.5 text-[#e5b869] shrink-0" />
                         <span className="font-bold text-xs sm:text-sm text-white">Cinematic Reels / TikTok</span>
                       </div>
-                      <span className="text-[10px] sm:text-[11px] font-bold text-[#34d399] px-2 py-0.5 rounded bg-[#10b981]/15 border border-[#10b981]/30 shrink-0">
+                      <span className="text-[10px] sm:text-[11px] font-bold text-[#e5b869] px-2 py-0.5 rounded bg-[#d6a85a]/15 border border-[#d6a85a]/30 shrink-0">
                         PROMO FREE 🔥
                       </span>
                     </div>
@@ -451,7 +451,7 @@ ${addOnListText}
                     <button
                       type="button"
                       onClick={() => setExtraEdit1Count(prev => prev + 1)}
-                      className="w-7 h-7 rounded flex items-center justify-center bg-[#c89343]/20 text-[#e5b869] hover:bg-[#d6a350] hover:text-stone-950 transition-colors"
+                      className="w-7 h-7 rounded flex items-center justify-center bg-[#d6a85a]/20 text-[#e5b869] hover:bg-[#d6a85a] hover:text-stone-950 transition-colors"
                       aria-label="Tambah foto"
                     >
                       <Plus className="w-3.5 h-3.5" />
@@ -497,7 +497,7 @@ ${addOnListText}
                     <button
                       type="button"
                       onClick={() => setExtraEdit5Count(prev => prev + 1)}
-                      className="w-7 h-7 rounded flex items-center justify-center bg-[#c89343]/20 text-[#e5b869] hover:bg-[#d6a350] hover:text-stone-950 transition-colors"
+                      className="w-7 h-7 rounded flex items-center justify-center bg-[#d6a85a]/20 text-[#e5b869] hover:bg-[#d6a85a] hover:text-stone-950 transition-colors"
                       aria-label="Tambah paket"
                     >
                       <Plus className="w-3.5 h-3.5" />
@@ -517,13 +517,13 @@ ${addOnListText}
                 onClick={() => setExpressEdit(!expressEdit)}
                 className={`p-3.5 rounded-md border cursor-pointer transition-all ${
                   expressEdit
-                    ? 'border-[#d6a350] bg-[#c89343]/10 ring-1 ring-[#d6a350]/35'
+                    ? 'border-[#d6a85a] bg-[#d6a85a]/10 ring-1 ring-[#d6a85a]/35'
                     : 'border-stone-800 bg-stone-950/70 hover:border-stone-700'
                 }`}
               >
                 <div className="flex items-start gap-3">
                   <div className={`w-4 h-4 sm:w-5 sm:h-5 rounded mt-0.5 flex items-center justify-center border transition-colors shrink-0 ${
-                    expressEdit ? 'border-[#d6a350] bg-[#d6a350]' : 'border-stone-700'
+                    expressEdit ? 'border-[#d6a85a] bg-[#d6a85a]' : 'border-stone-700'
                   }`}>
                     {expressEdit && <Check className="w-3 h-3 text-stone-950 stroke-[3]" />}
                   </div>
@@ -548,7 +548,7 @@ ${addOnListText}
           {/* SECTION 3: Data Wisudawan & Jadwal */}
           <section className="bg-stone-900/80 border border-stone-800 rounded-lg p-4 sm:p-6 ">
             <div className="flex items-center gap-2.5 pb-3 mb-4 border-b border-stone-800">
-              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#c89343]/15 text-[#e5b869] flex items-center justify-center font-bold text-xs border border-[#c89343]/35 shrink-0">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#d6a85a]/15 text-[#e5b869] flex items-center justify-center font-bold text-xs border border-[#d6a85a]/35 shrink-0">
                 3
               </div>
               <div className="min-w-0 flex-1">
@@ -571,7 +571,7 @@ ${addOnListText}
                     value={nama}
                     onChange={(e) => setNama(e.target.value)}
                     placeholder="Contoh: Amanda Putri Salsabila, S.T."
-                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-md text-xs sm:text-sm text-white focus:outline-none focus:border-[#d6a350]"
+                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-md text-xs sm:text-sm text-white focus:outline-none focus:border-[#d6a85a]"
                   />
                 </div>
 
@@ -584,7 +584,7 @@ ${addOnListText}
                     value={whatsapp}
                     onChange={(e) => setWhatsapp(e.target.value)}
                     placeholder="Contoh: 081234567890"
-                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-md text-xs sm:text-sm text-white focus:outline-none focus:border-[#d6a350]"
+                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-md text-xs sm:text-sm text-white focus:outline-none focus:border-[#d6a85a]"
                   />
                 </div>
               </div>
@@ -598,7 +598,7 @@ ${addOnListText}
                   value={kampus}
                   onChange={(e) => setKampus(e.target.value)}
                   placeholder="Contoh: Universitas Lampung (Unila) - Fakultas Teknik"
-                  className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-md text-xs sm:text-sm text-white focus:outline-none focus:border-[#d6a350]"
+                  className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-md text-xs sm:text-sm text-white focus:outline-none focus:border-[#d6a85a]"
                 />
               </div>
 
@@ -615,7 +615,7 @@ ${addOnListText}
                     value={tanggalSesi}
                     onChange={(e) => setTanggalSesi(e.target.value)}
                     style={{ colorScheme: 'dark' }}
-                    className="w-full px-2 py-1.5 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white focus:outline-none focus:border-[#d6a350]"
+                    className="w-full px-2 py-1.5 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white focus:outline-none focus:border-[#d6a85a]"
                   />
                 </div>
 
@@ -629,7 +629,7 @@ ${addOnListText}
                     value={jamSesi}
                     onChange={(e) => setJamSesi(e.target.value)}
                     style={{ colorScheme: 'dark' }}
-                    className="w-full px-2 py-1.5 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white focus:outline-none focus:border-[#d6a350]"
+                    className="w-full px-2 py-1.5 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white focus:outline-none focus:border-[#d6a85a]"
                   />
                 </div>
               </div>
@@ -648,7 +648,7 @@ ${addOnListText}
                         onClick={() => setLokasiTipe(loc)}
                         className={`p-2.5 rounded-md border text-center text-xs font-semibold transition-all ${
                           lokasiTipe === loc
-                            ? 'border-[#d6a350] bg-[#c89343]/15 text-[#f2cf83] ring-1 ring-[#d6a350]/40'
+                            ? 'border-[#d6a85a] bg-[#d6a85a]/15 text-[#f0cf8e] ring-1 ring-[#d6a85a]/40'
                             : 'border-stone-800 bg-stone-950 text-stone-400 hover:border-stone-700'
                         }`}
                       >
@@ -667,7 +667,7 @@ ${addOnListText}
                     value={lokasiDetail}
                     onChange={(e) => setLokasiDetail(e.target.value)}
                     placeholder="Contoh: Depan Rektorat Unila / Gedung Serba Guna (GSG)"
-                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-md text-xs sm:text-sm text-white focus:outline-none focus:border-[#d6a350]"
+                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-md text-xs sm:text-sm text-white focus:outline-none focus:border-[#d6a85a]"
                   />
                 </div>
               </div>
@@ -683,7 +683,7 @@ ${addOnListText}
                     value={jumlahOrang}
                     onChange={(e) => setJumlahOrang(e.target.value)}
                     placeholder="Contoh: 4-6 Orang (Wisudawan + Ortu)"
-                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-md text-xs sm:text-sm text-white focus:outline-none focus:border-[#d6a350]"
+                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-md text-xs sm:text-sm text-white focus:outline-none focus:border-[#d6a85a]"
                   />
                 </div>
 
@@ -696,7 +696,7 @@ ${addOnListText}
                     value={catatanKhusus}
                     onChange={(e) => setCatatanKhusus(e.target.value)}
                     placeholder="Contoh: Pose candid, bawa buket besar"
-                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-md text-xs sm:text-sm text-white focus:outline-none focus:border-[#d6a350]"
+                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-md text-xs sm:text-sm text-white focus:outline-none focus:border-[#d6a85a]"
                   />
                 </div>
               </div>
@@ -707,7 +707,7 @@ ${addOnListText}
           {/* S&K Ketentuan Sesi Ringkas (RESTRUCTURED: Clean Cards without cramped bullets) */}
           <section className="bg-stone-900/60 border border-stone-800 rounded-lg p-4 sm:p-5 space-y-3">
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-lg bg-[#c89343]/15 flex items-center justify-center shrink-0">
+              <div className="w-6 h-6 rounded-lg bg-[#d6a85a]/15 flex items-center justify-center shrink-0">
                 <Clock className="w-3.5 h-3.5 text-[#e5b869]" />
               </div>
               <h3 className="font-bold text-xs sm:text-sm text-white">
@@ -718,7 +718,7 @@ ${addOnListText}
             <div className="space-y-2">
               {FOTO_BOOKING_RULES.terms.map((term, idx) => (
                 <div key={idx} className="flex items-start gap-2.5 p-2.5 rounded-md bg-stone-950/70 border border-stone-800/80 text-[11px] sm:text-xs text-stone-300">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#d6a350] shrink-0 mt-1.5"></span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#d6a85a] shrink-0 mt-1.5"></span>
                   <p className="leading-relaxed min-w-0 flex-1">{term}</p>
                 </div>
               ))}
@@ -734,7 +734,7 @@ ${addOnListText}
             
             <div className="flex items-center justify-between pb-3 mb-3 border-b border-stone-800">
               <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#d6a350]"></span>
+                <span className="w-2 h-2 rounded-full bg-[#d6a85a]"></span>
                 <h3 className="font-bold text-sm sm:text-base text-white">Rincian Paket &amp; Biaya</h3>
               </div>
               <button
@@ -764,7 +764,7 @@ ${addOnListText}
                   {cinematicReels && (
                     <div className="flex justify-between items-center text-[10px] sm:text-[11px] text-stone-400">
                       <span>• Cinematic Reels (Promo Free)</span>
-                      <span className="text-[#34d399] font-bold font-mono">Gratis</span>
+                      <span className="text-[#e5b869] font-bold font-mono">Gratis</span>
                     </div>
                   )}
                   {extraEdit1Count > 0 && (
@@ -790,7 +790,7 @@ ${addOnListText}
 
               <div className="pt-2 border-t border-stone-800 flex justify-between items-center text-xs sm:text-sm">
                 <span className="font-bold text-white">Total Biaya Pemesanan:</span>
-                <span className="font-extrabold text-[#f2cf83] text-sm sm:text-base font-mono">{formatRupiah(grandTotal)}</span>
+                <span className="font-extrabold text-[#f0cf8e] text-sm sm:text-base font-mono">{formatRupiah(grandTotal)}</span>
               </div>
             </div>
 
@@ -805,7 +805,7 @@ ${addOnListText}
                   onClick={() => setSkemaBayar('dp')}
                   className={`p-2 rounded-md border text-center text-xs font-semibold transition-all ${
                     skemaBayar === 'dp'
-                      ? 'border-[#d6a350] bg-[#c89343]/15 text-[#f2cf83] ring-1 ring-[#d6a350]/40'
+                      ? 'border-[#d6a85a] bg-[#d6a85a]/15 text-[#f0cf8e] ring-1 ring-[#d6a85a]/40'
                       : 'border-stone-800 bg-stone-950 text-stone-400'
                   }`}
                 >
@@ -818,7 +818,7 @@ ${addOnListText}
                   onClick={() => setSkemaBayar('lunas')}
                   className={`p-2 rounded-md border text-center text-xs font-semibold transition-all ${
                     skemaBayar === 'lunas'
-                      ? 'border-[#d6a350] bg-[#c89343]/15 text-[#f2cf83] ring-1 ring-[#d6a350]/40'
+                      ? 'border-[#d6a85a] bg-[#d6a85a]/15 text-[#f0cf8e] ring-1 ring-[#d6a85a]/40'
                       : 'border-stone-800 bg-stone-950 text-stone-400'
                   }`}
                 >
@@ -856,7 +856,7 @@ ${addOnListText}
           </div>
 
           {/* Quick Switch to Camera Rental Card */}
-          <div className="p-3.5 rounded-md bg-[#10b981]/10 border border-[#10b981]/30 flex items-center justify-between gap-3 text-xs">
+          <div className="p-3.5 rounded-md bg-[#d6a85a]/10 border border-[#d6a85a]/30 flex items-center justify-between gap-3 text-xs">
             <div className="min-w-0 flex-1">
               <span className="font-bold text-white block truncate">Mau Hunting Foto Sendiri?</span>
               <p className="text-stone-400 text-[11px] mt-0.5 truncate">Sewa kamera Nikon Z50 Mark II &amp; lensa mulai Rp 25k.</p>
@@ -876,7 +876,7 @@ ${addOnListText}
 
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-5 right-5 z-50 bg-stone-900 border border-[#d6a350] text-white px-3.5 py-2.5 rounded-md  flex items-center gap-2 text-xs">
+        <div className="fixed bottom-5 right-5 z-50 bg-stone-900 border border-[#d6a85a] text-white px-3.5 py-2.5 rounded-md  flex items-center gap-2 text-xs">
           <Check className="w-4 h-4 text-[#e5b869]" />
           <span>{toastMessage}</span>
         </div>
