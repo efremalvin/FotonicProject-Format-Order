@@ -196,7 +196,7 @@ FOTONIC EQUIPMENT RENTAL
           <span>Fotonic Equipment Rental</span>
         </div>
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-2">
-          Format Order <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4ade80] via-[#10b981] to-[#059669]">Sewa Nikon Z50 Mark II</span>
+          Format Order <span className="text-[#34d399]">Sewa Nikon Z50 Mark II</span>
         </h1>
         <p className="text-stone-400 text-xs sm:text-sm leading-relaxed max-w-lg mx-auto">
           Pilih durasi dan paket alat di bawah ini. Selesaikan pengisian form untuk mengirimkan rincian sewa resmi ke WhatsApp admin.
@@ -209,7 +209,7 @@ FOTONIC EQUIPMENT RENTAL
         <div className="lg:col-span-7 space-y-4 sm:space-y-5 min-w-0 w-full">
           
           {/* SECTION 1: Pilih Durasi & Paket Alat */}
-          <section className="bg-stone-900/80 border border-stone-800 rounded-2xl p-4 sm:p-6 shadow-xl">
+          <section className="bg-stone-900/80 border border-stone-800 rounded-lg p-4 sm:p-6 ">
             <div className="flex items-center gap-2.5 pb-3.5 mb-4 border-b border-stone-800">
               <div className="w-8 h-8 rounded-lg bg-[#10b981]/15 text-[#34d399] flex items-center justify-center font-bold text-xs border border-[#10b981]/30">
                 1
@@ -232,7 +232,7 @@ FOTONIC EQUIPMENT RENTAL
                 <button
                   type="button"
                   onClick={() => setSelectedDurationKey('fullDay')}
-                  className={`p-2.5 rounded-xl border text-center transition-all ${
+                  className={`p-2.5 rounded-md border text-center transition-all ${
                     selectedDurationKey === 'fullDay'
                       ? 'border-[#10b981] bg-[#10b981]/15 text-white font-bold ring-1 ring-[#10b981]/40'
                       : 'border-stone-800 bg-stone-950 text-stone-400 hover:border-stone-700'
@@ -245,7 +245,7 @@ FOTONIC EQUIPMENT RENTAL
                 <button
                   type="button"
                   onClick={() => setSelectedDurationKey('halfDay')}
-                  className={`p-2.5 rounded-xl border text-center transition-all ${
+                  className={`p-2.5 rounded-md border text-center transition-all ${
                     selectedDurationKey === 'halfDay'
                       ? 'border-[#10b981] bg-[#10b981]/15 text-white font-bold ring-1 ring-[#10b981]/40'
                       : 'border-stone-800 bg-stone-950 text-stone-400 hover:border-stone-700'
@@ -258,7 +258,7 @@ FOTONIC EQUIPMENT RENTAL
                 <button
                   type="button"
                   onClick={() => setSelectedDurationKey('shortTime')}
-                  className={`p-2.5 rounded-xl border text-center transition-all ${
+                  className={`p-2.5 rounded-md border text-center transition-all ${
                     selectedDurationKey === 'shortTime'
                       ? 'border-[#10b981] bg-[#10b981]/15 text-white font-bold ring-1 ring-[#10b981]/40'
                       : 'border-stone-800 bg-stone-950 text-stone-400 hover:border-stone-700'
@@ -284,7 +284,7 @@ FOTONIC EQUIPMENT RENTAL
                   <div
                     key={pkg.id}
                     onClick={() => setSelectedPackageId(pkg.id)}
-                    className={`p-3 sm:p-4 rounded-xl border cursor-pointer transition-all ${
+                    className={`p-3 sm:p-4 rounded-md border cursor-pointer transition-all ${
                       isSelected
                         ? 'border-[#10b981] bg-[#10b981]/10 ring-1 ring-[#10b981]/35'
                         : 'border-stone-800 bg-stone-950/80 hover:border-stone-700'
@@ -355,7 +355,7 @@ FOTONIC EQUIPMENT RENTAL
             </div>
 
             {/* Kelengkapan Bawaan Unit (Bahasa Indonesia Saja) */}
-            <div className="mt-4 p-3.5 rounded-xl bg-stone-950 border border-stone-800">
+            <div className="mt-4 p-3.5 rounded-md bg-stone-950 border border-stone-800">
               <span className="text-[11px] font-bold uppercase tracking-wider text-stone-200 flex items-center gap-1.5 mb-2">
                 <CheckCircle2 className="w-3.5 h-3.5 text-[#10b981]" />
                 Kelengkapan Bawaan Unit (Termasuk Bebas Biaya):
@@ -373,7 +373,7 @@ FOTONIC EQUIPMENT RENTAL
           </section>
 
           {/* SECTION 2: Opsi Pengantaran Kamera (Unila Free vs Luar Unila) */}
-          <section className="bg-stone-900/80 border border-stone-800 rounded-2xl p-4 sm:p-6 shadow-xl">
+          <section className="bg-stone-900/80 border border-stone-800 rounded-lg p-4 sm:p-6 ">
             <div className="flex items-center gap-2.5 pb-3.5 mb-4 border-b border-stone-800">
               <div className="w-8 h-8 rounded-lg bg-[#10b981]/15 text-[#34d399] flex items-center justify-center font-bold text-xs border border-[#10b981]/30">
                 2
@@ -393,7 +393,7 @@ FOTONIC EQUIPMENT RENTAL
                 return (
                   <label
                     key={opt.id}
-                    className={`flex items-start justify-between gap-3 p-3 rounded-xl border cursor-pointer transition-all ${
+                    className={`flex items-start justify-between gap-3 p-3 rounded-md border cursor-pointer transition-all ${
                       isSelected
                         ? 'border-[#10b981] bg-[#10b981]/10 ring-1 ring-[#10b981]/35 text-white'
                         : 'border-stone-800 bg-stone-950 text-stone-400 hover:border-stone-700'
@@ -422,7 +422,7 @@ FOTONIC EQUIPMENT RENTAL
           </section>
 
           {/* SECTION 3: Data Penyewa & Jadwal */}
-          <section className="bg-stone-900/80 border border-stone-800 rounded-2xl p-4 sm:p-6 shadow-xl">
+          <section className="bg-stone-900/80 border border-stone-800 rounded-lg p-4 sm:p-6 ">
             <div className="flex items-center gap-2.5 pb-3.5 mb-4 border-b border-stone-800">
               <div className="w-8 h-8 rounded-lg bg-[#10b981]/15 text-[#34d399] flex items-center justify-center font-bold text-xs border border-[#10b981]/30">
                 3
@@ -447,7 +447,7 @@ FOTONIC EQUIPMENT RENTAL
                     value={nama}
                     onChange={(e) => setNama(e.target.value)}
                     placeholder="Contoh: Muhammad Raihan Pratama"
-                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-xl text-xs sm:text-sm text-white focus:outline-none focus:border-[#10b981]"
+                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-md text-xs sm:text-sm text-white focus:outline-none focus:border-[#10b981]"
                   />
                 </div>
 
@@ -460,7 +460,7 @@ FOTONIC EQUIPMENT RENTAL
                     value={whatsapp}
                     onChange={(e) => setWhatsapp(e.target.value)}
                     placeholder="Contoh: 081234567890"
-                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-xl text-xs sm:text-sm text-white focus:outline-none focus:border-[#10b981]"
+                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-md text-xs sm:text-sm text-white focus:outline-none focus:border-[#10b981]"
                   />
                 </div>
               </div>
@@ -475,7 +475,7 @@ FOTONIC EQUIPMENT RENTAL
                     value={instagram}
                     onChange={(e) => setInstagram(e.target.value)}
                     placeholder="Contoh: @raihan.pratama"
-                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-xl text-xs sm:text-sm text-white focus:outline-none focus:border-[#10b981]"
+                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-md text-xs sm:text-sm text-white focus:outline-none focus:border-[#10b981]"
                   />
                 </div>
 
@@ -488,14 +488,14 @@ FOTONIC EQUIPMENT RENTAL
                     value={alamatDomisili}
                     onChange={(e) => setAlamatDomisili(e.target.value)}
                     placeholder="Contoh: Kost Wisma Unila, Jl. Sumantri"
-                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-xl text-xs sm:text-sm text-white focus:outline-none focus:border-[#10b981]"
+                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-md text-xs sm:text-sm text-white focus:outline-none focus:border-[#10b981]"
                   />
                 </div>
               </div>
 
               {/* Jadwal Ambil & Kembali */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
-                <div className="p-2.5 bg-stone-950 rounded-xl border border-stone-800 space-y-1.5">
+                <div className="p-2.5 bg-stone-950 rounded-md border border-stone-800 space-y-1.5">
                   <span className="text-[11px] font-bold text-[#34d399] uppercase tracking-wider flex items-center gap-1">
                     <Clock className="w-3 h-3 text-[#10b981]" />
                     Waktu Pengambilan
@@ -525,7 +525,7 @@ FOTONIC EQUIPMENT RENTAL
                   </div>
                 </div>
 
-                <div className="p-2.5 bg-stone-950 rounded-xl border border-stone-800 space-y-1.5">
+                <div className="p-2.5 bg-stone-950 rounded-md border border-stone-800 space-y-1.5">
                   <span className="text-[11px] font-bold text-[#34d399] uppercase tracking-wider flex items-center gap-1">
                     <Clock className="w-3 h-3 text-[#10b981]" />
                     Waktu Pengembalian
@@ -556,7 +556,7 @@ FOTONIC EQUIPMENT RENTAL
                   Jaminan Identitas Fisik (Wajib Pilih 1):
                 </span>
                 <div className="grid grid-cols-2 gap-2">
-                  <label className={`flex items-center gap-2 p-2.5 rounded-xl border cursor-pointer text-xs ${
+                  <label className={`flex items-center gap-2 p-2.5 rounded-md border cursor-pointer text-xs ${
                     jaminanIdentitas === 'KTP Asli'
                       ? 'border-[#d6a350] bg-[#c89343]/15 text-white font-semibold'
                       : 'border-stone-800 bg-stone-950 text-stone-400'
@@ -571,7 +571,7 @@ FOTONIC EQUIPMENT RENTAL
                     <span>KTP Asli</span>
                   </label>
 
-                  <label className={`flex items-center gap-2 p-2.5 rounded-xl border cursor-pointer text-xs ${
+                  <label className={`flex items-center gap-2 p-2.5 rounded-md border cursor-pointer text-xs ${
                     jaminanIdentitas === 'KTM / Kartu Pelajar Asli'
                       ? 'border-[#d6a350] bg-[#c89343]/15 text-white font-semibold'
                       : 'border-stone-800 bg-stone-950 text-stone-400'
@@ -592,7 +592,7 @@ FOTONIC EQUIPMENT RENTAL
           </section>
 
           {/* S&K Ringkas */}
-          <section className="bg-stone-900/60 border border-stone-800 rounded-2xl p-4 sm:p-5 text-xs text-stone-300 space-y-3">
+          <section className="bg-stone-900/60 border border-stone-800 rounded-lg p-4 sm:p-5 text-xs text-stone-300 space-y-3">
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 rounded-lg bg-[#10b981]/15 flex items-center justify-center shrink-0">
                 <ShieldAlert className="w-3.5 h-3.5 text-[#10b981]" />
@@ -603,7 +603,7 @@ FOTONIC EQUIPMENT RENTAL
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
               {RENTAL_RULES.map((rule, idx) => (
-                <div key={idx} className="p-2.5 rounded-xl bg-stone-950/70 border border-stone-800/80">
+                <div key={idx} className="p-2.5 rounded-md bg-stone-950/70 border border-stone-800/80">
                   <span className="font-semibold text-[#34d399] block mb-0.5">{rule.title}</span>
                   <p className="text-stone-400 leading-relaxed">{rule.desc}</p>
                 </div>
@@ -616,11 +616,11 @@ FOTONIC EQUIPMENT RENTAL
         {/* Right Column: Live Order Preview & Mobile Optimized Card (5 Cols) */}
         <div className="lg:col-span-5 lg:sticky lg:top-24 space-y-4 min-w-0 w-full">
           
-          <div className="bg-stone-900/90 border border-stone-800 rounded-2xl p-4 sm:p-5 shadow-2xl">
+          <div className="bg-stone-900/90 border border-stone-800 rounded-lg p-4 sm:p-5 ">
             
             <div className="flex items-center justify-between pb-3 mb-3 border-b border-stone-800">
               <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#10b981] animate-pulse"></span>
+                <span className="w-2 h-2 rounded-full bg-[#10b981]"></span>
                 <h3 className="font-bold text-sm sm:text-base text-white">Rincian &amp; Total Tarif</h3>
               </div>
               <button
@@ -634,7 +634,7 @@ FOTONIC EQUIPMENT RENTAL
             </div>
 
             {/* Price Box */}
-            <div className="bg-stone-950 p-3.5 rounded-xl border border-stone-800 space-y-1.5 text-xs mb-3.5">
+            <div className="bg-stone-950 p-3.5 rounded-md border border-stone-800 space-y-1.5 text-xs mb-3.5">
               <div className="flex justify-between items-center text-stone-300">
                 <span className="font-medium text-[11px]">{currentPackage.name}</span>
                 <span className="font-bold text-[#34d399] font-mono">{formatRupiah(basePrice)}</span>
@@ -664,7 +664,7 @@ FOTONIC EQUIPMENT RENTAL
                 <button
                   type="button"
                   onClick={() => setSkemaBayar('dp')}
-                  className={`p-2 rounded-xl border text-center text-xs font-semibold transition-all ${
+                  className={`p-2 rounded-md border text-center text-xs font-semibold transition-all ${
                     skemaBayar === 'dp'
                       ? 'border-[#10b981] bg-[#10b981]/15 text-white ring-1 ring-[#10b981]/40'
                       : 'border-stone-800 bg-stone-950 text-stone-400'
@@ -677,7 +677,7 @@ FOTONIC EQUIPMENT RENTAL
                 <button
                   type="button"
                   onClick={() => setSkemaBayar('lunas')}
-                  className={`p-2 rounded-xl border text-center text-xs font-semibold transition-all ${
+                  className={`p-2 rounded-md border text-center text-xs font-semibold transition-all ${
                     skemaBayar === 'lunas'
                       ? 'border-[#10b981] bg-[#10b981]/15 text-white ring-1 ring-[#10b981]/40'
                       : 'border-stone-800 bg-stone-950 text-stone-400'
@@ -694,7 +694,7 @@ FOTONIC EQUIPMENT RENTAL
               <button
                 type="button"
                 onClick={handleKirimWA}
-                className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-[#4ade80] via-[#10b981] to-[#059669] hover:brightness-105 text-stone-950 font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#10b981]/25 active:scale-[0.99] transition-all"
+                className="w-full py-3 px-4 rounded-md bg-[#10b981] hover:brightness-105 text-stone-950 font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2  shadow-[#10b981]/25 active:scale-[0.99] transition-all"
               >
                 <Send className="w-4 h-4 text-stone-950" />
                 <span>Kirim Format Sewa via WhatsApp</span>
@@ -703,7 +703,7 @@ FOTONIC EQUIPMENT RENTAL
               <button
                 type="button"
                 onClick={handleSalinFormat}
-                className="w-full py-2 px-3 rounded-xl bg-stone-950 hover:bg-stone-800 border border-stone-800 text-stone-300 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all"
+                className="w-full py-2 px-3 rounded-md bg-stone-950 hover:bg-stone-800 border border-stone-800 text-stone-300 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all"
               >
                 <Copy className="w-3.5 h-3.5" />
                 <span>Salin Format Teks</span>
@@ -717,14 +717,14 @@ FOTONIC EQUIPMENT RENTAL
           </div>
 
           {/* Quick Switch to Photo Card */}
-          <div className="p-3.5 rounded-xl bg-[#c89343]/10 border border-[#c89343]/30 flex items-center justify-between gap-3 text-xs">
+          <div className="p-3.5 rounded-md bg-[#c89343]/10 border border-[#c89343]/30 flex items-center justify-between gap-3 text-xs">
             <div>
               <span className="font-bold text-white block">Butuh Jasa Fotografer Wisuda?</span>
               <p className="text-stone-400 text-[11px] mt-0.5">Sesi foto personal &amp; group mulai Rp 80k.</p>
             </div>
             <Link
               href="/jasa-foto"
-              className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#e7bd70] via-[#d6a350] to-[#be8638] text-stone-950 font-bold shrink-0 flex items-center gap-1 shadow"
+              className="px-3 py-1.5 rounded-lg bg-[#10b981] text-stone-950 font-bold shrink-0 flex items-center gap-1 shadow"
             >
               <span>Jasa Foto</span>
               <ChevronRight className="w-3.5 h-3.5" />
@@ -737,7 +737,7 @@ FOTONIC EQUIPMENT RENTAL
 
       {/* Toast */}
       {toastMessage && (
-        <div className="fixed bottom-5 right-5 z-50 bg-stone-900 border border-[#10b981] text-white px-3.5 py-2.5 rounded-xl shadow-2xl flex items-center gap-2 text-xs">
+        <div className="fixed bottom-5 right-5 z-50 bg-stone-900 border border-[#10b981] text-white px-3.5 py-2.5 rounded-md  flex items-center gap-2 text-xs">
           <Check className="w-4 h-4 text-[#34d399]" />
           <span>{toastMessage}</span>
         </div>

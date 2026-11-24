@@ -239,7 +239,7 @@ ${addOnListText}
           <span>Fotonic Graduation &amp; Sidang Photography</span>
         </div>
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-2">
-          Katalog &amp; Booking <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f2cf83] via-[#d9a756] to-[#be873b]">Jasa Foto &amp; Video</span>
+          Katalog &amp; Booking <span className="text-[#e5b869]">Jasa Foto &amp; Video</span>
         </h1>
         <p className="text-stone-400 text-xs sm:text-sm leading-relaxed max-w-lg mx-auto px-2">
           Dokumentasikan momen wisuda, yudisium, dan sidang skripsi Anda dengan karya visual berkelas. Pilih paket resmi, tentukan layanan add-on, dan kirim format order ke WhatsApp fotografer.
@@ -252,7 +252,7 @@ ${addOnListText}
         <div className="lg:col-span-7 space-y-4 sm:space-y-5 min-w-0 w-full">
           
           {/* SECTION 1: Pilih Kategori & Paket Foto */}
-          <section className="bg-stone-900/80 border border-stone-800 rounded-2xl p-4 sm:p-6 shadow-xl">
+          <section className="bg-stone-900/80 border border-stone-800 rounded-lg p-4 sm:p-6 ">
             <div className="flex items-center gap-2.5 pb-3 mb-4 border-b border-stone-800">
               <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#c89343]/15 text-[#e5b869] flex items-center justify-center font-bold text-xs border border-[#c89343]/35 shrink-0">
                 1
@@ -279,7 +279,7 @@ ${addOnListText}
                       key={cat.id}
                       type="button"
                       onClick={() => handleCategoryChange(cat.id)}
-                      className={`p-2.5 sm:p-3 rounded-xl border text-left transition-all ${
+                      className={`p-2.5 sm:p-3 rounded-md border text-left transition-all ${
                         isActive
                           ? 'border-[#d6a350] bg-[#c89343]/15 ring-1 ring-[#d6a350]/40 text-white'
                           : 'border-stone-800 bg-stone-950/70 text-stone-400 hover:border-stone-700 hover:text-stone-200'
@@ -311,7 +311,7 @@ ${addOnListText}
                   <div
                     key={pkg.id}
                     onClick={() => setSelectedPackageId(pkg.id)}
-                    className={`p-3.5 sm:p-4 rounded-xl border cursor-pointer transition-all ${
+                    className={`p-3.5 sm:p-4 rounded-md border cursor-pointer transition-all ${
                       isSelected
                         ? 'border-[#d6a350] bg-[#c89343]/10 ring-1 ring-[#d6a350]/35'
                         : 'border-stone-800 bg-stone-950/70 hover:border-stone-700'
@@ -359,7 +359,7 @@ ${addOnListText}
             </div>
 
             {/* Inclusions Box - Clean & Responsive */}
-            <div className="mt-4 p-3 sm:p-3.5 rounded-xl bg-stone-950 border border-stone-800 flex items-start gap-2.5 text-xs text-stone-300">
+            <div className="mt-4 p-3 sm:p-3.5 rounded-md bg-stone-950 border border-stone-800 flex items-start gap-2.5 text-xs text-stone-300">
               <Cloud className="w-4 h-4 text-[#e5b869] shrink-0 mt-0.5" />
               <div className="min-w-0 flex-1">
                 <span className="font-bold text-white block sm:inline">Fasilitas Termasuk Bebas Biaya: </span>
@@ -372,7 +372,7 @@ ${addOnListText}
           </section>
 
           {/* SECTION 2: Add-On Services (Mobile Optimized) */}
-          <section className="bg-stone-900/80 border border-stone-800 rounded-2xl p-4 sm:p-6 shadow-xl">
+          <section className="bg-stone-900/80 border border-stone-800 rounded-lg p-4 sm:p-6 ">
             <div className="flex items-center gap-2.5 pb-3 mb-4 border-b border-stone-800">
               <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#c89343]/15 text-[#e5b869] flex items-center justify-center font-bold text-xs border border-[#c89343]/35 shrink-0">
                 2
@@ -391,7 +391,7 @@ ${addOnListText}
               {/* 1. Cinematic Reels (PROMO FREE) */}
               <div 
                 onClick={() => setCinematicReels(!cinematicReels)}
-                className={`p-3.5 rounded-xl border cursor-pointer transition-all ${
+                className={`p-3.5 rounded-md border cursor-pointer transition-all ${
                   cinematicReels
                     ? 'border-[#d6a350] bg-[#c89343]/10 ring-1 ring-[#d6a350]/35'
                     : 'border-stone-800 bg-stone-950/70 hover:border-stone-700'
@@ -421,7 +421,7 @@ ${addOnListText}
               </div>
 
               {/* 2. Extra Edit 1 Foto (Quantity Counter) */}
-              <div className="p-3.5 rounded-xl border border-stone-800 bg-stone-950/70 space-y-2">
+              <div className="p-3.5 rounded-md border border-stone-800 bg-stone-950/70 space-y-2">
                 <div className="flex items-center justify-between gap-2.5">
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-1.5 flex-wrap">
@@ -467,7 +467,7 @@ ${addOnListText}
               </div>
 
               {/* 3. Extra Edit 5 Foto (Quantity Counter) */}
-              <div className="p-3.5 rounded-xl border border-stone-800 bg-stone-950/70 space-y-2">
+              <div className="p-3.5 rounded-md border border-stone-800 bg-stone-950/70 space-y-2">
                 <div className="flex items-center justify-between gap-2.5">
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-1.5 flex-wrap">
@@ -515,7 +515,7 @@ ${addOnListText}
               {/* 4. Express Edit (One Day Service - Rp 50.000) */}
               <div 
                 onClick={() => setExpressEdit(!expressEdit)}
-                className={`p-3.5 rounded-xl border cursor-pointer transition-all ${
+                className={`p-3.5 rounded-md border cursor-pointer transition-all ${
                   expressEdit
                     ? 'border-[#d6a350] bg-[#c89343]/10 ring-1 ring-[#d6a350]/35'
                     : 'border-stone-800 bg-stone-950/70 hover:border-stone-700'
@@ -546,7 +546,7 @@ ${addOnListText}
           </section>
 
           {/* SECTION 3: Data Wisudawan & Jadwal */}
-          <section className="bg-stone-900/80 border border-stone-800 rounded-2xl p-4 sm:p-6 shadow-xl">
+          <section className="bg-stone-900/80 border border-stone-800 rounded-lg p-4 sm:p-6 ">
             <div className="flex items-center gap-2.5 pb-3 mb-4 border-b border-stone-800">
               <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#c89343]/15 text-[#e5b869] flex items-center justify-center font-bold text-xs border border-[#c89343]/35 shrink-0">
                 3
@@ -571,7 +571,7 @@ ${addOnListText}
                     value={nama}
                     onChange={(e) => setNama(e.target.value)}
                     placeholder="Contoh: Amanda Putri Salsabila, S.T."
-                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-xl text-xs sm:text-sm text-white focus:outline-none focus:border-[#d6a350]"
+                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-md text-xs sm:text-sm text-white focus:outline-none focus:border-[#d6a350]"
                   />
                 </div>
 
@@ -584,7 +584,7 @@ ${addOnListText}
                     value={whatsapp}
                     onChange={(e) => setWhatsapp(e.target.value)}
                     placeholder="Contoh: 081234567890"
-                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-xl text-xs sm:text-sm text-white focus:outline-none focus:border-[#d6a350]"
+                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-md text-xs sm:text-sm text-white focus:outline-none focus:border-[#d6a350]"
                   />
                 </div>
               </div>
@@ -598,13 +598,13 @@ ${addOnListText}
                   value={kampus}
                   onChange={(e) => setKampus(e.target.value)}
                   placeholder="Contoh: Universitas Lampung (Unila) - Fakultas Teknik"
-                  className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-xl text-xs sm:text-sm text-white focus:outline-none focus:border-[#d6a350]"
+                  className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-md text-xs sm:text-sm text-white focus:outline-none focus:border-[#d6a350]"
                 />
               </div>
 
               {/* Tanggal & Jam */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="p-2.5 bg-stone-950 rounded-xl border border-stone-800 space-y-1.5 min-w-0">
+                <div className="p-2.5 bg-stone-950 rounded-md border border-stone-800 space-y-1.5 min-w-0">
                   <span className="text-[11px] font-bold text-[#e5b869] uppercase tracking-wider flex items-center gap-1">
                     <Calendar className="w-3.5 h-3.5 shrink-0" />
                     <span>Tanggal Sesi</span> <span className="text-rose-400">*</span>
@@ -619,7 +619,7 @@ ${addOnListText}
                   />
                 </div>
 
-                <div className="p-2.5 bg-stone-950 rounded-xl border border-stone-800 space-y-1.5 min-w-0">
+                <div className="p-2.5 bg-stone-950 rounded-md border border-stone-800 space-y-1.5 min-w-0">
                   <span className="text-[11px] font-bold text-[#e5b869] uppercase tracking-wider flex items-center gap-1">
                     <Clock className="w-3.5 h-3.5 shrink-0" />
                     <span>Jam Mulai (WIB)</span> <span className="text-rose-400">*</span>
@@ -646,7 +646,7 @@ ${addOnListText}
                         key={loc}
                         type="button"
                         onClick={() => setLokasiTipe(loc)}
-                        className={`p-2.5 rounded-xl border text-center text-xs font-semibold transition-all ${
+                        className={`p-2.5 rounded-md border text-center text-xs font-semibold transition-all ${
                           lokasiTipe === loc
                             ? 'border-[#d6a350] bg-[#c89343]/15 text-[#f2cf83] ring-1 ring-[#d6a350]/40'
                             : 'border-stone-800 bg-stone-950 text-stone-400 hover:border-stone-700'
@@ -667,7 +667,7 @@ ${addOnListText}
                     value={lokasiDetail}
                     onChange={(e) => setLokasiDetail(e.target.value)}
                     placeholder="Contoh: Depan Rektorat Unila / Gedung Serba Guna (GSG)"
-                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-xl text-xs sm:text-sm text-white focus:outline-none focus:border-[#d6a350]"
+                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-md text-xs sm:text-sm text-white focus:outline-none focus:border-[#d6a350]"
                   />
                 </div>
               </div>
@@ -683,7 +683,7 @@ ${addOnListText}
                     value={jumlahOrang}
                     onChange={(e) => setJumlahOrang(e.target.value)}
                     placeholder="Contoh: 4-6 Orang (Wisudawan + Ortu)"
-                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-xl text-xs sm:text-sm text-white focus:outline-none focus:border-[#d6a350]"
+                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-md text-xs sm:text-sm text-white focus:outline-none focus:border-[#d6a350]"
                   />
                 </div>
 
@@ -696,7 +696,7 @@ ${addOnListText}
                     value={catatanKhusus}
                     onChange={(e) => setCatatanKhusus(e.target.value)}
                     placeholder="Contoh: Pose candid, bawa buket besar"
-                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-xl text-xs sm:text-sm text-white focus:outline-none focus:border-[#d6a350]"
+                    className="w-full px-3 py-2 bg-stone-950 border border-stone-800 rounded-md text-xs sm:text-sm text-white focus:outline-none focus:border-[#d6a350]"
                   />
                 </div>
               </div>
@@ -705,7 +705,7 @@ ${addOnListText}
           </section>
 
           {/* S&K Ketentuan Sesi Ringkas (RESTRUCTURED: Clean Cards without cramped bullets) */}
-          <section className="bg-stone-900/60 border border-stone-800 rounded-2xl p-4 sm:p-5 space-y-3">
+          <section className="bg-stone-900/60 border border-stone-800 rounded-lg p-4 sm:p-5 space-y-3">
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 rounded-lg bg-[#c89343]/15 flex items-center justify-center shrink-0">
                 <Clock className="w-3.5 h-3.5 text-[#e5b869]" />
@@ -717,7 +717,7 @@ ${addOnListText}
 
             <div className="space-y-2">
               {FOTO_BOOKING_RULES.terms.map((term, idx) => (
-                <div key={idx} className="flex items-start gap-2.5 p-2.5 rounded-xl bg-stone-950/70 border border-stone-800/80 text-[11px] sm:text-xs text-stone-300">
+                <div key={idx} className="flex items-start gap-2.5 p-2.5 rounded-md bg-stone-950/70 border border-stone-800/80 text-[11px] sm:text-xs text-stone-300">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#d6a350] shrink-0 mt-1.5"></span>
                   <p className="leading-relaxed min-w-0 flex-1">{term}</p>
                 </div>
@@ -730,11 +730,11 @@ ${addOnListText}
         {/* Right Column: Live Order Preview & Actions (5 Cols) */}
         <div className="lg:col-span-5 lg:sticky lg:top-24 space-y-4 min-w-0 w-full">
           
-          <div className="bg-stone-900/90 border border-stone-800 rounded-2xl p-4 sm:p-5 shadow-2xl">
+          <div className="bg-stone-900/90 border border-stone-800 rounded-lg p-4 sm:p-5 ">
             
             <div className="flex items-center justify-between pb-3 mb-3 border-b border-stone-800">
               <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#d6a350] animate-pulse"></span>
+                <span className="w-2 h-2 rounded-full bg-[#d6a350]"></span>
                 <h3 className="font-bold text-sm sm:text-base text-white">Rincian Paket &amp; Biaya</h3>
               </div>
               <button
@@ -748,7 +748,7 @@ ${addOnListText}
             </div>
 
             {/* Price Breakdown Box */}
-            <div className="bg-stone-950 p-3.5 rounded-xl border border-stone-800 space-y-1.5 text-xs mb-3.5">
+            <div className="bg-stone-950 p-3.5 rounded-md border border-stone-800 space-y-1.5 text-xs mb-3.5">
               <div className="flex justify-between items-center text-stone-300">
                 <span className="font-medium text-[11px] truncate">{currentPackage.name}</span>
                 <span className="font-bold text-[#e5b869] font-mono shrink-0 ml-2">{formatRupiah(basePrice)}</span>
@@ -803,7 +803,7 @@ ${addOnListText}
                 <button
                   type="button"
                   onClick={() => setSkemaBayar('dp')}
-                  className={`p-2 rounded-xl border text-center text-xs font-semibold transition-all ${
+                  className={`p-2 rounded-md border text-center text-xs font-semibold transition-all ${
                     skemaBayar === 'dp'
                       ? 'border-[#d6a350] bg-[#c89343]/15 text-[#f2cf83] ring-1 ring-[#d6a350]/40'
                       : 'border-stone-800 bg-stone-950 text-stone-400'
@@ -816,7 +816,7 @@ ${addOnListText}
                 <button
                   type="button"
                   onClick={() => setSkemaBayar('lunas')}
-                  className={`p-2 rounded-xl border text-center text-xs font-semibold transition-all ${
+                  className={`p-2 rounded-md border text-center text-xs font-semibold transition-all ${
                     skemaBayar === 'lunas'
                       ? 'border-[#d6a350] bg-[#c89343]/15 text-[#f2cf83] ring-1 ring-[#d6a350]/40'
                       : 'border-stone-800 bg-stone-950 text-stone-400'
@@ -833,7 +833,7 @@ ${addOnListText}
               <button
                 type="button"
                 onClick={handleKirimWA}
-                className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-[#e7bd70] via-[#d6a350] to-[#be8638] hover:brightness-105 text-stone-950 font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#be8638]/25 active:scale-[0.99] transition-all"
+                className="w-full py-3 px-4 rounded-md bg-[#d6a85a] hover:brightness-105 text-stone-950 font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2  shadow-[#be8638]/25 active:scale-[0.99] transition-all"
               >
                 <Send className="w-4 h-4 text-stone-950" />
                 <span>Kirim Booking via WhatsApp</span>
@@ -842,7 +842,7 @@ ${addOnListText}
               <button
                 type="button"
                 onClick={handleSalinFormat}
-                className="w-full py-2 px-3 rounded-xl bg-stone-950 hover:bg-stone-800 border border-stone-800 text-stone-300 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all"
+                className="w-full py-2 px-3 rounded-md bg-stone-950 hover:bg-stone-800 border border-stone-800 text-stone-300 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all"
               >
                 <Copy className="w-3.5 h-3.5 text-[#e5b869]" />
                 <span>Salin Ringkasan Booking</span>
@@ -856,14 +856,14 @@ ${addOnListText}
           </div>
 
           {/* Quick Switch to Camera Rental Card */}
-          <div className="p-3.5 rounded-xl bg-[#10b981]/10 border border-[#10b981]/30 flex items-center justify-between gap-3 text-xs">
+          <div className="p-3.5 rounded-md bg-[#10b981]/10 border border-[#10b981]/30 flex items-center justify-between gap-3 text-xs">
             <div className="min-w-0 flex-1">
               <span className="font-bold text-white block truncate">Mau Hunting Foto Sendiri?</span>
               <p className="text-stone-400 text-[11px] mt-0.5 truncate">Sewa kamera Nikon Z50 Mark II &amp; lensa mulai Rp 25k.</p>
             </div>
             <Link
               href="/sewa-kamera"
-              className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#4ade80] via-[#10b981] to-[#059669] text-stone-950 font-bold shrink-0 flex items-center gap-1 shadow text-xs"
+              className="px-3 py-1.5 rounded-lg bg-[#d6a85a] text-stone-950 font-bold shrink-0 flex items-center gap-1 shadow text-xs"
             >
               <span>Sewa Kamera</span>
               <ChevronRight className="w-3.5 h-3.5" />
@@ -876,7 +876,7 @@ ${addOnListText}
 
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-5 right-5 z-50 bg-stone-900 border border-[#d6a350] text-white px-3.5 py-2.5 rounded-xl shadow-2xl flex items-center gap-2 text-xs">
+        <div className="fixed bottom-5 right-5 z-50 bg-stone-900 border border-[#d6a350] text-white px-3.5 py-2.5 rounded-md  flex items-center gap-2 text-xs">
           <Check className="w-4 h-4 text-[#e5b869]" />
           <span>{toastMessage}</span>
         </div>
