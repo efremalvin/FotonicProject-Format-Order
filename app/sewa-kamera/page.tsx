@@ -190,17 +190,12 @@ FOTONIC EQUIPMENT RENTAL
     <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10">
       
       {/* Header Page */}
-      <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#d6a85a]/15 border border-[#d6a85a]/35 text-[#e5b869] text-xs font-semibold mb-2.5">
-          <Camera className="w-3.5 h-3.5 text-[#d6a85a]" />
-          <span>Fotonic Equipment Rental</span>
-        </div>
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-2">
-          Format Order <span className="text-[#e5b869]">Sewa Nikon Z50 Mark II</span>
+      <div className="max-w-2xl mb-8 sm:mb-12">
+        <p className="text-[11px] uppercase tracking-[0.3em] text-zinc-500">Fotonic · Sewa Kamera</p>
+        <h1 className="mt-3 font-display text-3xl sm:text-5xl leading-[1.1] text-white">
+          Format order sewa<br />Nikon Z50 Mark II
         </h1>
-        <p className="text-stone-400 text-xs sm:text-sm leading-relaxed max-w-lg mx-auto">
-          Pilih durasi dan paket alat di bawah ini. Selesaikan pengisian form untuk mengirimkan rincian sewa resmi ke WhatsApp admin.
-        </p>
+        <p className="mt-4 text-sm leading-relaxed text-zinc-400">Pilih durasi dan paket alat, lengkapi data, lalu kirim rincian sewa ke WhatsApp admin.</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start">
@@ -210,13 +205,10 @@ FOTONIC EQUIPMENT RENTAL
           
           {/* SECTION 1: Pilih Durasi & Paket Alat */}
           <section className="bg-stone-900/80 border border-stone-800 rounded-lg p-4 sm:p-6 ">
-            <div className="flex items-center gap-2.5 pb-3.5 mb-4 border-b border-stone-800">
-              <div className="w-8 h-8 rounded-lg bg-[#d6a85a]/15 text-[#e5b869] flex items-center justify-center font-bold text-xs border border-[#d6a85a]/30">
-                1
-              </div>
+            <div className="flex items-center gap-2.5 pb-3.5 mb-4 border-b border-white/10">
+              <span className="font-display text-xl text-gold shrink-0 w-6">1</span>
               <div>
                 <h2 className="text-base font-bold text-white flex items-center gap-2">
-                  <Camera className="w-4 h-4 text-[#d6a85a]" />
                   Pilih Durasi &amp; Paket Kamera
                 </h2>
                 <p className="text-[11px] text-stone-400">Pricelist resmi sewa Nikon Z50 Mark II</p>
@@ -374,13 +366,10 @@ FOTONIC EQUIPMENT RENTAL
 
           {/* SECTION 2: Opsi Pengantaran Kamera (Unila Free vs Luar Unila) */}
           <section className="bg-stone-900/80 border border-stone-800 rounded-lg p-4 sm:p-6 ">
-            <div className="flex items-center gap-2.5 pb-3.5 mb-4 border-b border-stone-800">
-              <div className="w-8 h-8 rounded-lg bg-[#d6a85a]/15 text-[#e5b869] flex items-center justify-center font-bold text-xs border border-[#d6a85a]/30">
-                2
-              </div>
+            <div className="flex items-center gap-2.5 pb-3.5 mb-4 border-b border-white/10">
+              <span className="font-display text-xl text-gold shrink-0 w-6">2</span>
               <div>
                 <h2 className="text-base font-bold text-white flex items-center gap-2">
-                  <Truck className="w-4 h-4 text-[#d6a85a]" />
                   Opsi Pengantaran &amp; Pengambilan
                 </h2>
                 <p className="text-[11px] text-stone-400">Pilih titik serah terima kamera</p>
@@ -423,13 +412,10 @@ FOTONIC EQUIPMENT RENTAL
 
           {/* SECTION 3: Data Penyewa & Jadwal */}
           <section className="bg-stone-900/80 border border-stone-800 rounded-lg p-4 sm:p-6 ">
-            <div className="flex items-center gap-2.5 pb-3.5 mb-4 border-b border-stone-800">
-              <div className="w-8 h-8 rounded-lg bg-[#d6a85a]/15 text-[#e5b869] flex items-center justify-center font-bold text-xs border border-[#d6a85a]/30">
-                3
-              </div>
+            <div className="flex items-center gap-2.5 pb-3.5 mb-4 border-b border-white/10">
+              <span className="font-display text-xl text-gold shrink-0 w-6">3</span>
               <div>
                 <h2 className="text-base font-bold text-white flex items-center gap-2">
-                  <Calendar className="w-4 h-4 text-[#d6a85a]" />
                   Data Penyewa &amp; Jadwal Sewa
                 </h2>
                 <p className="text-[11px] text-stone-400">Isi data identitas dan tentukan jadwal sewa alat</p>
@@ -618,7 +604,7 @@ FOTONIC EQUIPMENT RENTAL
           
           <div className="bg-stone-900/90 border border-stone-800 rounded-lg p-4 sm:p-5 ">
             
-            <div className="flex items-center justify-between pb-3 mb-3 border-b border-stone-800">
+            <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/10">
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-[#d6a85a]"></span>
                 <h3 className="font-bold text-sm sm:text-base text-white">Rincian &amp; Total Tarif</h3>

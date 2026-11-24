@@ -233,17 +233,12 @@ ${addOnListText}
     <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-5 sm:py-10">
       
       {/* Header Page (NO WA BADGE ON TOP) */}
-      <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-10">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#d6a85a]/10 border border-[#d6a85a]/35 text-[#f0cf8e] text-xs font-semibold mb-2">
-          <Sparkles className="w-3.5 h-3.5 text-[#e5b869]" />
-          <span>Fotonic Graduation &amp; Sidang Photography</span>
-        </div>
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-2">
-          Katalog &amp; Booking <span className="text-[#e5b869]">Jasa Foto &amp; Video</span>
+      <div className="max-w-2xl mb-8 sm:mb-12">
+        <p className="text-[11px] uppercase tracking-[0.3em] text-zinc-500">Fotonic · Jasa Foto & Video</p>
+        <h1 className="mt-3 font-display text-3xl sm:text-5xl leading-[1.1] text-white">
+          Katalog dan booking<br />jasa foto
         </h1>
-        <p className="text-stone-400 text-xs sm:text-sm leading-relaxed max-w-lg mx-auto px-2">
-          Dokumentasikan momen wisuda, yudisium, dan sidang skripsi Anda dengan karya visual berkelas. Pilih paket resmi, tentukan layanan add-on, dan kirim format order ke WhatsApp fotografer.
-        </p>
+        <p className="mt-4 text-sm leading-relaxed text-zinc-400">Pilih paket, tambahkan add-on bila perlu, lalu kirim format order ke WhatsApp fotografer.</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start">
@@ -253,13 +248,10 @@ ${addOnListText}
           
           {/* SECTION 1: Pilih Kategori & Paket Foto */}
           <section className="bg-stone-900/80 border border-stone-800 rounded-lg p-4 sm:p-6 ">
-            <div className="flex items-center gap-2.5 pb-3 mb-4 border-b border-stone-800">
-              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#d6a85a]/15 text-[#e5b869] flex items-center justify-center font-bold text-xs border border-[#d6a85a]/35 shrink-0">
-                1
-              </div>
+            <div className="flex items-center gap-2.5 pb-3 mb-4 border-b border-white/10">
+              <span className="font-display text-xl text-gold shrink-0 w-6">1</span>
               <div className="min-w-0 flex-1">
                 <h2 className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-[#e5b869] shrink-0" />
                   <span>Pilih Paket Foto Resmi</span>
                 </h2>
                 <p className="text-[11px] text-stone-400">Pilih kategori layanan dan paket durasi sesuai momen Anda</p>
@@ -373,13 +365,10 @@ ${addOnListText}
 
           {/* SECTION 2: Add-On Services (Mobile Optimized) */}
           <section className="bg-stone-900/80 border border-stone-800 rounded-lg p-4 sm:p-6 ">
-            <div className="flex items-center gap-2.5 pb-3 mb-4 border-b border-stone-800">
-              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#d6a85a]/15 text-[#e5b869] flex items-center justify-center font-bold text-xs border border-[#d6a85a]/35 shrink-0">
-                2
-              </div>
+            <div className="flex items-center gap-2.5 pb-3 mb-4 border-b border-white/10">
+              <span className="font-display text-xl text-gold shrink-0 w-6">2</span>
               <div className="min-w-0 flex-1">
                 <h2 className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-[#e5b869] shrink-0" />
                   <span>Layanan Tambahan (Add-On)</span>
                 </h2>
                 <p className="text-[11px] text-stone-400">Pilih opsi ekstra untuk menyempurnakan hasil dokumentasi</p>
@@ -547,13 +536,10 @@ ${addOnListText}
 
           {/* SECTION 3: Data Wisudawan & Jadwal */}
           <section className="bg-stone-900/80 border border-stone-800 rounded-lg p-4 sm:p-6 ">
-            <div className="flex items-center gap-2.5 pb-3 mb-4 border-b border-stone-800">
-              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#d6a85a]/15 text-[#e5b869] flex items-center justify-center font-bold text-xs border border-[#d6a85a]/35 shrink-0">
-                3
-              </div>
+            <div className="flex items-center gap-2.5 pb-3 mb-4 border-b border-white/10">
+              <span className="font-display text-xl text-gold shrink-0 w-6">3</span>
               <div className="min-w-0 flex-1">
                 <h2 className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
-                  <Calendar className="w-4 h-4 text-[#e5b869] shrink-0" />
                   <span>Data Diri &amp; Jadwal Pemotretan</span>
                 </h2>
                 <p className="text-[11px] text-stone-400">Isi identitas wisudawan/klien dan tentukan lokasi serta jam sesi foto</p>
@@ -732,7 +718,7 @@ ${addOnListText}
           
           <div className="bg-stone-900/90 border border-stone-800 rounded-lg p-4 sm:p-5 ">
             
-            <div className="flex items-center justify-between pb-3 mb-3 border-b border-stone-800">
+            <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/10">
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-[#d6a85a]"></span>
                 <h3 className="font-bold text-sm sm:text-base text-white">Rincian Paket &amp; Biaya</h3>
