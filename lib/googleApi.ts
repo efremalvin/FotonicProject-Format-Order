@@ -279,23 +279,66 @@ export async function appendSheetRow(
   sheetTitle: string,
   rowValues: (string | number)[]
 ): Promise<number | null> {
-  const range = encodeURIComponent(`'${sheetTitle}'!A1`);
-  const res = await fetch(`${SHEETS_BASE}/${config.spreadsheetId}/values/${range}:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ values: [rowValues] }),
-  });
+  // Find the first empty row starting at row 2 without INSERT_ROWS
+  // (INSERT_ROWS at row 2 copies header formatting and shifts A2:A100 formulas in Jadwal Terdekat)
+  const colARes = await fetch(
+    `${SHEETS_BASE}/${config.spreadsheetId}/values/${encodeURIComponent(`'${sheetTitle}'!A1:A1000`)}`,
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+  const colAData = (await colARes.json()) as { values?: string[][] };
+  const rows = colAData.values || [];
+  let lastFilled = 1;
+  for (let i = 1; i < rows.length; i++) {
+    if (rows[i] && rows[i][0] && String(rows[i][0]).trim() !== '') {
+      lastFilled = i + 1;
+    }
+  }
+  const nextRow = Math.max(2, lastFilled + 1);
 
-  if (!res.ok) {
-    throw new Error(`Failed to append row (${res.status}): ${await res.text()}`);
+  await updateSheetRange(config, token, sheetTitle, `A${nextRow}`, [rowValues]);
+
+  // Ensure the written data row uses clean body formatting instead of header styling
+  const metaRes = await fetch(`${SHEETS_BASE}/${config.spreadsheetId}?fields=sheets.properties`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (metaRes.ok) {
+    const meta = (await metaRes.json()) as { sheets: SheetMeta[] };
+    const sheetMeta = meta.sheets.find((s) => s.properties.title === sheetTitle);
+    if (sheetMeta) {
+      await fetch(`${SHEETS_BASE}/${config.spreadsheetId}:batchUpdate`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          requests: [
+            {
+              repeatCell: {
+                range: {
+                  sheetId: sheetMeta.properties.sheetId,
+                  startRowIndex: nextRow - 1,
+                  endRowIndex: nextRow,
+                  startColumnIndex: 0,
+                  endColumnIndex: rowValues.length,
+                },
+                cell: {
+                  userEnteredFormat: {
+                    backgroundColor: { red: 1, green: 1, blue: 1 },
+                    textFormat: { foregroundColor: { red: 0.1, green: 0.1, blue: 0.1 }, bold: false, fontSize: 10 },
+                    verticalAlignment: 'MIDDLE',
+                  },
+                },
+                fields: 'userEnteredFormat(backgroundColor,textFormat,verticalAlignment)',
+              },
+            },
+          ],
+        }),
+      });
+    }
   }
 
-  const data = (await res.json()) as { updates?: { updatedRange?: string } };
-  const match = data.updates?.updatedRange?.match(/![A-Z]+(\d+):/);
-  return match ? parseInt(match[1], 10) : null;
+  return nextRow;
 }
 
 export async function updateSheetRange(
