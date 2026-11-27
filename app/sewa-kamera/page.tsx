@@ -2,9 +2,10 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Camera, Calendar, Clock, ShieldAlert, Check, Copy, Send, RotateCcw, CheckCircle2, ChevronRight, Truck } from 'lucide-react';
+import { Camera, Calendar, Clock, ShieldAlert, Check, Copy, Send, RotateCcw, CheckCircle2, ChevronRight, Truck, Lock, ArrowDown } from 'lucide-react';
 import { KAMERA_PACKAGES, STANDARD_ACCESSORIES, DELIVERY_OPTIONS, RENTAL_RULES } from '@/data/kameraCatalog';
 import { generateRentalWhatsAppUrl, formatRupiah, ADMIN_WHATSAPP_DISPLAY } from '@/lib/whatsapp';
+import { submitOrderToSheet } from '@/lib/googleSheets';
 
 export default function SewaKameraPage() {
   // Form states
@@ -13,10 +14,11 @@ export default function SewaKameraPage() {
   const [instagram, setInstagram] = useState('');
   const [alamatDomisili, setAlamatDomisili] = useState('');
 
-  // Package & duration selection
+  // Package & duration selection (must select main package first)
   const [selectedDurationKey, setSelectedDurationKey] = useState<'fullDay' | 'halfDay' | 'shortTime'>('fullDay');
-  const [selectedPackageId, setSelectedPackageId] = useState('paket-komplit');
-  const [singleLensChoice, setSingleLensChoice] = useState('Lensa Kit 16-50mm (Serbaguna/Vlog)');
+  const [selectedPackageId, setSelectedPackageId] = useState<string>('');
+  const [singleLensChoice, setSingleLensChoice] = useState<string>('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Local date helper
   const getTodayStr = () => {
@@ -63,13 +65,17 @@ export default function SewaKameraPage() {
   };
 
   // Calculations
-  const currentPackage = KAMERA_PACKAGES.find(p => p.id === selectedPackageId) || KAMERA_PACKAGES[0];
-  const basePrice = currentPackage.pricing[selectedDurationKey];
+  const currentPackage = KAMERA_PACKAGES.find(p => p.id === selectedPackageId) || null;
+  const isPackageReady = Boolean(
+    currentPackage &&
+    (selectedPackageId !== 'paket-single-lens' || singleLensChoice)
+  );
+  const basePrice = currentPackage ? currentPackage.pricing[selectedDurationKey] : 0;
 
   const selectedDelivery = DELIVERY_OPTIONS.find(d => d.id === deliveryOptionId) || DELIVERY_OPTIONS[0];
-  const deliveryFee = selectedDelivery.fee;
+  const deliveryFee = currentPackage ? selectedDelivery.fee : 0;
 
-  const grandTotal = basePrice + deliveryFee;
+  const grandTotal = currentPackage ? basePrice + deliveryFee : 0;
   const dpAmount = 50000;
   const sisaPelunasan = Math.max(0, grandTotal - dpAmount);
 
@@ -79,7 +85,11 @@ export default function SewaKameraPage() {
       ? 'Setengah Hari (6–12 Jam)' 
       : 'Short Time (Maks. 4 Jam)';
 
-  const handleKirimWA = () => {
+  const handleKirimWA = async () => {
+    if (!currentPackage || !isPackageReady) {
+      alert('Silakan pilih Paket Utama (dan lensa jika Single Lens) terlebih dahulu.');
+      return;
+    }
     if (!nama.trim()) {
       alert('Mohon isi Nama Lengkap Penyewa terlebih dahulu.');
       return;
@@ -100,6 +110,27 @@ export default function SewaKameraPage() {
     const paymentText = skemaBayar === 'dp'
       ? `DP Booking : Rp 50.000 (Sisa pelunasan ${formatRupiah(sisaPelunasan)} saat serah terima)`
       : `Pembayaran Lunas : ${formatRupiah(grandTotal)} (Full Payment)`;
+
+    setIsSubmitting(true);
+    await submitOrderToSheet({
+      type: 'sewa',
+      nama,
+      whatsapp,
+      instagram: instagram || '-',
+      alamatDomisili,
+      paketNama: currentPackage.name,
+      detailUnit: detailUnitKamera,
+      durasiTipe: durasiLabel,
+      tanggalAmbil,
+      jamAmbil,
+      tanggalKembali,
+      jamKembali,
+      opsiPengantaran: `${selectedDelivery.label} (${selectedDelivery.note})`,
+      jaminanIdentitas,
+      tarifTotal: grandTotal,
+      skemaBayar: paymentText,
+    });
+    setIsSubmitting(false);
 
     const url = generateRentalWhatsAppUrl({
       nama,
@@ -126,6 +157,10 @@ export default function SewaKameraPage() {
   };
 
   const handleSalinFormat = async () => {
+    if (!currentPackage || !isPackageReady) {
+      alert('Silakan pilih Paket Utama terlebih dahulu.');
+      return;
+    }
     const detailUnitKamera = selectedPackageId === 'paket-single-lens'
       ? `${currentPackage.name} (${singleLensChoice})`
       : currentPackage.name;
@@ -177,8 +212,8 @@ FOTONIC EQUIPMENT RENTAL
       setInstagram('');
       setAlamatDomisili('');
       setSelectedDurationKey('fullDay');
-      setSelectedPackageId('paket-komplit');
-      setSingleLensChoice('Lensa Kit 16-50mm (Serbaguna/Vlog)');
+      setSelectedPackageId('');
+      setSingleLensChoice('');
       setDeliveryOptionId('antar-unila');
       setJaminanIdentitas('KTP Asli');
       setSkemaBayar('dp');
@@ -362,21 +397,55 @@ FOTONIC EQUIPMENT RENTAL
               </ul>
             </div>
 
+            {/* Gate prompt: must select main package first */}
+            <div className="mt-4 pt-3.5 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+              {isPackageReady ? (
+                <>
+                  <span className="text-xs text-[#e5b869] font-medium flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 shrink-0" />
+                    Paket utama terpilih: <strong className="text-white">{currentPackage?.name}</strong>
+                  </span>
+                  <a
+                    href="#step-2-sewa"
+                    className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-md bg-[#d6a85a] text-stone-950 font-bold text-xs hover:brightness-105 transition-all shrink-0"
+                  >
+                    <span>Lanjut ke Menu Berikutnya</span>
+                    <ArrowDown className="w-3.5 h-3.5" />
+                  </a>
+                </>
+              ) : (
+                <span className="text-xs text-stone-400 flex items-center gap-1.5">
+                  <Lock className="w-3.5 h-3.5 text-[#e5b869] shrink-0" />
+                  {selectedPackageId === 'paket-single-lens'
+                    ? 'Pilih 1 lensa pada paket Single Lens di atas untuk membuka menu selanjutnya.'
+                    : 'Pilih salah satu paket utama di atas terlebih dahulu untuk membuka menu selanjutnya.'}
+                </span>
+              )}
+            </div>
+
           </section>
 
           {/* SECTION 2: Opsi Pengantaran Kamera (Unila Free vs Luar Unila) */}
-          <section className="bg-stone-900/80 border border-stone-800 rounded-lg p-4 sm:p-6 ">
-            <div className="flex items-center gap-2.5 pb-3.5 mb-4 border-b border-white/10">
-              <span className="font-display text-xl text-gold shrink-0 w-6">2</span>
-              <div>
-                <h2 className="text-base font-bold text-white flex items-center gap-2">
-                  Opsi Pengantaran &amp; Pengambilan
-                </h2>
-                <p className="text-[11px] text-stone-400">Pilih titik serah terima kamera</p>
+          <section id="step-2-sewa" className={`bg-stone-900/80 border border-stone-800 rounded-lg p-4 sm:p-6 transition-opacity ${!isPackageReady ? 'opacity-55' : ''}`}>
+            <div className="flex items-center justify-between gap-2.5 pb-3.5 mb-4 border-b border-white/10">
+              <div className="flex items-center gap-2.5">
+                <span className="font-display text-xl text-gold shrink-0 w-6">2</span>
+                <div>
+                  <h2 className="text-base font-bold text-white flex items-center gap-2">
+                    Opsi Pengantaran &amp; Pengambilan
+                  </h2>
+                  <p className="text-[11px] text-stone-400">Pilih titik serah terima kamera</p>
+                </div>
               </div>
+              {!isPackageReady && (
+                <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-[#e5b869] bg-[#d6a85a]/10 border border-[#d6a85a]/30 px-2 py-1 rounded">
+                  <Lock className="w-3 h-3" />
+                  Pilih Paket Dulu
+                </span>
+              )}
             </div>
 
-            <div className="space-y-2">
+            <div className={`space-y-2 ${!isPackageReady ? 'pointer-events-none select-none' : ''}`}>
               {DELIVERY_OPTIONS.map(opt => {
                 const isSelected = deliveryOptionId === opt.id;
                 return (
@@ -411,18 +480,26 @@ FOTONIC EQUIPMENT RENTAL
           </section>
 
           {/* SECTION 3: Data Penyewa & Jadwal */}
-          <section className="bg-stone-900/80 border border-stone-800 rounded-lg p-4 sm:p-6 ">
-            <div className="flex items-center gap-2.5 pb-3.5 mb-4 border-b border-white/10">
-              <span className="font-display text-xl text-gold shrink-0 w-6">3</span>
-              <div>
-                <h2 className="text-base font-bold text-white flex items-center gap-2">
-                  Data Penyewa &amp; Jadwal Sewa
-                </h2>
-                <p className="text-[11px] text-stone-400">Isi data identitas dan tentukan jadwal sewa alat</p>
+          <section className={`bg-stone-900/80 border border-stone-800 rounded-lg p-4 sm:p-6 transition-opacity ${!isPackageReady ? 'opacity-55' : ''}`}>
+            <div className="flex items-center justify-between gap-2.5 pb-3.5 mb-4 border-b border-white/10">
+              <div className="flex items-center gap-2.5">
+                <span className="font-display text-xl text-gold shrink-0 w-6">3</span>
+                <div>
+                  <h2 className="text-base font-bold text-white flex items-center gap-2">
+                    Data Penyewa &amp; Jadwal Sewa
+                  </h2>
+                  <p className="text-[11px] text-stone-400">Isi data identitas dan tentukan jadwal sewa alat</p>
+                </div>
               </div>
+              {!isPackageReady && (
+                <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-[#e5b869] bg-[#d6a85a]/10 border border-[#d6a85a]/30 px-2 py-1 rounded">
+                  <Lock className="w-3 h-3" />
+                  Pilih Paket Dulu
+                </span>
+              )}
             </div>
 
-            <div className="space-y-3.5">
+            <div className={`space-y-3.5 ${!isPackageReady ? 'pointer-events-none select-none' : ''}`}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-[11px] font-semibold text-stone-300 uppercase tracking-wider mb-1">
@@ -622,17 +699,23 @@ FOTONIC EQUIPMENT RENTAL
             {/* Price Box */}
             <div className="bg-stone-950 p-3.5 rounded-md border border-stone-800 space-y-1.5 text-xs mb-3.5">
               <div className="flex justify-between items-center text-stone-300">
-                <span className="font-medium text-[11px]">{currentPackage.name}</span>
+                <span className="font-medium text-[11px]">{currentPackage ? currentPackage.name : 'Belum ada paket dipilih'}</span>
                 <span className="font-bold text-[#e5b869] font-mono">{formatRupiah(basePrice)}</span>
               </div>
               <div className="flex justify-between items-center text-stone-400 text-[10px]">
                 <span>Durasi: {durasiLabel}</span>
-                <span>{selectedPackageId === 'paket-single-lens' ? singleLensChoice : 'Termasuk 2 Baterai'}</span>
+                <span>
+                  {!currentPackage
+                    ? 'Pilih paket di Bagian 1'
+                    : selectedPackageId === 'paket-single-lens'
+                      ? (singleLensChoice || 'Pilih 1 lensa')
+                      : 'Termasuk 2 Baterai'}
+                </span>
               </div>
               <div className="flex justify-between items-center text-stone-300 pt-1 border-t border-stone-900 text-[11px]">
                 <span>Pengantaran: {selectedDelivery.label}</span>
                 <span className="font-bold text-[#e5b869] font-mono">
-                  {deliveryFee === 0 ? 'Gratis' : `+${formatRupiah(deliveryFee)}`}
+                  {!currentPackage ? '-' : deliveryFee === 0 ? 'Gratis' : `+${formatRupiah(deliveryFee)}`}
                 </span>
               </div>
               <div className="pt-2 border-t border-stone-800 flex justify-between items-center text-xs sm:text-sm">
@@ -679,17 +762,25 @@ FOTONIC EQUIPMENT RENTAL
             <div className="space-y-2">
               <button
                 type="button"
+                disabled={!isPackageReady || isSubmitting}
                 onClick={handleKirimWA}
-                className="w-full py-3 px-4 rounded-md bg-[#d6a85a] hover:brightness-105 text-stone-950 font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2  shadow-[#d6a85a]/25 active:scale-[0.99] transition-all"
+                className="w-full py-3 px-4 rounded-md bg-[#d6a85a] hover:brightness-105 disabled:opacity-40 disabled:cursor-not-allowed text-stone-950 font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-[#d6a85a]/25 active:scale-[0.99] transition-all"
               >
                 <Send className="w-4 h-4 text-stone-950" />
-                <span>Kirim Format Sewa via WhatsApp</span>
+                <span>
+                  {!isPackageReady
+                    ? 'Pilih Paket Utama Terlebih Dahulu'
+                    : isSubmitting
+                      ? 'Menyimpan ke Spreadsheet...'
+                      : 'Kirim Format Sewa via WhatsApp'}
+                </span>
               </button>
 
               <button
                 type="button"
+                disabled={!isPackageReady}
                 onClick={handleSalinFormat}
-                className="w-full py-2 px-3 rounded-md bg-stone-950 hover:bg-stone-800 border border-stone-800 text-stone-300 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all"
+                className="w-full py-2 px-3 rounded-md bg-stone-950 hover:bg-stone-800 disabled:opacity-40 disabled:cursor-not-allowed border border-stone-800 text-stone-300 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all"
               >
                 <Copy className="w-3.5 h-3.5" />
                 <span>Salin Format Teks</span>

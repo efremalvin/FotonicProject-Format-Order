@@ -21,15 +21,19 @@ import {
   Minus,
   Film,
   Zap,
-  ShieldCheck
+  ShieldCheck,
+  Lock,
+  ArrowDown
 } from 'lucide-react';
 import { FOTO_CATEGORIES, FOTO_PACKAGES, FOTO_BOOKING_RULES } from '@/data/fotoPricelist';
 import { generateFotoWhatsAppUrl, formatRupiah, ADMIN_WHATSAPP_DISPLAY } from '@/lib/whatsapp';
+import { submitOrderToSheet } from '@/lib/googleSheets';
 
 export default function JasaFotoPage() {
-  // Category & package
+  // Category & package (must select main package first)
   const [selectedCategory, setSelectedCategory] = useState<'Single Packet' | 'Group / Family' | 'Seminar & Sidang'>('Single Packet');
-  const [selectedPackageId, setSelectedPackageId] = useState('single-std');
+  const [selectedPackageId, setSelectedPackageId] = useState<string>('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Add-ons states
   const [cinematicReels, setCinematicReels] = useState(false);
@@ -82,8 +86,9 @@ export default function JasaFotoPage() {
   };
 
   // Calculations
-  const currentPackage = FOTO_PACKAGES.find(p => p.id === selectedPackageId) || FOTO_PACKAGES[0];
-  const basePrice = currentPackage.price;
+  const currentPackage = FOTO_PACKAGES.find(p => p.id === selectedPackageId) || null;
+  const isPackageReady = Boolean(currentPackage);
+  const basePrice = currentPackage ? currentPackage.price : 0;
 
   // Addons calculations
   const extra1Total = extraEdit1Count * 10000;
@@ -91,7 +96,7 @@ export default function JasaFotoPage() {
   const expressTotal = expressEdit ? 50000 : 0;
   const addonsTotal = extra1Total + extra5Total + expressTotal;
 
-  const grandTotal = basePrice + addonsTotal;
+  const grandTotal = currentPackage ? basePrice + addonsTotal : 0;
   const dpAmount = 50000;
   const sisaPelunasan = Math.max(0, grandTotal - dpAmount);
 
@@ -112,13 +117,14 @@ export default function JasaFotoPage() {
 
   const handleCategoryChange = (cat: 'Single Packet' | 'Group / Family' | 'Seminar & Sidang') => {
     setSelectedCategory(cat);
-    const firstInCat = FOTO_PACKAGES.find(p => p.category === cat);
-    if (firstInCat) {
-      setSelectedPackageId(firstInCat.id);
-    }
+    setSelectedPackageId('');
   };
 
-  const handleKirimWA = () => {
+  const handleKirimWA = async () => {
+    if (!currentPackage) {
+      alert('Silakan pilih Paket Utama terlebih dahulu sebelum melanjutkan.');
+      return;
+    }
     if (!nama.trim()) {
       alert('Mohon lengkapi Nama Lengkap Wisudawan/Klien terlebih dahulu.');
       return;
@@ -135,6 +141,30 @@ export default function JasaFotoPage() {
     const paymentText = skemaBayar === 'dp'
       ? `DP Booking : Rp 50.000 (Sisa pelunasan ${formatRupiah(sisaPelunasan)} pasca sesi)`
       : `Pembayaran Lunas : ${formatRupiah(grandTotal)} (Full Payment)`;
+
+    const addOnsText = activeAddOnsList.length > 0
+      ? activeAddOnsList.map(a => a.count && a.count > 1 ? `${a.name} x${a.count}` : a.name).join(', ')
+      : 'Tidak ada';
+
+    setIsSubmitting(true);
+    await submitOrderToSheet({
+      type: 'foto',
+      nama,
+      whatsapp: whatsapp || '-',
+      kampus,
+      paketKategori: currentPackage.category,
+      paketNama: currentPackage.name,
+      addOnsText,
+      tanggalSesi,
+      jamSesi,
+      lokasiTipe,
+      lokasiDetail,
+      jumlahOrang: jumlahOrang || 'Wisudawan & Pendamping',
+      catatanKhusus: catatanKhusus || '-',
+      totalHarga: grandTotal,
+      skemaBayar: paymentText,
+    });
+    setIsSubmitting(false);
 
     const url = generateFotoWhatsAppUrl({
       nama,
@@ -162,6 +192,10 @@ export default function JasaFotoPage() {
   };
 
   const handleSalinFormat = async () => {
+    if (!currentPackage) {
+      alert('Silakan pilih Paket Utama terlebih dahulu.');
+      return;
+    }
     const addOnListText = activeAddOnsList.length > 0
       ? activeAddOnsList.map(a => {
           if (a.price === 0) return `• ${a.name} (Promo Free)`;
@@ -217,7 +251,7 @@ ${addOnListText}
       setJumlahOrang('');
       setCatatanKhusus('');
       setSelectedCategory('Single Packet');
-      setSelectedPackageId('single-std');
+      setSelectedPackageId('');
       setCinematicReels(false);
       setExtraEdit1Count(0);
       setExtraEdit5Count(0);
@@ -361,21 +395,53 @@ ${addOnListText}
               </div>
             </div>
 
+            {/* Gate prompt: must select main package first */}
+            <div className="mt-4 pt-3.5 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+              {isPackageReady ? (
+                <>
+                  <span className="text-xs text-[#e5b869] font-medium flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 shrink-0" />
+                    Paket utama terpilih: <strong className="text-white">{currentPackage?.name}</strong>
+                  </span>
+                  <a
+                    href="#step-2-foto"
+                    className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-md bg-[#d6a85a] text-stone-950 font-bold text-xs hover:brightness-105 transition-all shrink-0"
+                  >
+                    <span>Lanjut ke Menu Berikutnya</span>
+                    <ArrowDown className="w-3.5 h-3.5" />
+                  </a>
+                </>
+              ) : (
+                <span className="text-xs text-stone-400 flex items-center gap-1.5">
+                  <Lock className="w-3.5 h-3.5 text-[#e5b869] shrink-0" />
+                  Pilih salah satu paket utama di atas terlebih dahulu untuk membuka menu Add-On &amp; Jadwal.
+                </span>
+              )}
+            </div>
+
           </section>
 
           {/* SECTION 2: Add-On Services (Mobile Optimized) */}
-          <section className="bg-stone-900/80 border border-stone-800 rounded-lg p-4 sm:p-6 ">
-            <div className="flex items-center gap-2.5 pb-3 mb-4 border-b border-white/10">
-              <span className="font-display text-xl text-gold shrink-0 w-6">2</span>
-              <div className="min-w-0 flex-1">
-                <h2 className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
-                  <span>Layanan Tambahan (Add-On)</span>
-                </h2>
-                <p className="text-[11px] text-stone-400">Pilih opsi ekstra untuk menyempurnakan hasil dokumentasi</p>
+          <section id="step-2-foto" className={`bg-stone-900/80 border border-stone-800 rounded-lg p-4 sm:p-6 transition-opacity ${!isPackageReady ? 'opacity-55' : ''}`}>
+            <div className="flex items-center justify-between gap-2.5 pb-3 mb-4 border-b border-white/10">
+              <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                <span className="font-display text-xl text-gold shrink-0 w-6">2</span>
+                <div className="min-w-0 flex-1">
+                  <h2 className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+                    <span>Layanan Tambahan (Add-On)</span>
+                  </h2>
+                  <p className="text-[11px] text-stone-400">Pilih opsi ekstra untuk menyempurnakan hasil dokumentasi</p>
+                </div>
               </div>
+              {!isPackageReady && (
+                <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-[#e5b869] bg-[#d6a85a]/10 border border-[#d6a85a]/30 px-2 py-1 rounded shrink-0">
+                  <Lock className="w-3 h-3" />
+                  Pilih Paket Dulu
+                </span>
+              )}
             </div>
 
-            <div className="space-y-2.5">
+            <div className={`space-y-2.5 ${!isPackageReady ? 'pointer-events-none select-none' : ''}`}>
               
               {/* 1. Cinematic Reels (PROMO FREE) */}
               <div 
@@ -535,18 +601,26 @@ ${addOnListText}
           </section>
 
           {/* SECTION 3: Data Wisudawan & Jadwal */}
-          <section className="bg-stone-900/80 border border-stone-800 rounded-lg p-4 sm:p-6 ">
-            <div className="flex items-center gap-2.5 pb-3 mb-4 border-b border-white/10">
-              <span className="font-display text-xl text-gold shrink-0 w-6">3</span>
-              <div className="min-w-0 flex-1">
-                <h2 className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
-                  <span>Data Diri &amp; Jadwal Pemotretan</span>
-                </h2>
-                <p className="text-[11px] text-stone-400">Isi identitas wisudawan/klien dan tentukan lokasi serta jam sesi foto</p>
+          <section className={`bg-stone-900/80 border border-stone-800 rounded-lg p-4 sm:p-6 transition-opacity ${!isPackageReady ? 'opacity-55' : ''}`}>
+            <div className="flex items-center justify-between gap-2.5 pb-3 mb-4 border-b border-white/10">
+              <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                <span className="font-display text-xl text-gold shrink-0 w-6">3</span>
+                <div className="min-w-0 flex-1">
+                  <h2 className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+                    <span>Data Diri &amp; Jadwal Pemotretan</span>
+                  </h2>
+                  <p className="text-[11px] text-stone-400">Isi identitas wisudawan/klien dan tentukan lokasi serta jam sesi foto</p>
+                </div>
               </div>
+              {!isPackageReady && (
+                <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-[#e5b869] bg-[#d6a85a]/10 border border-[#d6a85a]/30 px-2 py-1 rounded shrink-0">
+                  <Lock className="w-3 h-3" />
+                  Pilih Paket Dulu
+                </span>
+              )}
             </div>
 
-            <div className="space-y-3.5">
+            <div className={`space-y-3.5 ${!isPackageReady ? 'pointer-events-none select-none' : ''}`}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-[11px] font-semibold text-stone-300 uppercase tracking-wider mb-1">
@@ -736,11 +810,11 @@ ${addOnListText}
             {/* Price Breakdown Box */}
             <div className="bg-stone-950 p-3.5 rounded-md border border-stone-800 space-y-1.5 text-xs mb-3.5">
               <div className="flex justify-between items-center text-stone-300">
-                <span className="font-medium text-[11px] truncate">{currentPackage.name}</span>
+                <span className="font-medium text-[11px] truncate">{currentPackage ? currentPackage.name : 'Belum ada paket dipilih'}</span>
                 <span className="font-bold text-[#e5b869] font-mono shrink-0 ml-2">{formatRupiah(basePrice)}</span>
               </div>
               <div className="flex justify-between items-center text-stone-400 text-[10px]">
-                <span>Durasi: {currentPackage.duration}</span>
+                <span>Durasi: {currentPackage ? currentPackage.duration : '-'}</span>
                 <span>{activeAddOnsList.length > 0 ? `+${activeAddOnsList.length} Add-On` : 'Tanpa Add-On'}</span>
               </div>
               
@@ -818,17 +892,25 @@ ${addOnListText}
             <div className="space-y-2">
               <button
                 type="button"
+                disabled={!isPackageReady || isSubmitting}
                 onClick={handleKirimWA}
-                className="w-full py-3 px-4 rounded-md bg-[#d6a85a] hover:brightness-105 text-stone-950 font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2  shadow-[#be8638]/25 active:scale-[0.99] transition-all"
+                className="w-full py-3 px-4 rounded-md bg-[#d6a85a] hover:brightness-105 disabled:opacity-40 disabled:cursor-not-allowed text-stone-950 font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-[#be8638]/25 active:scale-[0.99] transition-all"
               >
                 <Send className="w-4 h-4 text-stone-950" />
-                <span>Kirim Booking via WhatsApp</span>
+                <span>
+                  {!isPackageReady
+                    ? 'Pilih Paket Utama Terlebih Dahulu'
+                    : isSubmitting
+                      ? 'Menyimpan ke Spreadsheet...'
+                      : 'Kirim Booking via WhatsApp'}
+                </span>
               </button>
 
               <button
                 type="button"
+                disabled={!isPackageReady}
                 onClick={handleSalinFormat}
-                className="w-full py-2 px-3 rounded-md bg-stone-950 hover:bg-stone-800 border border-stone-800 text-stone-300 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all"
+                className="w-full py-2 px-3 rounded-md bg-stone-950 hover:bg-stone-800 disabled:opacity-40 disabled:cursor-not-allowed border border-stone-800 text-stone-300 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all"
               >
                 <Copy className="w-3.5 h-3.5 text-[#e5b869]" />
                 <span>Salin Ringkasan Booking</span>
