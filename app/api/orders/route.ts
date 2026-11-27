@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import {
+  ORDER_STATUS_OPTIONS,
+  OrderStatus,
   appendSheetRow,
   ensureOrderSheetsExist,
   getGoogleAccessToken,
@@ -44,6 +46,8 @@ export async function POST(req: NextRequest) {
 
     const timestamp = formatWibTimestamp();
     const orderId = generateOrderId(payload.type === 'sewa' ? 'RENT' : 'FOTO');
+    const resolvedStatus: OrderStatus =
+      payload.status && ORDER_STATUS_OPTIONS.includes(payload.status) ? payload.status : 'Pending';
 
     if (payload.type === 'sewa') {
       await appendSheetRow(config, token, 'Sewa Kamera', [
@@ -64,7 +68,7 @@ export async function POST(req: NextRequest) {
         payload.jaminanIdentitas,
         formatRupiah(payload.tarifTotal),
         payload.skemaBayar,
-        'Pending',
+        resolvedStatus,
         '',
         '',
         '',
@@ -87,7 +91,7 @@ export async function POST(req: NextRequest) {
         payload.catatanKhusus,
         formatRupiah(payload.totalHarga),
         payload.skemaBayar,
-        'Pending',
+        resolvedStatus,
         '',
         '',
         '',

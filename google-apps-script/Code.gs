@@ -294,7 +294,7 @@ function ensureTab_(ss, title, headers, statusCol) {
     headerRange.setBackground('#09090b').setFontColor('#d6a85a').setFontWeight('bold').setHorizontalAlignment('center');
 
     var rule = SpreadsheetApp.newDataValidation()
-      .requireValueInList(['Pending', 'Confirmed', 'Selesai', 'Batal'], true)
+      .requireValueInList(['Pending', 'DP', 'Confirmed', 'Lunas', 'Selesai', 'Batal'], true)
       .build();
     sheet.getRange(2, statusCol, 999, 1).setDataValidation(rule);
     sheet.autoResizeColumns(1, headers.length);

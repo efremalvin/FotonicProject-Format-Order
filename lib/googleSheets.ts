@@ -1,5 +1,8 @@
+export type OrderStatus = 'Pending' | 'DP' | 'Confirmed' | 'Lunas' | 'Selesai' | 'Batal';
+
 export interface SewaOrderPayload {
   type: 'sewa';
+  status?: OrderStatus;
   nama: string;
   whatsapp: string;
   instagram: string;
@@ -19,6 +22,7 @@ export interface SewaOrderPayload {
 
 export interface FotoOrderPayload {
   type: 'foto';
+  status?: OrderStatus;
   nama: string;
   whatsapp: string;
   kampus: string;

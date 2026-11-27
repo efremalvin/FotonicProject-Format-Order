@@ -114,6 +114,7 @@ export default function SewaKameraPage() {
     setIsSubmitting(true);
     await submitOrderToSheet({
       type: 'sewa',
+      status: 'Pending',
       nama,
       whatsapp,
       instagram: instagram || '-',

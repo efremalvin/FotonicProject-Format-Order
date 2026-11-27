@@ -149,6 +149,7 @@ export default function JasaFotoPage() {
     setIsSubmitting(true);
     await submitOrderToSheet({
       type: 'foto',
+      status: 'Pending',
       nama,
       whatsapp: whatsapp || '-',
       kampus,

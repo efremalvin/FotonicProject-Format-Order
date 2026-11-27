@@ -70,6 +70,9 @@ export async function getGoogleAccessToken(config: GoogleConfig, scopes: string[
   return data.access_token;
 }
 
+export const ORDER_STATUS_OPTIONS = ['Pending', 'DP', 'Confirmed', 'Lunas', 'Selesai', 'Batal'] as const;
+export type OrderStatus = (typeof ORDER_STATUS_OPTIONS)[number];
+
 export const SEWA_HEADERS = [
   'Order ID',
   'Waktu Order',
@@ -240,12 +243,7 @@ export async function ensureOrderSheetsExist(config: GoogleConfig, token: string
             rule: {
               condition: {
                 type: 'ONE_OF_LIST',
-                values: [
-                  { userEnteredValue: 'Pending' },
-                  { userEnteredValue: 'Confirmed' },
-                  { userEnteredValue: 'Selesai' },
-                  { userEnteredValue: 'Batal' },
-                ],
+                values: ORDER_STATUS_OPTIONS.map((value) => ({ userEnteredValue: value })),
               },
               showCustomUi: true,
               strict: false,
