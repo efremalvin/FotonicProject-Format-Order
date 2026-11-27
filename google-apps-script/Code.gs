@@ -12,6 +12,7 @@
 
 var SHEET_SEWA = 'Sewa Kamera';
 var SHEET_FOTO = 'Jasa Foto';
+var SHEET_PROMO = 'Kode Promo';
 var TIMEZONE = 'Asia/Jakarta';
 
 var SEWA_HEADERS = [
@@ -19,20 +20,29 @@ var SEWA_HEADERS = [
   'Alamat Domisili', 'Paket Sewa', 'Detail Unit / Lensa', 'Durasi',
   'Tanggal Ambil', 'Jam Ambil', 'Tanggal Kembali', 'Jam Kembali',
   'Pengantaran', 'Jaminan', 'Total Tarif', 'Skema Bayar',
-  'Status', 'Main Event ID', 'H-1 Event ID', 'Sync Hash'
+  'Status', 'Main Event ID', 'H-1 Event ID', 'Sync Hash',
+  'Kode Promo', 'Potongan Diskon'
 ];
 
 var FOTO_HEADERS = [
   'Order ID', 'Waktu Order', 'Nama Klien', 'No. WhatsApp', 'Kampus / Instansi',
   'Kategori', 'Paket Foto', 'Add-On', 'Tanggal Sesi', 'Jam Mulai',
   'Kategori Lokasi', 'Titik Kumpul', 'Jumlah Orang', 'Catatan',
-  'Total Biaya', 'Skema Bayar', 'Status', 'Main Event ID', 'H-1 Event ID', 'Sync Hash'
+  'Total Biaya', 'Skema Bayar', 'Status', 'Main Event ID', 'H-1 Event ID', 'Sync Hash',
+  'Kode Promo', 'Potongan Diskon'
+];
+
+var PROMO_HEADERS = [
+  'Kode Promo', 'Aktif', 'Jenis Layanan', 'Target Paket', 'Tipe Diskon',
+  'Nilai Diskon', 'Maks. Diskon (Rp)', 'Min. Transaksi (Rp)', 'Berlaku Sampai',
+  'Kuota Pakai', 'Terpakai', 'Keterangan'
 ];
 
 function setupSheetsAndTables() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   ensureTab_(ss, SHEET_SEWA, SEWA_HEADERS, 18);
   ensureTab_(ss, SHEET_FOTO, FOTO_HEADERS, 17);
+  ensureTab_(ss, SHEET_PROMO, PROMO_HEADERS, -1);
 }
 
 function setupTriggers() {
@@ -293,10 +303,12 @@ function ensureTab_(ss, title, headers, statusCol) {
     var headerRange = sheet.getRange(1, 1, 1, headers.length);
     headerRange.setBackground('#09090b').setFontColor('#d6a85a').setFontWeight('bold').setHorizontalAlignment('center');
 
-    var rule = SpreadsheetApp.newDataValidation()
-      .requireValueInList(['Pending', 'DP', 'Confirmed', 'Lunas', 'Selesai', 'Batal'], true)
-      .build();
-    sheet.getRange(2, statusCol, 999, 1).setDataValidation(rule);
+    if (statusCol > 0) {
+      var rule = SpreadsheetApp.newDataValidation()
+        .requireValueInList(['Pending', 'DP', 'Confirmed', 'Lunas', 'Selesai', 'Batal'], true)
+        .build();
+      sheet.getRange(2, statusCol, 999, 1).setDataValidation(rule);
+    }
     sheet.autoResizeColumns(1, headers.length);
   }
   return sheet;

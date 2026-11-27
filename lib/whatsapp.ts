@@ -16,6 +16,8 @@ export interface FotoOrderData {
   editFoto: string;
   fasilitas: string[];
   addOns: { name: string; price: number; count?: number }[];
+  kodePromo?: string;
+  potonganPromo?: number;
   totalHarga: number;
   skemaBayar: string;
   tanggalSesi: string;
@@ -35,6 +37,8 @@ export interface RentalOrderData {
   detailUnit: string;
   durasiTipe: string;
   durasiHari: number;
+  kodePromo?: string;
+  potonganPromo?: number;
   tarifTotal: number;
   skemaBayar: string;
   tanggalAmbil: string;
@@ -89,7 +93,11 @@ ${addOnsText}
 • Estimasi Jumlah Orang : ${order.jumlahOrang || '-'}
 • Catatan / Konsep : ${order.catatanKhusus || '-'}
 
-💰 TOTAL BIAYA & SKEMA PEMBAYARAN :
+💰 TOTAL BIAYA & SKEMA PEMBAYARAN :${
+  order.kodePromo && order.potonganPromo
+    ? `\n• Kode Promo : ${order.kodePromo} (-${formatRupiah(order.potonganPromo)})`
+    : ''
+}
 • Total Biaya : ${formatRupiah(order.totalHarga)}
 • Skema Bayar : ${order.skemaBayar}
 
@@ -130,7 +138,11 @@ FOTONIC EQUIPMENT RENTAL
 🪪 JAMINAN IDENTITAS (Wajib Bawa Fisik Asli) :
 • ${order.jaminanIdentitas || 'Belum dipilih'}
 
-💰 TOTAL TARIF & PEMBAYARAN :
+💰 TOTAL TARIF & PEMBAYARAN :${
+  order.kodePromo && order.potonganPromo
+    ? `\n• Kode Promo : ${order.kodePromo} (-${formatRupiah(order.potonganPromo)})`
+    : ''
+}
 • Total Biaya Sewa : ${formatRupiah(order.tarifTotal)}
 • Skema Pembayaran : ${order.skemaBayar}
 

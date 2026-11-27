@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Camera, Calendar, Clock, ShieldAlert, Check, Copy, Send, RotateCcw, CheckCircle2, ChevronRight, Truck, Lock, ArrowDown } from 'lucide-react';
+import { Camera, Calendar, Clock, ShieldAlert, Check, Copy, Send, RotateCcw, CheckCircle2, ChevronRight, Truck, Lock, ArrowDown, Plus, Minus, Tag, X } from 'lucide-react';
 import { KAMERA_PACKAGES, STANDARD_ACCESSORIES, DELIVERY_OPTIONS, RENTAL_RULES } from '@/data/kameraCatalog';
 import { generateRentalWhatsAppUrl, formatRupiah, ADMIN_WHATSAPP_DISPLAY } from '@/lib/whatsapp';
-import { submitOrderToSheet } from '@/lib/googleSheets';
+import { submitOrderToSheet, validatePromoCode, PromoValidationResponse } from '@/lib/googleSheets';
 
 export default function SewaKameraPage() {
   // Form states
@@ -15,31 +15,35 @@ export default function SewaKameraPage() {
   const [alamatDomisili, setAlamatDomisili] = useState('');
 
   // Package & duration selection (must select main package first)
-  const [selectedDurationKey, setSelectedDurationKey] = useState<'fullDay' | 'halfDay' | 'shortTime'>('fullDay');
+  const [selectedDurationKey, setSelectedDurationKey] = useState<'fullDay' | 'halfDay' | 'shortTime' | 'multiDay'>('fullDay');
+  const [rentalDays, setRentalDays] = useState<number>(2);
   const [selectedPackageId, setSelectedPackageId] = useState<string>('');
   const [singleLensChoice, setSingleLensChoice] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Local date helper
-  const getTodayStr = () => {
-    const d = new Date();
+  // Promo code states
+  const [promoInput, setPromoInput] = useState('');
+  const [appliedPromo, setAppliedPromo] = useState<PromoValidationResponse | null>(null);
+  const [promoLoading, setPromoLoading] = useState(false);
+  const [promoError, setPromoError] = useState<string | null>(null);
+
+  // Local date helpers
+  const formatLocalDate = (d: Date) => {
     const year = d.getFullYear();
     const month = String(d.getMonth() + 1).padStart(2, '0');
     const day = String(d.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   };
 
-  const getTomorrowStr = () => {
-    const d = new Date();
-    d.setDate(d.getDate() + 1);
-    const year = d.getFullYear();
-    const month = String(d.getMonth() + 1).padStart(2, '0');
-    const day = String(d.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
+  const addDaysToDate = (dateStr: string, days: number) => {
+    const [y, m, d] = dateStr.split('-').map(Number);
+    const dt = new Date(y, m - 1, d);
+    dt.setDate(dt.getDate() + days);
+    return formatLocalDate(dt);
   };
 
-  const todayStr = getTodayStr();
-  const tomorrowStr = getTomorrowStr();
+  const todayStr = formatLocalDate(new Date());
+  const tomorrowStr = addDaysToDate(todayStr, 1);
 
   const [tanggalAmbil, setTanggalAmbil] = useState(todayStr);
   const [jamAmbil, setJamAmbil] = useState('08:00');
@@ -70,20 +74,93 @@ export default function SewaKameraPage() {
     currentPackage &&
     (selectedPackageId !== 'paket-single-lens' || singleLensChoice)
   );
-  const basePrice = currentPackage ? currentPackage.pricing[selectedDurationKey] : 0;
+  const dailyRate = currentPackage ? currentPackage.pricing.fullDay : 0;
+  const basePrice = !currentPackage
+    ? 0
+    : selectedDurationKey === 'multiDay'
+      ? dailyRate * rentalDays
+      : currentPackage.pricing[selectedDurationKey];
 
   const selectedDelivery = DELIVERY_OPTIONS.find(d => d.id === deliveryOptionId) || DELIVERY_OPTIONS[0];
   const deliveryFee = currentPackage ? selectedDelivery.fee : 0;
 
-  const grandTotal = currentPackage ? basePrice + deliveryFee : 0;
-  const dpAmount = 50000;
+  const subtotalTarif = currentPackage ? basePrice + deliveryFee : 0;
+  const promoDiscount = appliedPromo?.valid && appliedPromo.discountAmount
+    ? Math.min(appliedPromo.discountAmount, subtotalTarif)
+    : 0;
+  const grandTotal = Math.max(0, subtotalTarif - promoDiscount);
+  const dpAmount = Math.min(50000, grandTotal);
   const sisaPelunasan = Math.max(0, grandTotal - dpAmount);
 
-  const durasiLabel = selectedDurationKey === 'fullDay' 
-    ? '1 Hari / Full Day (24 Jam)' 
-    : selectedDurationKey === 'halfDay' 
-      ? 'Setengah Hari (6–12 Jam)' 
-      : 'Short Time (Maks. 4 Jam)';
+  const durasiLabel = selectedDurationKey === 'multiDay'
+    ? `${rentalDays} Hari (${rentalDays * 24} Jam)`
+    : selectedDurationKey === 'fullDay'
+      ? '1 Hari / Full Day (24 Jam)'
+      : selectedDurationKey === 'halfDay'
+        ? 'Setengah Hari (6–12 Jam)'
+        : 'Short Time (Maks. 4 Jam)';
+
+  const syncReturnDateForDuration = (
+    durKey: 'fullDay' | 'halfDay' | 'shortTime' | 'multiDay',
+    daysCount: number,
+    startDate: string
+  ) => {
+    const offset = durKey === 'multiDay' ? daysCount : durKey === 'fullDay' ? 1 : 0;
+    setTanggalKembali(addDaysToDate(startDate, offset));
+  };
+
+  const handleSelectDuration = (durKey: 'fullDay' | 'halfDay' | 'shortTime' | 'multiDay') => {
+    setSelectedDurationKey(durKey);
+    syncReturnDateForDuration(durKey, rentalDays, tanggalAmbil);
+    setAppliedPromo(null);
+    setPromoError(null);
+  };
+
+  const handleChangeRentalDays = (nextDays: number) => {
+    const clamped = Math.max(2, Math.min(30, nextDays));
+    setRentalDays(clamped);
+    if (selectedDurationKey === 'multiDay') {
+      syncReturnDateForDuration('multiDay', clamped, tanggalAmbil);
+      setAppliedPromo(null);
+      setPromoError(null);
+    }
+  };
+
+  const handleApplyPromo = async () => {
+    if (!currentPackage) {
+      setPromoError('Pilih paket utama terlebih dahulu.');
+      return;
+    }
+    if (!promoInput.trim()) {
+      setPromoError('Masukkan kode promo terlebih dahulu.');
+      return;
+    }
+    setPromoLoading(true);
+    setPromoError(null);
+    const res = await validatePromoCode({
+      code: promoInput.trim(),
+      serviceType: 'sewa',
+      packageId: currentPackage.id,
+      packageName: currentPackage.name,
+      packageCategory: currentPackage.category,
+      subtotal: subtotalTarif,
+    });
+    setPromoLoading(false);
+    if (res.valid) {
+      setAppliedPromo(res);
+      setPromoError(null);
+      showToast(`Kode promo ${res.code} berhasil diterapkan!`);
+    } else {
+      setAppliedPromo(null);
+      setPromoError(res.message || 'Kode promo tidak valid.');
+    }
+  };
+
+  const handleClearPromo = () => {
+    setAppliedPromo(null);
+    setPromoInput('');
+    setPromoError(null);
+  };
 
   const handleKirimWA = async () => {
     if (!currentPackage || !isPackageReady) {
@@ -108,7 +185,7 @@ export default function SewaKameraPage() {
       : currentPackage.name;
 
     const paymentText = skemaBayar === 'dp'
-      ? `DP Booking : Rp 50.000 (Sisa pelunasan ${formatRupiah(sisaPelunasan)} saat serah terima)`
+      ? `DP Booking : ${formatRupiah(dpAmount)} (Sisa pelunasan ${formatRupiah(sisaPelunasan)} saat serah terima)`
       : `Pembayaran Lunas : ${formatRupiah(grandTotal)} (Full Payment)`;
 
     setIsSubmitting(true);
@@ -119,6 +196,7 @@ export default function SewaKameraPage() {
       whatsapp,
       instagram: instagram || '-',
       alamatDomisili,
+      paketId: currentPackage.id,
       paketNama: currentPackage.name,
       detailUnit: detailUnitKamera,
       durasiTipe: durasiLabel,
@@ -128,6 +206,9 @@ export default function SewaKameraPage() {
       jamKembali,
       opsiPengantaran: `${selectedDelivery.label} (${selectedDelivery.note})`,
       jaminanIdentitas,
+      subtotalTarif,
+      kodePromo: appliedPromo?.valid ? appliedPromo.code : undefined,
+      potonganPromo: promoDiscount,
       tarifTotal: grandTotal,
       skemaBayar: paymentText,
     });
@@ -141,7 +222,9 @@ export default function SewaKameraPage() {
       paketNama: currentPackage.name,
       detailUnit: detailUnitKamera,
       durasiTipe: durasiLabel,
-      durasiHari: selectedDurationKey === 'fullDay' ? 1 : 0.5,
+      durasiHari: selectedDurationKey === 'multiDay' ? rentalDays : selectedDurationKey === 'fullDay' ? 1 : 0.5,
+      kodePromo: appliedPromo?.valid ? appliedPromo.code : undefined,
+      potonganPromo: promoDiscount,
       tarifTotal: grandTotal,
       skemaBayar: paymentText,
       tanggalAmbil,
@@ -193,7 +276,11 @@ FOTONIC EQUIPMENT RENTAL
 🪪 JAMINAN IDENTITAS FISIK :
 • ${jaminanIdentitas} (Wajib bawa asli saat serah terima)
 
-💰 TOTAL TARIF & SKEMA :
+💰 TOTAL TARIF & SKEMA :${
+  appliedPromo?.valid && promoDiscount > 0
+    ? `\n• Kode Promo : ${appliedPromo.code} (-${formatRupiah(promoDiscount)})`
+    : ''
+}
 • Total : ${formatRupiah(grandTotal)}
 • Pembayaran : ${paymentText}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
@@ -213,11 +300,15 @@ FOTONIC EQUIPMENT RENTAL
       setInstagram('');
       setAlamatDomisili('');
       setSelectedDurationKey('fullDay');
+      setRentalDays(2);
       setSelectedPackageId('');
       setSingleLensChoice('');
       setDeliveryOptionId('antar-unila');
       setJaminanIdentitas('KTP Asli');
       setSkemaBayar('dp');
+      setPromoInput('');
+      setAppliedPromo(null);
+      setPromoError(null);
       showToast('Formulir berhasil di-reset.');
     }
   };
@@ -256,10 +347,10 @@ FOTONIC EQUIPMENT RENTAL
               <label className="block text-[11px] font-semibold text-stone-300 uppercase tracking-wider mb-2">
                 Pilih Durasi Sewa:
               </label>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                 <button
                   type="button"
-                  onClick={() => setSelectedDurationKey('fullDay')}
+                  onClick={() => handleSelectDuration('fullDay')}
                   className={`p-2.5 rounded-md border text-center transition-all ${
                     selectedDurationKey === 'fullDay'
                       ? 'border-[#d6a85a] bg-[#d6a85a]/15 text-white font-bold ring-1 ring-[#d6a85a]/40'
@@ -267,12 +358,25 @@ FOTONIC EQUIPMENT RENTAL
                   }`}
                 >
                   <div className="text-xs">1 Hari (24 Jam)</div>
-                  <div className="text-[10px] text-[#e5b869] mt-0.5 font-semibold">Full Day 🔥</div>
+                  <div className="text-[10px] text-[#e5b869] mt-0.5 font-semibold">Full Day</div>
                 </button>
 
                 <button
                   type="button"
-                  onClick={() => setSelectedDurationKey('halfDay')}
+                  onClick={() => handleSelectDuration('multiDay')}
+                  className={`p-2.5 rounded-md border text-center transition-all ${
+                    selectedDurationKey === 'multiDay'
+                      ? 'border-[#d6a85a] bg-[#d6a85a]/15 text-white font-bold ring-1 ring-[#d6a85a]/40'
+                      : 'border-stone-800 bg-stone-950 text-stone-400 hover:border-stone-700'
+                  }`}
+                >
+                  <div className="text-xs">&gt; 1 Hari</div>
+                  <div className="text-[10px] text-[#e5b869] mt-0.5 font-semibold">Multi-Hari</div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleSelectDuration('halfDay')}
                   className={`p-2.5 rounded-md border text-center transition-all ${
                     selectedDurationKey === 'halfDay'
                       ? 'border-[#d6a85a] bg-[#d6a85a]/15 text-white font-bold ring-1 ring-[#d6a85a]/40'
@@ -285,7 +389,7 @@ FOTONIC EQUIPMENT RENTAL
 
                 <button
                   type="button"
-                  onClick={() => setSelectedDurationKey('shortTime')}
+                  onClick={() => handleSelectDuration('shortTime')}
                   className={`p-2.5 rounded-md border text-center transition-all ${
                     selectedDurationKey === 'shortTime'
                       ? 'border-[#d6a85a] bg-[#d6a85a]/15 text-white font-bold ring-1 ring-[#d6a85a]/40'
@@ -296,6 +400,40 @@ FOTONIC EQUIPMENT RENTAL
                   <div className="text-[10px] text-[#e5b869] mt-0.5">Maks. 4 Jam</div>
                 </button>
               </div>
+
+              {selectedDurationKey === 'multiDay' && (
+                <div className="mt-2.5 p-3 rounded-md bg-stone-950 border border-[#d6a85a]/40 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+                  <div>
+                    <span className="text-xs font-bold text-white block">Jumlah Hari Sewa</span>
+                    <span className="text-[11px] text-stone-400">
+                      Tarif dihitung otomatis: Harga 1 Hari × {rentalDays} hari (Tanggal kembali disesuaikan)
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 shrink-0 self-start sm:self-center bg-stone-900 border border-stone-800 rounded-md p-1">
+                    <button
+                      type="button"
+                      disabled={rentalDays <= 2}
+                      onClick={() => handleChangeRentalDays(rentalDays - 1)}
+                      className="w-7 h-7 rounded flex items-center justify-center bg-stone-800 text-stone-300 hover:text-white disabled:opacity-30 transition-colors"
+                      aria-label="Kurangi hari"
+                    >
+                      <Minus className="w-3.5 h-3.5" />
+                    </button>
+                    <span className="min-w-[56px] text-center font-bold text-xs font-mono text-[#f0cf8e]">
+                      {rentalDays} Hari
+                    </span>
+                    <button
+                      type="button"
+                      disabled={rentalDays >= 30}
+                      onClick={() => handleChangeRentalDays(rentalDays + 1)}
+                      className="w-7 h-7 rounded flex items-center justify-center bg-[#d6a85a]/20 text-[#e5b869] hover:bg-[#d6a85a] hover:text-stone-950 disabled:opacity-30 transition-colors"
+                      aria-label="Tambah hari"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* List Paket Kamera */}
@@ -306,12 +444,19 @@ FOTONIC EQUIPMENT RENTAL
 
               {KAMERA_PACKAGES.map(pkg => {
                 const isSelected = pkg.id === selectedPackageId;
-                const priceVal = pkg.pricing[selectedDurationKey];
+                const priceVal =
+                  selectedDurationKey === 'multiDay'
+                    ? pkg.pricing.fullDay * rentalDays
+                    : pkg.pricing[selectedDurationKey];
 
                 return (
                   <div
                     key={pkg.id}
-                    onClick={() => setSelectedPackageId(pkg.id)}
+                    onClick={() => {
+                      setSelectedPackageId(pkg.id);
+                      setAppliedPromo(null);
+                      setPromoError(null);
+                    }}
                     className={`p-3 sm:p-4 rounded-md border cursor-pointer transition-all ${
                       isSelected
                         ? 'border-[#d6a85a] bg-[#d6a85a]/10 ring-1 ring-[#d6a85a]/35'
@@ -572,8 +717,8 @@ FOTONIC EQUIPMENT RENTAL
                       onChange={(e) => {
                         const newAmbil = e.target.value;
                         setTanggalAmbil(newAmbil);
-                        if (tanggalKembali && newAmbil > tanggalKembali) {
-                          setTanggalKembali(newAmbil);
+                        if (newAmbil) {
+                          syncReturnDateForDuration(selectedDurationKey, rentalDays, newAmbil);
                         }
                       }}
                       style={{ colorScheme: 'dark' }}
@@ -704,7 +849,10 @@ FOTONIC EQUIPMENT RENTAL
                 <span className="font-bold text-[#e5b869] font-mono">{formatRupiah(basePrice)}</span>
               </div>
               <div className="flex justify-between items-center text-stone-400 text-[10px]">
-                <span>Durasi: {durasiLabel}</span>
+                <span>
+                  Durasi: {durasiLabel}
+                  {currentPackage && selectedDurationKey === 'multiDay' ? ` (${formatRupiah(dailyRate)} × ${rentalDays})` : ''}
+                </span>
                 <span>
                   {!currentPackage
                     ? 'Pilih paket di Bagian 1'
@@ -719,10 +867,62 @@ FOTONIC EQUIPMENT RENTAL
                   {!currentPackage ? '-' : deliveryFee === 0 ? 'Gratis' : `+${formatRupiah(deliveryFee)}`}
                 </span>
               </div>
+              {appliedPromo?.valid && promoDiscount > 0 && (
+                <div className="flex justify-between items-center text-emerald-400 pt-1 border-t border-stone-900 text-[11px]">
+                  <span>Promo ({appliedPromo.code}):</span>
+                  <span className="font-bold font-mono">-{formatRupiah(promoDiscount)}</span>
+                </div>
+              )}
               <div className="pt-2 border-t border-stone-800 flex justify-between items-center text-xs sm:text-sm">
                 <span className="font-bold text-white">Total Tarif:</span>
                 <span className="font-extrabold text-[#f0cf8e] text-sm sm:text-base font-mono">{formatRupiah(grandTotal)}</span>
               </div>
+            </div>
+
+            {/* Kode Promo Input */}
+            <div className="mb-3.5">
+              <label className="block text-[11px] font-bold text-stone-300 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                <Tag className="w-3.5 h-3.5 text-[#e5b869]" />
+                <span>Kode Promo (Opsional)</span>
+              </label>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  disabled={!isPackageReady || Boolean(appliedPromo?.valid)}
+                  value={promoInput}
+                  onChange={(e) => {
+                    setPromoInput(e.target.value.toUpperCase());
+                    if (promoError) setPromoError(null);
+                  }}
+                  placeholder={isPackageReady ? 'Masukkan kode promo' : 'Pilih paket utama dulu'}
+                  className="flex-1 min-w-0 px-3 py-2 bg-stone-950 border border-stone-800 rounded-md text-xs text-white uppercase placeholder:normal-case focus:outline-none focus:border-[#d6a85a] disabled:opacity-45"
+                />
+                {appliedPromo?.valid ? (
+                  <button
+                    type="button"
+                    onClick={handleClearPromo}
+                    className="px-3 py-2 rounded-md bg-stone-800 hover:bg-stone-700 text-stone-200 text-xs font-semibold flex items-center gap-1 shrink-0"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                    <span>Hapus</span>
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    disabled={!isPackageReady || promoLoading || !promoInput.trim()}
+                    onClick={handleApplyPromo}
+                    className="px-3.5 py-2 rounded-md bg-[#d6a85a]/20 hover:bg-[#d6a85a] text-[#e5b869] hover:text-stone-950 border border-[#d6a85a]/40 disabled:opacity-40 disabled:cursor-not-allowed text-xs font-bold transition-colors shrink-0"
+                  >
+                    {promoLoading ? 'Cek...' : 'Pakai'}
+                  </button>
+                )}
+              </div>
+              {promoError && <p className="mt-1 text-[11px] text-rose-400">{promoError}</p>}
+              {appliedPromo?.valid && (
+                <p className="mt-1 text-[11px] text-emerald-400">
+                  ✓ {appliedPromo.description} (Hemat {formatRupiah(promoDiscount)})
+                </p>
+              )}
             </div>
 
             {/* Skema Pembayaran (DP Wajib 50k) */}
@@ -740,7 +940,7 @@ FOTONIC EQUIPMENT RENTAL
                       : 'border-stone-800 bg-stone-950 text-stone-400'
                   }`}
                 >
-                  <div className="font-bold text-white">DP Rp 50.000</div>
+                  <div className="font-bold text-white">DP {formatRupiah(dpAmount)}</div>
                   <span className="text-[10px] text-stone-400 font-normal">Sisa: {formatRupiah(sisaPelunasan)}</span>
                 </button>
 

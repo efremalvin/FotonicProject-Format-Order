@@ -7,6 +7,7 @@ export interface SewaOrderPayload {
   whatsapp: string;
   instagram: string;
   alamatDomisili: string;
+  paketId?: string;
   paketNama: string;
   detailUnit: string;
   durasiTipe: string;
@@ -16,6 +17,9 @@ export interface SewaOrderPayload {
   jamKembali: string;
   opsiPengantaran: string;
   jaminanIdentitas: string;
+  subtotalTarif?: number;
+  kodePromo?: string;
+  potonganPromo?: number;
   tarifTotal: number;
   skemaBayar: string;
 }
@@ -26,6 +30,7 @@ export interface FotoOrderPayload {
   nama: string;
   whatsapp: string;
   kampus: string;
+  paketId?: string;
   paketKategori: string;
   paketNama: string;
   addOnsText: string;
@@ -35,8 +40,43 @@ export interface FotoOrderPayload {
   lokasiDetail: string;
   jumlahOrang: string;
   catatanKhusus: string;
+  subtotalHarga?: number;
+  kodePromo?: string;
+  potonganPromo?: number;
   totalHarga: number;
   skemaBayar: string;
+}
+
+export interface PromoValidationRequest {
+  code: string;
+  serviceType: 'sewa' | 'foto';
+  packageId: string;
+  packageName: string;
+  packageCategory: string;
+  subtotal: number;
+}
+
+export interface PromoValidationResponse {
+  valid: boolean;
+  code?: string;
+  discountAmount?: number;
+  discountLabel?: string;
+  description?: string;
+  message?: string;
+}
+
+export async function validatePromoCode(payload: PromoValidationRequest): Promise<PromoValidationResponse> {
+  try {
+    const res = await fetch('/api/promo/validate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const data = (await res.json()) as PromoValidationResponse;
+    return data;
+  } catch {
+    return { valid: false, message: 'Gagal memvalidasi kode promo. Coba lagi.' };
+  }
 }
 
 export type OrderSyncPayload = SewaOrderPayload | FotoOrderPayload;

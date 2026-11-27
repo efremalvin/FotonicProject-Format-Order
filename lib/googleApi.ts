@@ -95,6 +95,8 @@ export const SEWA_HEADERS = [
   'Main Event ID',
   'H-1 Event ID',
   'Sync Hash',
+  'Kode Promo',
+  'Potongan Diskon',
 ];
 
 export const FOTO_HEADERS = [
@@ -118,6 +120,23 @@ export const FOTO_HEADERS = [
   'Main Event ID',
   'H-1 Event ID',
   'Sync Hash',
+  'Kode Promo',
+  'Potongan Diskon',
+];
+
+export const PROMO_HEADERS = [
+  'Kode Promo',
+  'Aktif',
+  'Jenis Layanan',
+  'Target Paket',
+  'Tipe Diskon',
+  'Nilai Diskon',
+  'Maks. Diskon (Rp)',
+  'Min. Transaksi (Rp)',
+  'Berlaku Sampai',
+  'Kuota Pakai',
+  'Terpakai',
+  'Keterangan',
 ];
 
 interface SheetMeta {
@@ -142,6 +161,7 @@ export async function ensureOrderSheetsExist(config: GoogleConfig, token: string
   const desiredTabs: { title: string; headers: string[]; statusColIdx: number }[] = [
     { title: 'Sewa Kamera', headers: SEWA_HEADERS, statusColIdx: 17 },
     { title: 'Jasa Foto', headers: FOTO_HEADERS, statusColIdx: 16 },
+    { title: 'Kode Promo', headers: PROMO_HEADERS, statusColIdx: -1 },
   ];
 
   const requests: Record<string, unknown>[] = [];
@@ -206,7 +226,42 @@ export async function ensureOrderSheetsExist(config: GoogleConfig, token: string
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ values: [tab.headers] }),
+          body: JSON.stringify({
+            values:
+              tab.title === 'Kode Promo'
+                ? [
+                    tab.headers,
+                    [
+                      'FOTONICSIDANG10',
+                      'TIDAK',
+                      'Jasa Foto',
+                      'Sidang Kilat, Sidang Standard, Sidang Full',
+                      'Persen',
+                      10,
+                      50000,
+                      50000,
+                      '',
+                      0,
+                      0,
+                      'Contoh promo Jasa Foto: Diskon 10% (maks Rp 50rb) min. transaksi > Rp 50.000',
+                    ],
+                    [
+                      'SEWAKOMPLIT20',
+                      'TIDAK',
+                      'Sewa Kamera',
+                      'paket-komplit',
+                      'Nominal',
+                      20000,
+                      0,
+                      50000,
+                      '',
+                      0,
+                      0,
+                      'Contoh promo Sewa Kamera: Potongan Rp 20.000 khusus Paket Komplit min. > Rp 50.000',
+                    ],
+                  ]
+                : [tab.headers],
+          }),
         }
       );
 
@@ -231,25 +286,67 @@ export async function ensureOrderSheetsExist(config: GoogleConfig, token: string
             fields: 'userEnteredFormat(backgroundColor,textFormat,horizontalAlignment,verticalAlignment)',
           },
         },
-        {
-          setDataValidation: {
-            range: {
-              sheetId,
-              startRowIndex: 1,
-              endRowIndex: 1000,
-              startColumnIndex: tab.statusColIdx,
-              endColumnIndex: tab.statusColIdx + 1,
-            },
-            rule: {
-              condition: {
-                type: 'ONE_OF_LIST',
-                values: ORDER_STATUS_OPTIONS.map((value) => ({ userEnteredValue: value })),
+        ...(tab.statusColIdx >= 0
+          ? [
+              {
+                setDataValidation: {
+                  range: {
+                    sheetId,
+                    startRowIndex: 1,
+                    endRowIndex: 1000,
+                    startColumnIndex: tab.statusColIdx,
+                    endColumnIndex: tab.statusColIdx + 1,
+                  },
+                  rule: {
+                    condition: {
+                      type: 'ONE_OF_LIST',
+                      values: ORDER_STATUS_OPTIONS.map((value) => ({ userEnteredValue: value })),
+                    },
+                    showCustomUi: true,
+                    strict: false,
+                  },
+                },
               },
-              showCustomUi: true,
-              strict: false,
-            },
-          },
-        },
+            ]
+          : [
+              {
+                setDataValidation: {
+                  range: { sheetId, startRowIndex: 1, endRowIndex: 500, startColumnIndex: 1, endColumnIndex: 2 },
+                  rule: {
+                    condition: { type: 'ONE_OF_LIST', values: [{ userEnteredValue: 'YA' }, { userEnteredValue: 'TIDAK' }] },
+                    showCustomUi: true,
+                    strict: false,
+                  },
+                },
+              },
+              {
+                setDataValidation: {
+                  range: { sheetId, startRowIndex: 1, endRowIndex: 500, startColumnIndex: 2, endColumnIndex: 3 },
+                  rule: {
+                    condition: {
+                      type: 'ONE_OF_LIST',
+                      values: [
+                        { userEnteredValue: 'Semua' },
+                        { userEnteredValue: 'Jasa Foto' },
+                        { userEnteredValue: 'Sewa Kamera' },
+                      ],
+                    },
+                    showCustomUi: true,
+                    strict: false,
+                  },
+                },
+              },
+              {
+                setDataValidation: {
+                  range: { sheetId, startRowIndex: 1, endRowIndex: 500, startColumnIndex: 4, endColumnIndex: 5 },
+                  rule: {
+                    condition: { type: 'ONE_OF_LIST', values: [{ userEnteredValue: 'Persen' }, { userEnteredValue: 'Nominal' }] },
+                    showCustomUi: true,
+                    strict: false,
+                  },
+                },
+              },
+            ]),
         {
           autoResizeDimensions: {
             dimensions: { sheetId, dimension: 'COLUMNS', startIndex: 0, endIndex: tab.headers.length },

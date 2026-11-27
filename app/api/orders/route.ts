@@ -9,6 +9,7 @@ import {
 } from '@/lib/googleApi';
 import { OrderSyncPayload } from '@/lib/googleSheets';
 import { syncAllOrdersWithCalendar } from '@/lib/googleSync';
+import { incrementPromoUsage, validatePromoInSheet } from '@/lib/promo';
 import { formatRupiah } from '@/lib/whatsapp';
 
 const SCOPES = [
@@ -49,7 +50,35 @@ export async function POST(req: NextRequest) {
     const resolvedStatus: OrderStatus =
       payload.status && ORDER_STATUS_OPTIONS.includes(payload.status) ? payload.status : 'Pending';
 
+    let appliedPromoCode = '';
+    let appliedDiscount = 0;
+
+    if (payload.kodePromo && payload.kodePromo.trim()) {
+      const subtotal =
+        payload.type === 'sewa'
+          ? (payload.subtotalTarif ?? payload.tarifTotal)
+          : (payload.subtotalHarga ?? payload.totalHarga);
+
+      const promoResult = await validatePromoInSheet(config, token, {
+        code: payload.kodePromo,
+        serviceType: payload.type,
+        packageId: payload.paketId,
+        packageName: payload.paketNama,
+        packageCategory: payload.type === 'foto' ? payload.paketKategori : undefined,
+        subtotal,
+      });
+
+      if (promoResult.valid && promoResult.code && promoResult.discountAmount) {
+        appliedPromoCode = promoResult.code;
+        appliedDiscount = promoResult.discountAmount;
+        if (promoResult.rowNumber) {
+          await incrementPromoUsage(config, token, promoResult.rowNumber, promoResult.currentUsedCount || 0);
+        }
+      }
+    }
+
     if (payload.type === 'sewa') {
+      const finalTotal = Math.max(0, (payload.subtotalTarif ?? payload.tarifTotal) - appliedDiscount);
       await appendSheetRow(config, token, 'Sewa Kamera', [
         orderId,
         timestamp,
@@ -66,14 +95,17 @@ export async function POST(req: NextRequest) {
         payload.jamKembali,
         payload.opsiPengantaran,
         payload.jaminanIdentitas,
-        formatRupiah(payload.tarifTotal),
+        formatRupiah(finalTotal),
         payload.skemaBayar,
         resolvedStatus,
         '',
         '',
         '',
+        appliedPromoCode || '-',
+        appliedDiscount > 0 ? formatRupiah(appliedDiscount) : 'Rp 0',
       ]);
     } else {
+      const finalTotal = Math.max(0, (payload.subtotalHarga ?? payload.totalHarga) - appliedDiscount);
       await appendSheetRow(config, token, 'Jasa Foto', [
         orderId,
         timestamp,
@@ -89,12 +121,14 @@ export async function POST(req: NextRequest) {
         payload.lokasiDetail,
         payload.jumlahOrang,
         payload.catatanKhusus,
-        formatRupiah(payload.totalHarga),
+        formatRupiah(finalTotal),
         payload.skemaBayar,
         resolvedStatus,
         '',
         '',
         '',
+        appliedPromoCode || '-',
+        appliedDiscount > 0 ? formatRupiah(appliedDiscount) : 'Rp 0',
       ]);
     }
 

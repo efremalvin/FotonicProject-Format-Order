@@ -23,17 +23,25 @@ import {
   Zap,
   ShieldCheck,
   Lock,
-  ArrowDown
+  ArrowDown,
+  Tag,
+  X
 } from 'lucide-react';
 import { FOTO_CATEGORIES, FOTO_PACKAGES, FOTO_BOOKING_RULES } from '@/data/fotoPricelist';
 import { generateFotoWhatsAppUrl, formatRupiah, ADMIN_WHATSAPP_DISPLAY } from '@/lib/whatsapp';
-import { submitOrderToSheet } from '@/lib/googleSheets';
+import { submitOrderToSheet, validatePromoCode, PromoValidationResponse } from '@/lib/googleSheets';
 
 export default function JasaFotoPage() {
   // Category & package (must select main package first)
   const [selectedCategory, setSelectedCategory] = useState<'Single Packet' | 'Group / Family' | 'Seminar & Sidang'>('Single Packet');
   const [selectedPackageId, setSelectedPackageId] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Promo code states
+  const [promoInput, setPromoInput] = useState('');
+  const [appliedPromo, setAppliedPromo] = useState<PromoValidationResponse | null>(null);
+  const [promoLoading, setPromoLoading] = useState(false);
+  const [promoError, setPromoError] = useState<string | null>(null);
 
   // Add-ons states
   const [cinematicReels, setCinematicReels] = useState(false);
@@ -96,8 +104,12 @@ export default function JasaFotoPage() {
   const expressTotal = expressEdit ? 50000 : 0;
   const addonsTotal = extra1Total + extra5Total + expressTotal;
 
-  const grandTotal = currentPackage ? basePrice + addonsTotal : 0;
-  const dpAmount = 50000;
+  const subtotalHarga = currentPackage ? basePrice + addonsTotal : 0;
+  const promoDiscount = appliedPromo?.valid && appliedPromo.discountAmount
+    ? Math.min(appliedPromo.discountAmount, subtotalHarga)
+    : 0;
+  const grandTotal = Math.max(0, subtotalHarga - promoDiscount);
+  const dpAmount = Math.min(50000, grandTotal);
   const sisaPelunasan = Math.max(0, grandTotal - dpAmount);
 
   // Build active add-ons list for summary and WA
@@ -118,6 +130,44 @@ export default function JasaFotoPage() {
   const handleCategoryChange = (cat: 'Single Packet' | 'Group / Family' | 'Seminar & Sidang') => {
     setSelectedCategory(cat);
     setSelectedPackageId('');
+    setAppliedPromo(null);
+    setPromoError(null);
+  };
+
+  const handleApplyPromo = async () => {
+    if (!currentPackage) {
+      setPromoError('Pilih paket utama terlebih dahulu.');
+      return;
+    }
+    if (!promoInput.trim()) {
+      setPromoError('Masukkan kode promo terlebih dahulu.');
+      return;
+    }
+    setPromoLoading(true);
+    setPromoError(null);
+    const res = await validatePromoCode({
+      code: promoInput.trim(),
+      serviceType: 'foto',
+      packageId: currentPackage.id,
+      packageName: currentPackage.name,
+      packageCategory: currentPackage.category,
+      subtotal: subtotalHarga,
+    });
+    setPromoLoading(false);
+    if (res.valid) {
+      setAppliedPromo(res);
+      setPromoError(null);
+      showToast(`Kode promo ${res.code} berhasil diterapkan!`);
+    } else {
+      setAppliedPromo(null);
+      setPromoError(res.message || 'Kode promo tidak valid.');
+    }
+  };
+
+  const handleClearPromo = () => {
+    setAppliedPromo(null);
+    setPromoInput('');
+    setPromoError(null);
   };
 
   const handleKirimWA = async () => {
@@ -139,7 +189,7 @@ export default function JasaFotoPage() {
     }
 
     const paymentText = skemaBayar === 'dp'
-      ? `DP Booking : Rp 50.000 (Sisa pelunasan ${formatRupiah(sisaPelunasan)} pasca sesi)`
+      ? `DP Booking : ${formatRupiah(dpAmount)} (Sisa pelunasan ${formatRupiah(sisaPelunasan)} pasca sesi)`
       : `Pembayaran Lunas : ${formatRupiah(grandTotal)} (Full Payment)`;
 
     const addOnsText = activeAddOnsList.length > 0
@@ -153,6 +203,7 @@ export default function JasaFotoPage() {
       nama,
       whatsapp: whatsapp || '-',
       kampus,
+      paketId: currentPackage.id,
       paketKategori: currentPackage.category,
       paketNama: currentPackage.name,
       addOnsText,
@@ -162,6 +213,9 @@ export default function JasaFotoPage() {
       lokasiDetail,
       jumlahOrang: jumlahOrang || 'Wisudawan & Pendamping',
       catatanKhusus: catatanKhusus || '-',
+      subtotalHarga,
+      kodePromo: appliedPromo?.valid ? appliedPromo.code : undefined,
+      potonganPromo: promoDiscount,
       totalHarga: grandTotal,
       skemaBayar: paymentText,
     });
@@ -179,6 +233,8 @@ export default function JasaFotoPage() {
       editFoto: `Edit ${currentPackage.editedPhotos} Foto Pilihan`,
       fasilitas: currentPackage.includes,
       addOns: activeAddOnsList,
+      kodePromo: appliedPromo?.valid ? appliedPromo.code : undefined,
+      potonganPromo: promoDiscount,
       totalHarga: grandTotal,
       skemaBayar: paymentText,
       tanggalSesi,
@@ -206,7 +262,7 @@ export default function JasaFotoPage() {
       : 'Tidak ada (Paket Utama Saja)';
 
     const paymentText = skemaBayar === 'dp'
-      ? `DP Booking : Rp 50.000 (Sisa ${formatRupiah(sisaPelunasan)})`
+      ? `DP Booking : ${formatRupiah(dpAmount)} (Sisa ${formatRupiah(sisaPelunasan)})`
       : `Lunas (${formatRupiah(grandTotal)})`;
 
     const text = 
@@ -230,7 +286,11 @@ ${addOnListText}
 • Tanggal : ${tanggalSesi} (${jamSesi} WIB)
 • Lokasi : ${lokasiTipe} - ${lokasiDetail || '-'}
 
-💰 TOTAL & SKEMA :
+💰 TOTAL & SKEMA :${
+  appliedPromo?.valid && promoDiscount > 0
+    ? `\n• Kode Promo : ${appliedPromo.code} (-${formatRupiah(promoDiscount)})`
+    : ''
+}
 • Total : ${formatRupiah(grandTotal)}
 • Skema : ${paymentText}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
@@ -258,6 +318,9 @@ ${addOnListText}
       setExtraEdit5Count(0);
       setExpressEdit(false);
       setSkemaBayar('dp');
+      setPromoInput('');
+      setAppliedPromo(null);
+      setPromoError(null);
       showToast('Formulir berhasil di-reset.');
     }
   };
@@ -337,7 +400,11 @@ ${addOnListText}
                 return (
                   <div
                     key={pkg.id}
-                    onClick={() => setSelectedPackageId(pkg.id)}
+                    onClick={() => {
+                      setSelectedPackageId(pkg.id);
+                      setAppliedPromo(null);
+                      setPromoError(null);
+                    }}
                     className={`p-3.5 sm:p-4 rounded-md border cursor-pointer transition-all ${
                       isSelected
                         ? 'border-[#d6a85a] bg-[#d6a85a]/10 ring-1 ring-[#d6a85a]/35'
@@ -849,10 +916,63 @@ ${addOnListText}
                 </div>
               )}
 
+              {appliedPromo?.valid && promoDiscount > 0 && (
+                <div className="pt-2 border-t border-stone-900 flex justify-between items-center text-[11px] text-emerald-400">
+                  <span>Promo ({appliedPromo.code}):</span>
+                  <span className="font-bold font-mono">-{formatRupiah(promoDiscount)}</span>
+                </div>
+              )}
+
               <div className="pt-2 border-t border-stone-800 flex justify-between items-center text-xs sm:text-sm">
                 <span className="font-bold text-white">Total Biaya Pemesanan:</span>
                 <span className="font-extrabold text-[#f0cf8e] text-sm sm:text-base font-mono">{formatRupiah(grandTotal)}</span>
               </div>
+            </div>
+
+            {/* Kode Promo Input */}
+            <div className="mb-3.5">
+              <label className="block text-[11px] font-bold text-stone-300 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                <Tag className="w-3.5 h-3.5 text-[#e5b869]" />
+                <span>Kode Promo (Opsional)</span>
+              </label>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  disabled={!isPackageReady || Boolean(appliedPromo?.valid)}
+                  value={promoInput}
+                  onChange={(e) => {
+                    setPromoInput(e.target.value.toUpperCase());
+                    if (promoError) setPromoError(null);
+                  }}
+                  placeholder={isPackageReady ? 'Masukkan kode promo' : 'Pilih paket utama dulu'}
+                  className="flex-1 min-w-0 px-3 py-2 bg-stone-950 border border-stone-800 rounded-md text-xs text-white uppercase placeholder:normal-case focus:outline-none focus:border-[#d6a85a] disabled:opacity-45"
+                />
+                {appliedPromo?.valid ? (
+                  <button
+                    type="button"
+                    onClick={handleClearPromo}
+                    className="px-3 py-2 rounded-md bg-stone-800 hover:bg-stone-700 text-stone-200 text-xs font-semibold flex items-center gap-1 shrink-0"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                    <span>Hapus</span>
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    disabled={!isPackageReady || promoLoading || !promoInput.trim()}
+                    onClick={handleApplyPromo}
+                    className="px-3.5 py-2 rounded-md bg-[#d6a85a]/20 hover:bg-[#d6a85a] text-[#e5b869] hover:text-stone-950 border border-[#d6a85a]/40 disabled:opacity-40 disabled:cursor-not-allowed text-xs font-bold transition-colors shrink-0"
+                  >
+                    {promoLoading ? 'Cek...' : 'Pakai'}
+                  </button>
+                )}
+              </div>
+              {promoError && <p className="mt-1 text-[11px] text-rose-400">{promoError}</p>}
+              {appliedPromo?.valid && (
+                <p className="mt-1 text-[11px] text-emerald-400">
+                  ✓ {appliedPromo.description} (Hemat {formatRupiah(promoDiscount)})
+                </p>
+              )}
             </div>
 
             {/* Skema Pembayaran Radio (DP wajib 50k) */}
@@ -870,7 +990,7 @@ ${addOnListText}
                       : 'border-stone-800 bg-stone-950 text-stone-400'
                   }`}
                 >
-                  <div className="font-bold text-white">DP Rp 50.000</div>
+                  <div className="font-bold text-white">DP {formatRupiah(dpAmount)}</div>
                   <span className="text-[10px] text-stone-400 font-normal">Sisa: {formatRupiah(sisaPelunasan)}</span>
                 </button>
 
